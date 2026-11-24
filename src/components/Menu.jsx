@@ -45,7 +45,7 @@ export default function Menu({ menu, lamps }) {
       <Clouds id="menu-clouds" />
       <div className="wrap menu__grid">
         <div className="menu__photo" data-appear="">
-          <Image src={menu.image} alt="" fill sizes="(max-width: 900px) 90vw, 560px" />
+          <Image src={menu.image} alt={menu.imageAlt || ''} fill sizes="(max-width: 900px) 90vw, 560px" />
         </div>
         <div className="menu__col">
           <SectionHead id="menu" title={menu.title} lead={menu.lead} lamp={lamps ? 'side-short' : false} />

@@ -13,6 +13,7 @@ export default function LocationPicker({ cities }) {
 
       <h1 className="picker__logo">
         <Logo />
+        <span className="sr-only"> – magiczna kawiarnia w Gliwicach i Katowicach</span>
       </h1>
 
       <ul className="picker__doors" aria-label="Wybierz lokalizację">

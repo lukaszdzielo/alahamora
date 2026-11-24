@@ -134,7 +134,7 @@ export default function Gallery({ gallery, lamps }) {
                 <div className={frameClass(name)}>
                   <div className="gframe__metal">
                     <div className="gframe__picture">
-                      <Image src={item.img} alt={item.caption || ''} fill sizes="(max-width: 700px) 50vw, 400px" />
+                      <Image src={item.img} alt={item.alt || item.caption || ''} fill sizes="(max-width: 700px) 50vw, 400px" />
                     </div>
                   </div>
                   {frame.orn && <Corners />}

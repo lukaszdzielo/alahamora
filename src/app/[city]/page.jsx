@@ -12,6 +12,9 @@ import AppearController from '@/components/AppearController';
 import Footer from '@/components/Footer';
 import WandCursor from '@/components/WandCursor';
 import LampsController from '@/components/LampsController';
+import JsonLd from '@/components/JsonLd';
+import { citySchema } from '@/lib/schema';
+import { OG_BASE } from '@/lib/site';
 
 // Mówi Next.js, które strony wygenerować przy eksporcie: /katowice/ i /gliwice/.
 export function generateStaticParams() {
@@ -24,10 +27,29 @@ export const dynamicParams = false;
 export async function generateMetadata({ params }) {
   const { city } = await params;
   const data = cities[city];
+  if (!data) return { title: 'Nie znaleziono' };
+  const path = `/${data.slug}/`;
+  const title = `Magiczna kawiarnia ${data.inCity}`;
+  const alt = `${data.h1.before}${data.h1.em} – ${data.address}`;
   return {
-    title: data ? `Magiczna kawiarnia ${data.name}` : 'Nie znaleziono',
-    description: data?.lead,
+    title,
+    description: data.lead,
+    alternates: { canonical: path },
+    openGraph: {
+      ...OG_BASE,
+      title: `${title} | Alahamora`,
+      description: data.lead,
+      url: path,
+      images: [{ url: data.og, width: 1200, height: 630, alt }],
+    },
+    twitter: { title: `${title} | Alahamora`, description: data.lead, images: [data.og] },
   };
+}
+
+// Kolor paska przeglądarki na telefonie = tło danego lokalu.
+export async function generateViewport({ params }) {
+  const { city } = await params;
+  return { themeColor: cities[city]?.themeColor ?? '#14171F', colorScheme: 'dark' };
 }
 
 export default async function CityPage({ params }) {
@@ -37,6 +59,7 @@ export default async function CityPage({ params }) {
 
   return (
     <div className="page" data-city={data.theme}>
+      <JsonLd data={citySchema(data)} />
       <Header city={data} />
       <main>
         <Hero city={data} />

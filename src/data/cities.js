@@ -36,6 +36,9 @@ export const cities = {
   gliwice: {
     slug: 'gliwice',
     name: 'Gliwice',
+    inCity: 'w Gliwicach', // do tytułu strony (SEO)
+    themeColor: '#0F2621',
+    og: '/og/gliwice.jpg', // obrazek do udostępnień 1200×630 (public/og)
     theme: 'gliwice', // zieleń + srebro
     nav: ['Menu', 'Gildia', 'Oferta', 'Galeria', 'Blog', 'Kontakt'],
     h1: { before: 'Gildia Czarodziejów w ', em: 'Gliwicach' },
@@ -51,6 +54,7 @@ export const cities = {
     phone: '+48 572 583 102',
     email: 'gliwice@alahamora.pl',
     hours: 'Codziennie 12:00–21:00',
+    openingHours: { opens: '12:00', closes: '21:00' }, // codziennie – do danych strukturalnych
     reserveUrl: 'https://alahamora.pl/rezerwacje-gliwice/',
     notice: {
       icon: 'door',
@@ -78,6 +82,7 @@ export const cities = {
       title: 'Dania, których nie ma nigdzie indziej',
       lead: 'Dymiące eliksiry, lody spaghetti, kultowy MystiCat i pyszne obiady.',
       image: gliwicePotions,
+      imageAlt: 'Kolorowe eliksiry',
       items: [
         { img: gliwicePotions, title: 'Dymiące eliksiry', text: 'Napoje, które parują, mienią się i zmieniają kolor.' },
         { icon: 'ice', title: 'Lody spaghetti', text: 'Deser, który wygląda jak obiad. Spróbuj go odróżnić.' },
@@ -106,11 +111,11 @@ export const cities = {
         { img: gliwicePortraits, caption: 'Galeria portretów' },
         { img: gliwicePlates, caption: 'Mosiężne talerze' },
         { img: gliwiceFace, caption: 'Kamienna twarz' },
-        { img: gliwiceBall },
+        { img: gliwiceBall, alt: 'Kryształowa kula' },
         { img: gliwiceTeapot, caption: 'Antyki' },
         { img: gliwicePotions, caption: 'Eliksiry' },
         { img: gliwiceForest, caption: 'Zielone sklepienie' },
-        { img: gliwicePinkTea },
+        { img: gliwicePinkTea, alt: 'Herbata w różowej porcelanie' },
         { img: gliwiceCamera, caption: 'Kącik do zdjęć' },
         { img: gliwicePinkRoom, caption: 'Różowy pokój' },
         { img: gliwiceHero, caption: 'Zielony salon' },
@@ -131,6 +136,9 @@ export const cities = {
   katowice: {
     slug: 'katowice',
     name: 'Katowice',
+    inCity: 'w Katowicach',
+    themeColor: '#121829',
+    og: '/og/katowice.jpg',
     theme: 'katowice', // granat + złoto
     nav: ['Menu', 'Lokal', 'Oferta', 'Galeria', 'Blog', 'Kontakt'],
     h1: { before: 'Czarodziejska biblioteka w sercu ', em: 'Katowic' },
@@ -146,6 +154,7 @@ export const cities = {
     phone: '+48 786 432 211',
     email: 'kontakt@alahamora.pl',
     hours: 'Codziennie 12:00–21:00',
+    openingHours: { opens: '12:00', closes: '21:00' },
     reserveUrl: 'https://alahamora.pl/rezerwacje/',
     notice: {
       icon: 'school',
@@ -197,11 +206,11 @@ export const cities = {
         { img: katowiceBlueHall, caption: 'Granatowa sala' },
         { img: katowiceSconces, caption: 'Kinkiety' },
         { img: katowiceDoors, caption: 'Drzwi do innych światów' },
-        { img: katowicePortraits },
+        { img: katowicePortraits, alt: 'Obrazy w złotych ramach' },
         { img: katowicePlate, caption: 'Stara zastawa' },
         { img: katowiceLanterns, caption: 'Lampiony' },
         { img: katowiceBooth, caption: 'Dormitorium' },
-        { img: foodCake },
+        { img: foodCake, alt: 'Ciasto z magicznej kawiarni' },
         { img: katowiceMoss, caption: 'Podwórko' },
         { img: katowiceNook, caption: 'Dział ksiąg zakazanych' },
         { img: katowiceHero, caption: 'Granatowy salon' },
