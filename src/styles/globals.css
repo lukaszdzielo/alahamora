@@ -2562,6 +2562,10 @@ html[data-entering] .notice-wrap {
   bottom: calc(100% - 14px);
   z-index: 3;
 }
+/* proporce w dwóch rzędach (≤980 px) – sowa na drążku drugiego rzędu wchodziłaby na proporzec nad nią */
+@media (max-width: 980px) {
+  .rv.rv--owl { display: none; }
+}
 
 @media (max-width: 899px) {
   .rv.rv--desktop { display: none; }
