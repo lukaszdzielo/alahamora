@@ -2282,6 +2282,17 @@ html[data-entering] .notice-wrap {
   }
 }
 
+/* zamek w stopce na telefonie: stała wysokość (nie kurczy się do szerokości ekranu),
+   wyśrodkowany – boki wychodzą poza ekran i są przycinane */
+@media (max-width: 640px) {
+  .footer .footer__castle {
+    width: auto;
+    height: 340px;
+    bottom: 150px;
+    opacity: .18;
+  }
+}
+
 /* ekran wyboru na telefonie: logo i ramy wyżej, bez przewijania */
 @media (max-width: 640px) {
   .picker {
