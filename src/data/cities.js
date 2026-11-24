@@ -145,7 +145,7 @@ export const cities = {
     og: '/og/katowice.jpg',
     theme: 'katowice', // granat + złoto
     nav: ['Menu', 'Lokal', 'Oferta', 'Galeria', 'Blog', 'Kontakt'],
-    h1: { before: 'Czarodziejska biblioteka w sercu ', em: 'Katowic' },
+    h1: { before: 'Magiczna kawiarnia w sercu ', em: 'Katowic' },
     lead:
       'Antyczne meble, ruchome obrazy i portale do innych światów. Wpadnij na magiczne bubble tea, kwiatowy napar z wróżeniem z fusów albo wegetariański obiad.',
     hero: {
