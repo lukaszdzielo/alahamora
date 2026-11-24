@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import parchment from '@/assets/img/mapa/pergamin.webp';
-import innerMask from '@/assets/img/mapa/maska-srodek.png';
+// maska-postrzepiona: kształt z poszarpanymi brzegami od Łukasza (24.11); poprzednia, z miękkim brzegiem: maska-srodek.png
+import innerMask from '@/assets/img/mapa/maska-postrzepiona.png';
 import Icon from './Icon';
 
 // Mapa na pergaminie: prawdziwa mapa (Google Maps, bez klucza API) przycięta do kształtu
-// pergaminu (maska z miękkim brzegiem). Na mapę nakładamy fakturę papieru (multiply),
+// poszarpanego kawałka papieru na środku pergaminu. Na mapę nakładamy fakturę papieru (multiply),
 // więc zagięcia i plamy przebijają przez ulice. Mapą można normalnie przesuwać i przybliżać.
 export default function ParchmentMap({ query, mapsUrl, address }) {
   const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
