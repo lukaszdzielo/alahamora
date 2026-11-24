@@ -75,7 +75,13 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { color-scheme: dark; }
+html {
+  color-scheme: dark;
+  /* miejsce na pasek przewijania zawsze zarezerwowane – ekran wyboru (bez przewijania)
+     i strona miasta (z przewijaniem) mają tę samą szerokość, więc zdjęcie po
+     „wejściu w obraz” nie przesuwa się w bok */
+  scrollbar-gutter: stable;
+}
 
 body {
   margin: 0;
@@ -1393,6 +1399,14 @@ a { color: inherit; }
 
   &.gframe__plate--gold { background: linear-gradient(180deg, #F1DCA8, #C9A45C 60%, #7A5A24); color: #2A1E0B; }
   &.gframe__plate--silver { background: linear-gradient(180deg, #F4F6F8, #BFC6CC 60%, #6E767D); color: #1C2227; }
+}
+
+.gframe-cta[aria-disabled='true'] {
+  opacity: .7;
+
+  & > .gframe { animation: none !important; }
+  & .gframe-cta__inner { background: radial-gradient(circle at 50% 40%, rgb(var(--line-rgb) / .28), transparent 70%), var(--bg) !important; }
+  & .gframe-cta__inner > svg { rotate: none !important; scale: none !important; filter: none !important; }
 }
 
 .gframe-cta {

@@ -99,7 +99,7 @@ export const cities = {
     gallery: {
       title: 'Zajrzyj do Gildii',
       lead: 'Zielone salony, mosiężne talerze na kaflach i kamienna twarz w gąszczu.',
-      url: 'https://alahamora.pl/galeria-alahamora-gliwice/',
+      url: null, // galeria Gliwic – link na razie nieaktywny
       // ramy: kolejno dla 12 miejsc na ścianie (patrz Gallery.jsx)
       frames: ['silver-orn', 'black', 'gothic-gold', 'oval-wood', 'wood', 'arch-silver', 'black-orn-gold', 'oval-gold', 'gothic-black', 'gold', 'wood-orn', 'bronze'],
       items: [

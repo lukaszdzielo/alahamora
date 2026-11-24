@@ -76,6 +76,11 @@ function Corners() {
 }
 
 export default function Gallery({ gallery, lamps }) {
+  // brak adresu galerii = przycisk i ramka „Cała galeria” nieaktywne
+  const link = gallery.url
+    ? { href: gallery.url, target: '_blank', rel: 'noopener' }
+    : { 'aria-disabled': 'true', title: 'Wkrótce' };
+
   return (
     <section id="galeria" className="gallery">
       <div className="gallery__tiles" aria-hidden="true" />
@@ -84,7 +89,7 @@ export default function Gallery({ gallery, lamps }) {
       <div className="wrap gallery__inner">
         <div className="gallery__head">
           <SectionHead id="gallery" title={gallery.title} lead={gallery.lead} lamp={lamps ? 'side-short' : false} />
-          <a className="btn" href={gallery.url} target="_blank" rel="noopener">
+          <a className="btn" {...link}>
             Cała galeria
           </a>
         </div>
@@ -111,7 +116,7 @@ export default function Gallery({ gallery, lamps }) {
             );
           })}
 
-          <a className="gframe-cell gframe-cta" href={gallery.url} target="_blank" rel="noopener" style={{ gridColumn: '7/9', gridRow: '4/7' }}>
+          <a className="gframe-cell gframe-cta" {...link} style={{ gridColumn: '7/9', gridRow: '4/7' }}>
             <span className="gframe gframe--gold gframe--orn">
               <span className="gframe__metal">
                 <span className="gframe__picture gframe-cta__inner">
