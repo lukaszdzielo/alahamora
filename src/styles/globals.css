@@ -2239,7 +2239,6 @@ html[data-entering] .notice-wrap {
     & .hang__pool { display: none; }
   }
 
-  .lamp-center { margin-top: -20px; }
 
   .menu .menu__list h3 { font-size: 26px; }
   .menu .menu__thumb { width: 72px; height: 72px; }
@@ -2278,6 +2277,49 @@ html[data-entering] .notice-wrap {
     & .mirror__text {
       & h3 { font-size: 15px; }
       & p { font-size: 14px; }
+    }
+  }
+}
+
+/* menu na telefonie: mniejsza latarnia nad nagłówkiem (bez nachodzenia na tekst)
+   i potrawy po dwie w rzędzie */
+@media (max-width: 640px) {
+  .lamp-center {
+    width: 84px;
+    height: 170px;
+    margin: -50px auto 0;
+
+    & .hang.hang--center {
+      margin-left: -42px;
+      width: 84px;
+      height: 170px;
+
+      & .hang__chain { height: 56px; }
+      & .hang__lamp { top: 52px; width: 84px; height: 119px; }
+      & .hang__halo { top: 96px; width: 320px; height: 320px; }
+      & .hang__pool { display: none; }
+    }
+  }
+
+  .menu .menu__inner { gap: 36px; }
+
+  .dishes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 14px;
+  }
+
+  .dish {
+    gap: 10px;
+
+    & h3 {
+      bottom: 12px;
+      padding-inline: 8px;
+      font-size: clamp(17px, 5.4vw, 22px);
+    }
+
+    & p {
+      font-size: 13.5px;
+      line-height: 1.5;
     }
   }
 }
