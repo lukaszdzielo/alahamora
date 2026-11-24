@@ -2150,7 +2150,11 @@ a[aria-disabled='true'] {
 .btn--solid[aria-disabled='true']:hover { background: var(--accent); color: var(--accent-ink); }
 .btn:not(.btn--solid)[aria-disabled='true']:hover { background: transparent; color: var(--accent-light); }
 
-.has-wand a[aria-disabled='true'] { cursor: not-allowed !important; }
+/* nad nieaktywnym elementem różdżka się chowa i pokazujemy kursor „niedostępne” –
+   także nad elementami W ŚRODKU (np. napisy w ramie „Cała galeria”), inaczej
+   `.has-wand *` ukrywało tam kursor i nie było widać nic */
+.has-wand [aria-disabled='true'],
+.has-wand [aria-disabled='true'] * { cursor: not-allowed !important; }
 
 .wand {
   position: fixed;
