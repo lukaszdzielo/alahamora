@@ -12,8 +12,7 @@ export default function Hero({ city }) {
 
   return (
     <section className="hero" data-hero={city.slug}>
-      {/* 'hero-photo' – z tym zdjęciem łączy się rama kliknięta na ekranie wyboru (DoorLink) */}
-      <div className="hero__media" style={{ viewTransitionName: 'hero-photo' }}>
+      <div className="hero__media">
         <Image
           className="hero__img"
           src={hero.src}

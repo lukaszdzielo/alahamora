@@ -5,7 +5,7 @@ import DoorLink from './DoorLink';
 
 // Ekran wyboru lokalizacji: tylko logo i ramy z lokalami.
 // W ramie jest zdjęcie z hero (ten sam kadr co w hero: object-fit cover + ta sama pozycja).
-// Po kliknięciu cała rama „przybliża się” do nas – wchodzimy w obraz (DoorLink).
+// Po kliknięciu cała rama „przybliża się” do nas, a zdjęcie układa się dokładnie jak w hero (DoorLink).
 export default function LocationPicker({ cities }) {
   return (
     <main className="picker">
@@ -18,7 +18,7 @@ export default function LocationPicker({ cities }) {
       <ul className="picker__doors" aria-label="Wybierz lokalizację">
         {cities.map((city) => (
           <li key={city.slug} data-city={city.theme}>
-            <DoorLink slug={city.slug} className="door" label={`${city.name} – wejdź`}>
+            <DoorLink slug={city.slug} position={city.hero.position} className="door" label={`${city.name} – wejdź`}>
               <span className="door__frame">
                 <span className="door__glass">
                   <Image
@@ -30,6 +30,8 @@ export default function LocationPicker({ cities }) {
                     sizes="(max-width: 700px) 45vw, 300px"
                     style={{ objectPosition: city.hero.position }}
                   />
+                  {/* gradienty hero – pojawiają się w trakcie „wejścia w obraz” (DoorLink) */}
+                  <span className="door__shade" aria-hidden="true" />
                   <span className="door__city">{city.name}</span>
                 </span>
               </span>
