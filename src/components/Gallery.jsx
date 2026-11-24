@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Icon from './Icon';
+import GalleryFx from './GalleryFx';
 import SectionHead from './SectionHead';
 import Tiles from './Tiles';
 
@@ -134,7 +135,14 @@ export default function Gallery({ gallery, lamps }) {
                 <div className={frameClass(name)}>
                   <div className="gframe__metal">
                     <div className="gframe__picture">
-                      <Image src={item.img} alt={item.alt || item.caption || ''} fill sizes="(max-width: 700px) 50vw, 400px" />
+                      <Image
+                        className={item.fx?.hue ? 'gfx-hue' : undefined}
+                        src={item.img}
+                        alt={item.alt || item.caption || ''}
+                        fill
+                        sizes="(max-width: 700px) 50vw, 400px"
+                      />
+                      <GalleryFx fx={item.fx} ratio={item.img.width / item.img.height} />
                     </div>
                   </div>
                   {frame.orn && <Corners />}
@@ -153,7 +161,9 @@ export default function Gallery({ gallery, lamps }) {
             <span className="gframe gframe--gold gframe--orn">
               <span className="gframe__metal">
                 <span className="gframe__picture gframe-cta__inner">
-                  <Icon name="star" size={26} stroke={1.3} />
+                  <span className="twinkle">
+                    <Icon name="star" size={26} stroke={1.3} />
+                  </span>
                   <strong>Cała galeria</strong>
                   <span className="gframe-cta__enter">
                     Wejdź <Icon name="arrow" size={13} stroke={2} />

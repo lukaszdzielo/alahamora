@@ -2340,6 +2340,182 @@ html[data-entering] .notice-wrap {
 }
 
 
+/* ---------- Drobna magia (z płótna): poświata logo, migotanie gwiazdek ---------- */
+/* logo w nagłówku delikatnie „oddycha” światłem w kolorze akcentu */
+.header .header__logo .logo { animation: logo-glow 5s ease-in-out infinite; }
+
+@keyframes logo-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgb(var(--line-rgb) / .35)); }
+  50% { filter: drop-shadow(0 0 14px rgb(var(--line-rgb) / .85)); }
+}
+
+/* gwiazdka w ornamentach nad nagłówkami i w ramie „Cała galeria” */
+.twinkle {
+  display: inline-flex;
+  animation: twinkle 3.6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0); opacity: .8; }
+  50% { transform: scale(1.35) rotate(45deg); opacity: 1; }
+}
+
+/* iskierki od podłogi sekcji „Co czeka…” – wolniejsze i wyżej niż w hero */
+.spark.spark--soft {
+  bottom: 40px;
+  box-shadow: 0 0 8px 1px var(--accent-light);
+  animation-name: rise-soft;
+}
+
+@keyframes rise-soft {
+  0% { transform: translateY(0) scale(.6); opacity: 0; }
+  20% { opacity: .7; }
+  85% { opacity: .4; }
+  100% { transform: translateY(-420px) scale(1); opacity: 0; }
+}
+
+/* szron na lustrze – pojawia się na chwilę co 12 s, środek lustra zostaje czysty */
+.mirror__frost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  mask-image: radial-gradient(ellipse 70% 75% at 50% 55%, transparent 20%, #000 78%);
+  animation: frost 12s ease-in-out infinite;
+
+  &.mirror__frost--blur { backdrop-filter: blur(3px) brightness(1.15); }
+}
+
+@keyframes frost {
+  0%, 52% { opacity: 0; transform: scale(1.06); }
+  64%, 82% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* ---------- Galeria: efekty na zdjęciach (GalleryFx.jsx) ---------- */
+.gframe__picture { container-type: size; }
+
+/* warstwa o proporcjach zdjęcia, ułożona jak object-fit: cover (wyśrodkowana) */
+.gfx {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 100cqh * var(--ar));
+  height: max(100cqh, 100cqw / var(--ar));
+  translate: -50% -50%;
+  overflow: hidden;
+  pointer-events: none;
+  transition: scale .6s ease; /* rośnie razem ze zdjęciem przy najechaniu */
+}
+
+.gframe-cell:hover .gfx { scale: 1.05; }
+
+.gfx__flick {
+  position: absolute;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 214 140 / .75), rgb(255 170 80 / .25) 40%, transparent 70%);
+  mix-blend-mode: screen;
+  animation: gfx-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes gfx-flicker {
+  0%, 100% { opacity: .55; scale: .92; }
+  20% { opacity: .95; }
+  35% { opacity: .6; scale: 1.05; }
+  60% { opacity: .85; }
+  80% { opacity: .5; scale: .97; }
+}
+
+.gfx__dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #FFF1C9;
+  box-shadow: 0 0 6px 2px rgb(255 225 150 / .8);
+  animation: gfx-twinkle 3s ease-in-out infinite;
+}
+
+@keyframes gfx-twinkle {
+  0%, 100% { opacity: .15; }
+  50% { opacity: 1; }
+}
+
+.gfx__mote {
+  position: absolute;
+  bottom: -6px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgb(255 236 190 / .85);
+  box-shadow: 0 0 6px rgb(255 220 150 / .8);
+  opacity: 0;
+  animation: gfx-mote 13s linear infinite;
+}
+
+@keyframes gfx-mote {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: .9; }
+  100% { transform: translate(18px, -260px); opacity: 0; }
+}
+
+.gfx__gleam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgb(255 255 255 / .22), transparent);
+  transform: skewX(-18deg);
+  animation: gfx-gleam 7s ease-in-out infinite;
+}
+
+@keyframes gfx-gleam {
+  0%, 62% { left: -60%; }
+  100% { left: 140%; }
+}
+
+.gfx__flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 45% 30%, rgb(255 255 255 / .95), rgb(255 255 255 / .4) 30%, transparent 70%);
+  opacity: 0;
+  animation: gfx-flash 11s linear infinite;
+}
+
+@keyframes gfx-flash {
+  0%, 88% { opacity: 0; }
+  89% { opacity: 1; }
+  93% { opacity: .15; }
+  100% { opacity: 0; }
+}
+
+/* eliksiry powoli zmieniają barwę */
+.gframe__picture img.gfx-hue { animation: gfx-hue 8s ease-in-out infinite; }
+
+@keyframes gfx-hue {
+  0%, 100% { filter: hue-rotate(0deg) saturate(1); }
+  50% { filter: hue-rotate(-35deg) saturate(1.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header .header__logo .logo,
+  .twinkle,
+  .mirror__frost,
+  .gfx *,
+  .gframe__picture img.gfx-hue { animation: none !important; }
+
+  .mirror__frost,
+  .gfx__mote,
+  .gfx__flash,
+  .spark--soft { display: none; }
+}
+
 /* ---------- Telefony ---------- */
 @media (max-width: 640px) {
   :root { --hero-h: 720px; }

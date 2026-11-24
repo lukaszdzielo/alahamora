@@ -30,6 +30,7 @@ import katowiceDoors from '@/assets/img/katowice-doors.webp';
 import katowiceLanterns from '@/assets/img/katowice-lanterns.webp';
 import katowiceMoss from '@/assets/img/katowice-moss-wall.webp';
 
+// gallery.items[].fx = drobne efekty na zdjęciu (opis w components/GalleryFx.jsx)
 // `placeholder: true` = zdjęcie zastępcze (brak zdjęcia tej atrakcji) – do podmiany.
 
 export const cities = {
@@ -64,6 +65,7 @@ export const cities = {
     },
     features: {
       id: 'gildia',
+      frost: [1, 4, 6], // lustra, na których co jakiś czas osiada szron (indeksy od 0)
       title: 'Co czeka w Gildii',
       lead: 'Wnętrze nasycone historiami, antykami i magią. Do świata czarów przeniesiesz się tu bez względu na wiek.',
       items: [
@@ -108,18 +110,18 @@ export const cities = {
       // ramy: kolejno dla 12 miejsc na ścianie (patrz Gallery.jsx)
       frames: ['silver-orn', 'black', 'gothic-gold', 'oval-wood', 'wood', 'arch-silver', 'black-orn-gold', 'oval-gold', 'gothic-black', 'gold', 'wood-orn', 'bronze'],
       items: [
-        { img: gliwicePortraits, caption: 'Galeria portretów' },
-        { img: gliwicePlates, caption: 'Mosiężne talerze' },
-        { img: gliwiceFace, caption: 'Kamienna twarz' },
-        { img: gliwiceBall, alt: 'Kryształowa kula' },
-        { img: gliwiceTeapot, caption: 'Antyki' },
-        { img: gliwicePotions, caption: 'Eliksiry' },
-        { img: gliwiceForest, caption: 'Zielone sklepienie' },
-        { img: gliwicePinkTea, alt: 'Herbata w różowej porcelanie' },
-        { img: gliwiceCamera, caption: 'Kącik do zdjęć' },
-        { img: gliwicePinkRoom, caption: 'Różowy pokój' },
-        { img: gliwiceHero, caption: 'Zielony salon' },
-        { img: foodMysticat, caption: 'MystiCat' },
+        { img: gliwicePortraits, caption: 'Galeria portretów', fx: { flicker: [[34, 40, 9], [50, 12, 12]] } },
+        { img: gliwicePlates, caption: 'Mosiężne talerze', fx: { twinkle: 4, gleam: true } },
+        { img: gliwiceFace, caption: 'Kamienna twarz', fx: { dust: 2, flicker: [[9, 45, 12], [80, 47, 12]] } },
+        { img: gliwiceBall, alt: 'Kryształowa kula', fx: { twinkle: 5 } },
+        { img: gliwiceTeapot, caption: 'Antyki', fx: { gleam: true } },
+        { img: gliwicePotions, caption: 'Eliksiry', fx: { hue: true, dust: 9 } },
+        { img: gliwiceForest, caption: 'Zielone sklepienie', fx: { twinkle: 6 } },
+        { img: gliwicePinkTea, alt: 'Herbata w różowej porcelanie', fx: { gleam: true } },
+        { img: gliwiceCamera, caption: 'Kącik do zdjęć', fx: { flash: true } },
+        { img: gliwicePinkRoom, caption: 'Różowy pokój', fx: { twinkle: 3 } },
+        { img: gliwiceHero, caption: 'Zielony salon', fx: { dust: 4 } },
+        { img: foodMysticat, caption: 'MystiCat', fx: { twinkle: 7 } },
       ],
     },
     contact: {
@@ -166,6 +168,7 @@ export const cities = {
     },
     features: {
       id: 'lokal',
+      frost: [0, 3, 5],
       title: 'Co czeka za drzwiami',
       lead: 'Alahamora to miejsce dla wymagających czarodziejów. Witają tu certyfikowani czaroksiężnicy, a ciekawscy mugole też są mile widziani.',
       items: [
@@ -205,18 +208,18 @@ export const cities = {
       url: null, // galeria Katowic – link na razie nieaktywny
       frames: ['gold-orn', 'black-silver', 'gothic-silver', 'oval-wood', 'wood', 'arch-gold', 'black-orn', 'oval-silver', 'gothic-black', 'silver', 'wood-orn', 'pewter'],
       items: [
-        { img: katowiceBlueHall, caption: 'Granatowa sala' },
-        { img: katowiceSconces, caption: 'Kinkiety' },
-        { img: katowiceDoors, caption: 'Drzwi do innych światów' },
-        { img: katowicePortraits, alt: 'Obrazy w złotych ramach' },
-        { img: katowicePlate, caption: 'Stara zastawa' },
-        { img: katowiceLanterns, caption: 'Lampiony' },
-        { img: katowiceBooth, caption: 'Dormitorium' },
-        { img: foodCake, alt: 'Ciasto z magicznej kawiarni' },
-        { img: katowiceMoss, caption: 'Podwórko' },
-        { img: katowiceNook, caption: 'Dział ksiąg zakazanych' },
-        { img: katowiceHero, caption: 'Granatowy salon' },
-        { img: foodMysticat, caption: 'MystiCat' },
+        { img: katowiceBlueHall, caption: 'Granatowa sala', fx: { twinkle: 3 } },
+        { img: katowiceSconces, caption: 'Kinkiety', fx: { flicker: [[33, 18, 22], [82, 15, 20]] } },
+        { img: katowiceDoors, caption: 'Drzwi do innych światów', fx: { twinkle: 11, flicker: [[73, 34, 9]] } },
+        { img: katowicePortraits, alt: 'Obrazy w złotych ramach', fx: { dust: 5 } },
+        { img: katowicePlate, caption: 'Stara zastawa', fx: { gleam: true } },
+        { img: katowiceLanterns, caption: 'Lampiony', fx: { flicker: [[17, 55, 26], [91, 60, 20]], dust: 5 } },
+        { img: katowiceBooth, caption: 'Dormitorium', fx: { flicker: [[78, 30, 16]] } },
+        { img: foodCake, alt: 'Ciasto z magicznej kawiarni', fx: { twinkle: 2 } },
+        { img: katowiceMoss, caption: 'Podwórko', fx: { twinkle: 8 } },
+        { img: katowiceNook, caption: 'Dział ksiąg zakazanych', fx: { twinkle: 12 } },
+        { img: katowiceHero, caption: 'Granatowy salon', fx: { dust: 3 } },
+        { img: foodMysticat, caption: 'MystiCat', fx: { twinkle: 7 } },
       ],
     },
     contact: {
