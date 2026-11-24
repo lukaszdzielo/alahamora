@@ -1745,7 +1745,13 @@ a { color: inherit; }
     filter: drop-shadow(1px 3px 2px rgb(40 10 5 / .55));
 
     & .seal { display: block; width: 100%; height: 100%; overflow: visible; }
-    & .seal__glow { animation: seal-glow 2.6s ease-in-out infinite; }
+    & .seal__glow {
+      transform-box: fill-box;
+      transform-origin: center;
+      mix-blend-mode: screen;
+      animation: seal-glow 2.4s ease-in-out infinite;
+    }
+    & .seal__flare { animation: seal-flare 2.4s ease-in-out infinite; }
   }
 
   /* przy pojawieniu się mapy pieczęć „stuka” w papier (AppearController ustawia data-appear='in') */
@@ -1763,8 +1769,13 @@ a { color: inherit; }
 }
 
 @keyframes seal-glow {
-  0%, 100% { opacity: .65; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: .15; scale: .9; }
+  50% { opacity: .95; scale: 1.25; }
+}
+
+@keyframes seal-flare {
+  0%, 100% { opacity: 0; }
+  50% { opacity: .75; }
 }
 
 

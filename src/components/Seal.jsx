@@ -48,9 +48,11 @@ export default function Seal({ variant = 'red', className = '' }) {
       <circle cx="50" cy="50" r="29.5" fill="none" stroke={p.ringHi} strokeWidth=".9" opacity=".55" />
 
       {/* dziurka od klucza, przez którą świeci światło */}
-      <path className="seal__glow" d={KEYHOLE} fill="#ffd98a" filter={`url(#${id}-blur)`} />
       <path d={KEYHOLE} fill={p.light} opacity=".6" transform="translate(.7 .9)" />
       <path d={KEYHOLE} fill={`url(#${id}-light)`} />
+      {/* pulsowanie: dziurka rozjaśnia się, a światło „wylewa się” na lak dookoła */}
+      <path className="seal__flare" d={KEYHOLE} fill="#fffdf0" />
+      <path className="seal__glow" d={KEYHOLE} fill="#ffd98a" filter={`url(#${id}-blur)`} />
       <path d={KEYHOLE} fill="none" stroke={p.dark} strokeWidth="1.3" />
 
       {/* połysk laku */}
