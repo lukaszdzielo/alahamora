@@ -2,16 +2,17 @@ import Image from 'next/image';
 import parchment from '@/assets/img/mapa/pergamin.webp';
 import innerMask from '@/assets/img/mapa/maska-postrzepiona.png';
 import Icon from './Icon';
+import Seal from './Seal';
 
 // Mapa na kawałku papieru: prawdziwa mapa Google (bez klucza API) przycięta do kształtu
 // z poszarpanymi brzegami (maska-postrzepiona.png). Na mapę nakładamy fakturę papieru (multiply).
 //
 // Znacznik: Google bez klucza nie pozwala podmienić pinezki, więc:
 // - mapę ustawiamy samymi współrzędnymi (ll=…) – wtedy Google nie rysuje swojej pinezki,
-// - w środku mapy (= dokładnie te współrzędne) stoi nasza różdżka z iskrą,
-// - mapa jest nieruchoma (bez przesuwania), żeby różdżka zawsze wskazywała lokal;
+// - w środku mapy (= dokładnie te współrzędne) leży lakowa pieczęć ze świecącą dziurką od klucza (Seal),
+// - mapa jest nieruchoma (bez przesuwania), żeby pieczęć zawsze wskazywała lokal;
 //   kliknięcie w mapę albo w przycisk otwiera nawigację w Google Maps.
-export default function ParchmentMap({ coords, query, mapsUrl, address }) {
+export default function ParchmentMap({ coords, seal = 'red', query, mapsUrl, address }) {
   const src = coords
     ? `https://maps.google.com/maps?ll=${coords[0]},${coords[1]}&z=17&output=embed`
     : `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
@@ -30,10 +31,8 @@ export default function ParchmentMap({ coords, query, mapsUrl, address }) {
       </a>
 
       {coords && (
-        <span className="pmap__marker" aria-hidden="true">
-          <span className="pmap__glow" />
-          <span className="pmap__wand" />
-          <span className="pmap__spark" />
+        <span className="pmap__marker" data-appear="" aria-hidden="true">
+          <Seal variant={seal} />
         </span>
       )}
 

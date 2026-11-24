@@ -1728,74 +1728,41 @@ a { color: inherit; }
     box-shadow: 0 6px 18px rgb(0 0 0 / .45);
   }
 
-  /* Znacznik: różdżka wskazuje czubkiem dokładnie środek mapy (= współrzędne lokalu).
-     W rozdzka.svg (870×185) czubek leży w (865, 13) – tam jest punkt obrotu. */
+  /* Znacznik: lakowa pieczęć (Seal.jsx) wyśrodkowana dokładnie na współrzędnych lokalu */
   & .pmap__marker {
     position: absolute;
     left: 50%;
     top: 50%;
     z-index: 1;
+    width: clamp(60px, 17cqi, 88px);
+    aspect-ratio: 1;
+    translate: -50% -50%;
     pointer-events: none;
-    filter: drop-shadow(-4px 6px 4px rgb(40 26 10 / .45));
+    filter: drop-shadow(1px 3px 2px rgb(40 10 5 / .55));
+
+    & .seal { display: block; width: 100%; height: 100%; overflow: visible; }
+    & .seal__glow { animation: seal-glow 2.6s ease-in-out infinite; }
   }
 
-  & .pmap__wand {
-    --w: clamp(110px, 30cqi, 170px); /* ok. 1/3 szerokości mapy */
-    position: absolute;
-    left: calc(var(--w) * -0.9943);
-    top: calc(var(--w) * 185 / 870 * -0.0703);
-    width: var(--w);
-    aspect-ratio: 870 / 185;
-    /* wypełnienie drewnem (sylwetka) + rysunek konturu z rozdzka.svg na wierzchu */
-    background: linear-gradient(90deg, #4a2e18, #7a5030 40%, #a87a48 78%, #E7C982 97%);
-    mask: url('../assets/img/rozdzka-sylwetka.png') center / 100% 100% no-repeat;
-    transform-origin: 99.43% 7.03%;
-    rotate: 144deg; /* rączka w prawo do góry, czubek w lokal */
-    animation: pmap-tap 2.4s ease-in-out infinite;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgb(40 24 10 / .85);
-      mask: url('../assets/svg/rozdzka.svg') center / 100% 100% no-repeat;
-    }
+  /* przy pojawieniu się mapy pieczęć „stuka” w papier (AppearController ustawia data-appear='in') */
+  .appear-ready & .pmap__marker[data-appear]:not([data-appear='in']) {
+    opacity: 0;
+    translate: -50% -50%;
+    scale: 1.8;
   }
 
-  /* iskra na czubku i ciepła poświata pod nim */
-  & .pmap__spark {
-    position: absolute;
-    left: -8px;
-    top: -8px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff 0 18%, rgb(255 236 190 / .95) 32%, rgb(231 201 130 / .5) 58%, transparent 72%);
-    animation: wand-tip 1.6s ease-in-out infinite;
-  }
-
-  & .pmap__glow {
-    position: absolute;
-    left: -34px;
-    top: -34px;
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(255 214 120 / .55), rgb(201 164 92 / .18) 45%, transparent 70%);
-    animation: pmap-glow 2.4s ease-in-out infinite;
+  & .pmap__marker[data-appear='in'] {
+    opacity: 1;
+    scale: 1;
+    transition: opacity .25s ease-out .35s, scale .45s cubic-bezier(.5, 0, .75, 1.4) .35s;
   }
 }
 
-/* różdżka lekko „stuka” w miejsce na mapie */
-@keyframes pmap-tap {
-  0%, 100% { rotate: 144deg; }
-  50% { rotate: 139deg; }
+@keyframes seal-glow {
+  0%, 100% { opacity: .65; }
+  50% { opacity: 1; }
 }
 
-@keyframes pmap-glow {
-  0%, 100% { transform: scale(.85); opacity: .7; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
 
 /* ---------- Latarnie i świetlik (Katowice) ---------- */
 .section-head--lamp {
