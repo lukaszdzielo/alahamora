@@ -1,0 +1,438 @@
+/* ============================================================
+   Alahamora – style globalne
+   Natywne zagnieżdżanie CSS (&) + motywy przez [data-city]
+   ============================================================ */
+
+/* ---------- Motywy ---------- */
+:root,
+[data-city='katowice'] {
+  --bg: #121829;
+  --bg-rgb: 18 24 41;
+  --surface: #1B2238;
+  --ink: #F3E9D2;
+  --muted: #B9B2A0;
+  --accent: #C9A45C;
+  --accent-light: #E7C982;
+  --accent-ink: #1B2238;
+  --line: rgb(201 164 92 / .28);
+}
+
+[data-city='gliwice'] {
+  --bg: #0F2621;
+  --bg-rgb: 15 38 33;
+  --surface: #1F3D36;
+  --ink: #F4EDE2;
+  --muted: #9FB3AA;
+  --accent: #BFC6CC;
+  --accent-light: #E4E9ED;
+  --accent-ink: #10201B;
+  --line: rgb(200 208 214 / .3);
+}
+
+[data-city='picker'] {
+  --bg: #14171F;
+  --ink: #F4EDE2;
+  --muted: #B9B2A0;
+  --accent: #D8CDB4;
+  --accent-light: #E8DDC2;
+  --line: rgb(216 205 180 / .3);
+}
+
+/* ---------- Podstawy ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { color-scheme: dark; }
+
+body {
+  margin: 0;
+  font: 400 17px/1.7 var(--font-body), Georgia, serif;
+}
+
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+a { color: inherit; }
+
+.wrap {
+  width: min(1200px, 100% - 48px);
+  margin-inline: auto;
+}
+
+/* ---------- Przyciski ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font: 600 12px/1 var(--font-display), serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent-light);
+  transition: background .3s, color .3s;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--accent-light);
+    color: var(--accent-ink);
+  }
+
+  &.btn--solid {
+    background: var(--accent);
+    color: var(--accent-ink);
+
+    &:hover { background: var(--accent-light); }
+  }
+}
+
+/* ---------- Logo (maska SVG) ---------- */
+.logo {
+  position: relative;
+  display: inline-block;
+  color: var(--accent);
+
+  & .logo__mark {
+    display: block;
+    width: 160px;
+    aspect-ratio: 1500 / 708;
+    background: currentColor;
+    mask: url('/svg/logo.svg') center / contain no-repeat;
+  }
+
+  & .logo__sub {
+    position: absolute;
+    left: 24%;
+    top: 86.5%;
+    font: 600 10px/1 var(--font-display), serif;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Nagłówek ---------- */
+.header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 5;
+  padding-block: 14px 40px;
+  background: linear-gradient(180deg, rgb(0 0 0 / .7), transparent);
+
+  & .header__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+
+  & .header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-left: auto;
+
+    & a {
+      padding: 10px 8px;
+      font: 600 12px/1 var(--font-display), serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      &:hover { color: var(--accent-light); }
+    }
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 820px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  & .hero__img { object-fit: cover; }
+
+  & .hero__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, var(--bg) 0%, rgb(var(--bg-rgb) / .85) 12%, transparent 40%),
+      linear-gradient(90deg, rgb(0 0 0 / .85) 0%, rgb(0 0 0 / .5) 45%, transparent 78%);
+  }
+
+  & .hero__content {
+    position: relative;
+    padding-block: 220px 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  & h1 {
+    margin: 0;
+    max-width: 15ch;
+    font-size: clamp(42px, 5.2vw, 70px);
+
+    & em {
+      font: italic 600 1.1em/1 var(--font-ink), serif;
+      color: var(--accent-light);
+    }
+  }
+
+  & .hero__lead {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 18px;
+    color: #E6DECB;
+  }
+
+  & .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  & .hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 15px;
+    color: #E6DECB;
+  }
+}
+
+/* ---------- Ekran wyboru ---------- */
+.picker {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 48px;
+  padding: 48px 24px;
+  background: linear-gradient(90deg, #1B2238, #14171F 50%, #1F3D36);
+
+  & .picker__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+
+    & h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+    }
+  }
+
+  & .picker__logo .logo__mark { width: 260px; }
+
+  & .picker__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 64px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.mirror {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+
+  & .mirror__frame {
+    position: relative;
+    display: block;
+    width: 300px;
+    aspect-ratio: 3 / 4;
+    border-radius: 150px 150px 12px 12px;
+    overflow: hidden;
+    border: 6px solid var(--accent);
+    box-shadow: 0 0 0 2px rgb(0 0 0 / .5), 0 30px 60px -20px rgb(0 0 0 / .8);
+    transition: transform .5s, box-shadow .5s;
+  }
+
+  & .mirror__img {
+    object-fit: cover;
+    filter: brightness(.8);
+    transition: filter .5s;
+  }
+
+  & .mirror__label {
+    font: italic 500 20px/1.2 var(--font-ink), serif;
+    color: var(--muted);
+  }
+
+  & .mirror__city {
+    font: 600 26px/1 var(--font-display), serif;
+    letter-spacing: .08em;
+    color: var(--accent-light);
+  }
+
+  &:hover,
+  &:focus-visible {
+    & .mirror__frame {
+      transform: translateY(-6px);
+      box-shadow: 0 0 0 2px rgb(0 0 0 / .5), 0 0 40px rgb(255 255 255 / .12);
+    }
+
+    & .mirror__img { filter: brightness(1); }
+  }
+}
+
+/* ---------- Stopka ---------- */
+.footer {
+  position: relative;
+  isolation: isolate;
+  padding-block: 130px 44px;
+  font-size: 13px;
+  color: var(--muted);
+  background: linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 72%, #000));
+
+  & .footer__castle {
+    position: absolute;
+    inset: auto 0 46px;
+    z-index: -1;
+    aspect-ratio: 939 / 430;
+    background: var(--accent);
+    opacity: .14;
+    pointer-events: none;
+    mask:
+      url('/svg/zamek.svg') center bottom / 100% auto no-repeat,
+      linear-gradient(transparent, #000 38%, #000 86%, transparent);
+    mask-composite: intersect;
+  }
+
+  & .footer__top,
+  & .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+  }
+
+  & .footer__logo {
+    opacity: .82;
+
+    & .logo { color: #F4F1EA; }
+    & .logo__mark { width: 140px; }
+  }
+
+  & .footer__social {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & a {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      transition: color .3s, background .3s, border-color .3s;
+
+      &:hover {
+        color: var(--accent-ink);
+        background: var(--accent-light);
+        border-color: var(--accent-light);
+      }
+    }
+  }
+
+  & .footer__bottom {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+
+    & p { margin: 0; }
+  }
+
+  & .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+
+    & a { color: var(--muted); }
+  }
+
+  & .footer__credit {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--accent-light);
+  }
+}
+
+/* ---------- Różdżka jako kursor ---------- */
+.has-wand,
+.has-wand * { cursor: none !important; }
+
+.wand {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+
+  &[data-visible='true'] { opacity: 1; }
+
+  /* czubek różdżki = punkt kliknięcia */
+  & .wand__stick {
+    position: absolute;
+    right: 0;
+    top: -12px;
+    width: 112px;
+    height: 24px;
+    background: var(--accent-light);
+    mask: url('/svg/rozdzka.svg') center / contain no-repeat;
+    transform-origin: 100% 50%;
+    rotate: -131deg;
+    filter: drop-shadow(0 0 3px rgb(0 0 0 / .6));
+  }
+
+  & .wand__tip {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, var(--accent-light) 45%, transparent 70%);
+    box-shadow: 0 0 14px 4px rgb(255 255 255 / .35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
