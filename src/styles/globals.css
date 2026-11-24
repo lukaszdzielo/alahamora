@@ -1231,8 +1231,42 @@ a { color: inherit; }
   }
 }
 
-@media (max-width: 560px) {
-  .banners { grid-template-columns: minmax(0, 340px); justify-content: center; }
+/* telefon: dwa mniejsze proporce w rzędzie */
+@media (max-width: 640px) {
+  .banners {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 70px 16px;
+    padding: 0 6px 40px;
+  }
+
+  .banner {
+    padding-top: 16px;
+
+    & .banner__rod { height: 7px; top: 5px; }
+    & .banner__rod::before,
+    & .banner__rod::after { width: 12px; height: 12px; top: -2.5px; }
+    & .banner__rod::before { left: -7px; }
+    & .banner__rod::after { right: -7px; }
+    & .banner__body { height: 300px; }
+    & .banner__outline { inset: 10px 10px 14px; width: calc(100% - 20px); height: calc(100% - 24px); }
+
+    & .banner__content {
+      gap: 8px;
+      padding: 22px 12px 54px;
+    }
+
+    & .banner__icon {
+      width: 50px;
+      height: 50px;
+
+      & svg { width: 24px; height: 24px; }
+    }
+
+    & h3 { margin-top: 2px; font-size: 14.5px; }
+    & .banner__price { font-size: 20px; }
+    & p { font-size: 12.5px; line-height: 1.45; }
+    & .banner__tassel { width: 20px; height: 46px; bottom: -42px; }
+  }
 }
 
 /* ---------- Galeria ---------- */

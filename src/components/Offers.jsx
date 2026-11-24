@@ -1,9 +1,9 @@
 import Icon from './Icon';
 import SectionHead from './SectionHead';
-import ScrollLink from './ScrollLink';
 
 // „Urodziny, klasy i okazje” – oferty jako wiszące proporce (sztandary wycięte w szpic).
 // Tło: ledwo widoczne gotyckie okna i unoszące się świece.
+// Na razie proporce nie są linkami (brak podstron ofert) – tylko kołyszą się po najechaniu.
 
 // gotyckie okna: [x, szerokość, wysokość] w układzie 1440×520
 const WINDOWS = [[60, 120, 330], [300, 150, 400], [600, 170, 440], [900, 150, 400], [1180, 130, 350]];
@@ -39,7 +39,7 @@ export default function Offers({ offers, lamps }) {
         <SectionHead id="offers" title={offers.title} lead={offers.lead} lamp={lamps ? 'side' : false} />
         <div className="banners">
           {offers.items.map((item, i) => (
-            <ScrollLink key={item.title} href="#kontakt" className="banner" data-appear="">
+            <article key={item.title} className="banner" data-appear="">
               <span className="banner__rod" aria-hidden="true" />
               <span className="banner__body">
                 <span className={`banner__cloth banner__cloth--${PATTERNS[i % PATTERNS.length]}`} />
@@ -55,9 +55,6 @@ export default function Offers({ offers, lamps }) {
                     </strong>
                   )}
                   <p>{item.text}</p>
-                  <span className="banner__more">
-                    Szczegóły <Icon name="arrow" size={14} stroke={2} />
-                  </span>
                 </span>
               </span>
               <svg className="banner__tassel" aria-hidden="true" viewBox="0 0 30 70">
@@ -66,7 +63,7 @@ export default function Offers({ offers, lamps }) {
                 <path d="M9 26h12l3 30H6Z" fill="var(--accent)" />
                 <path d="M9 32v22M12 32v24M15 32v24M18 32v24M21 32v22" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
               </svg>
-            </ScrollLink>
+            </article>
           ))}
         </div>
       </div>
