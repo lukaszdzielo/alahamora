@@ -2506,7 +2506,10 @@ html[data-entering] .notice-wrap {
 
 /* ścieżka czarodzieja w ofertach: inny kształt na szerokim i węższym pasie treści */
 @media (max-width: 1247px) { .rv.rv--wide { display: none; } }
-@media (min-width: 1248px) { .rv.rv--narrow { display: none; } }
+@media (min-width: 1248px), (max-width: 640px) { .rv.rv--narrow { display: none; } }
+@media (min-width: 641px) { .rv.rv--phone { display: none; } }
+/* telefon: wyższy pas nad „Urodzinami…”, żeby ścieżka miała gdzie przejść przez cały ekran */
+@media (max-width: 640px) { #oferta:has(.rv--phone) { padding-top: 220px; } }
 
 /* ślady stóp „idą” – kolejne odciski rozjaśniają się po sobie */
 .rv__step { animation: rv-walk 2.4s ease-in-out infinite; }

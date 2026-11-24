@@ -43,6 +43,8 @@ export const gliwiceRevelio = {
     // węższe ekrany: fala przez pas między menu a „Urodzinami…”, spod notatki „Tędy przeszedł…” w prawo
     // (x w % szerokości pasa, y od 40 px nad sekcją; przeliczane przy zmianie szerokości)
     { feet: [['3%', 30], ['30%', 120], ['60%', 0], ['86%', 135]], fluid: true, step: 55, h: 150, cls: 'rv--narrow', pos: { left: '0', right: '0', top: '-40px' } },
+    // telefon (≤640): wyższy pas, ślady wchodzą zza lewej krawędzi ekranu i znikają za prawą – jakby czarodziej naprawdę tędy przeszedł
+    { feet: [['-14%', 30], ['150%', 10], ['-40%', 230], ['114%', 205]], fluid: true, step: 52, h: 250, cls: 'rv--phone', pos: { left: '0', right: '0', top: '-40px' } },
     { draw: 'ksiega2', w: 340, rotate: 10, pos: { right: '3%', bottom: '-120px' }, mobile: { right: '2%', bottom: '-60px', w: 180 } },
     { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '100px' } },
   ],
