@@ -5,6 +5,7 @@ import ksiega2 from '@/assets/svg/revelio/ksiega2.svg';
 import sowa from '@/assets/svg/revelio/sowa.svg';
 import { feetSteps, FeetSteps } from '@/lib/feet';
 import FeetFluid from './FeetFluid';
+import FeetTrail from './FeetTrail';
 
 // Rysunki Łukasza (SVG, jeden kolor). Wyświetlamy je jako maskę CSS – kolor i poświata z motywu.
 const DRAWINGS = { koperta, kapelusz, kociol, ksiega2, sowa };
@@ -48,6 +49,8 @@ export function RevealItem({ item, className = '', style }) {
     );
   } else if (item.ink) {
     inner = <span className="rv__ink">{item.ink}</span>;
+  } else if (item.trail) {
+    inner = <FeetTrail step={item.step} />;
   } else if (item.feet && item.fluid) {
     inner = <FeetFluid points={item.feet} step={item.step} h={item.h} />;
   } else if (item.feet) {
