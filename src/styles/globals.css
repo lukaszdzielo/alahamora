@@ -2513,6 +2513,10 @@ html[data-entering] .notice-wrap {
 @media (min-width: 641px) and (max-width: 991px) {
   #menu .rv.rv--tedy { left: auto !important; right: 0 !important; }
 }
+/* ≥1248 px: notatka tuż na lewo od łuku śladów (ślady mijają ją przy x ≈ 600–680) */
+@media (min-width: 1248px) {
+  #menu .rv.rv--tedy { left: 225px !important; }
+}
 /* telefon: wyższy pas nad „Urodzinami…”, żeby ścieżka miała gdzie przejść przez cały ekran */
 @media (max-width: 640px) { #oferta:has(.rv--phone) { padding-top: 220px; } }
 

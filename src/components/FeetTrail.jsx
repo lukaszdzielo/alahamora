@@ -22,11 +22,28 @@ export default function FeetTrail({ step = 55 }) {
     const box = rv?.parentElement; // .rv-box sekcji ofert
     if (!box) return undefined;
 
+    // błąd w pomiarze nie może wywrócić strony – w najgorszym razie ślady się nie pokażą
     const measure = () => {
+      try {
+        measureUnsafe();
+      } catch {
+        /* ignorujemy */
+      }
+    };
+
+    const measureUnsafe = () => {
       const photo = document.querySelector('#menu .menu__photo');
       const col = document.querySelector('#menu .menu__col');
       const h2 = box.closest('section')?.querySelector('h2');
-      if (!photo || !col || !h2 || !svg.getClientRects().length) return;
+      const noteInk = [...document.querySelectorAll('#menu .rv__ink')].find((e) => e.textContent.startsWith('Tędy'));
+      const noteRv = noteInk?.closest('.rv');
+      if (!svg.getClientRects().length) {
+        // ścieżka ukryta (telefon / duży desktop) – notatka wraca na swoje miejsce z CSS
+        noteRv?.style.removeProperty('left');
+        noteRv?.style.removeProperty('right');
+        return;
+      }
+      if (!photo || !col || !h2) return;
       const b = box.getBoundingClientRect();
       const rect = (el, r = el.getBoundingClientRect()) => {
         const dy = offsetY(el);
@@ -65,6 +82,19 @@ export default function FeetTrail({ step = 55 }) {
         arc = curve(yA, 0.55);
       }
       const pts = [...Array.from({ length: 40 }, (_, i) => [x0, y0 + ((yA - y0) * i) / 40]), ...arc];
+      // „Tędy przeszedł nocą czarodziej” tuż obok śladów (po prawej, a gdy brak miejsca – po lewej)
+      if (noteInk && noteRv) {
+        const n = rect(noteInk);
+        const near = pts.filter(([, y]) => y > n.t - 15 && y < n.b + 15).map(([x]) => x);
+        if (near.length) {
+          const w = n.r - n.l;
+          let left = Math.max(...near) + 42;
+          if (left + w > b.width) left = Math.max(0, Math.min(...near) - 42 - w);
+          noteRv.style.setProperty('left', `${Math.round(left)}px`, 'important');
+          noteRv.style.setProperty('right', 'auto', 'important');
+        }
+      }
+
       const top = ph.b - 135;
       setGeo({ top, h: yEnd + 50 - top, pts: pts.map(([x, y]) => [x, y - top]) });
       rv.style.top = `${Math.round(top)}px`;
