@@ -5,6 +5,17 @@
 
 /* Ścieżki url() są względne – Next dołącza pliki do builda i sam dodaje basePath (GitHub Pages). */
 
+/* ---------- Szerokości ----------
+   --content-max: kontener z treścią (teksty, siatki)
+   --page-max:    maksymalna szerokość elementów wizualnych (karuzele, zamek w stopce);
+                  tła sekcji mogą iść na całą szerokość ekranu */
+:root {
+  --content-max: 1200px;
+  --page-max: 2560px;
+  /* min(100%, page-max): działa i w paddingu (100% = rodzic), i w gradiencie maski (100% = element) */
+  --gutter: max(24px, calc((min(100%, var(--page-max)) - var(--content-max)) / 2));
+}
+
 /* ---------- Motywy ---------- */
 :root,
 [data-city='katowice'] {
@@ -79,7 +90,7 @@ h1, h2, h3 {
 a { color: inherit; }
 
 .wrap {
-  width: min(1200px, 100% - 48px);
+  width: min(var(--content-max), 100% - 48px);
   margin-inline: auto;
 }
 
@@ -491,12 +502,15 @@ a { color: inherit; }
   & .features__track {
     display: flex;
     gap: 36px;
-    margin-top: 56px;
-    padding: 40px max(24px, calc((100% - 1200px) / 2)) 30px;
+    max-width: var(--page-max);
+    margin: 56px auto 0;
+    padding: 40px var(--gutter) 30px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: max(24px, calc((100% - 1200px) / 2));
+    scroll-padding-inline: var(--gutter);
     scrollbar-width: none;
+    /* to, co wychodzi poza kontener z treścią, łagodnie znika na bokach */
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
 
     &::-webkit-scrollbar { display: none; }
   }
@@ -741,7 +755,10 @@ a { color: inherit; }
 
   & .footer__castle {
     position: absolute;
-    inset: auto 0 46px;
+    bottom: 46px;
+    left: 50%;
+    translate: -50% 0;
+    width: min(100%, var(--page-max));
     z-index: -1;
     aspect-ratio: 939 / 430;
     background: var(--accent);
