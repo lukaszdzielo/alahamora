@@ -5,7 +5,7 @@ import CitySelect from './CitySelect';
 import scrollToId from '@/lib/scrollToId';
 
 // Menu w nagłówku. Na szerokich ekranach wszystko w jednej linii,
-// na telefonie (CSS: max-width 960px) chowa się pod przyciskiem „hamburger”.
+// na węższych ekranach (CSS: max-width 1200px – przy szerszych menu mieści się w jednej linii) chowa się pod przyciskiem „hamburger”.
 // id sekcji, które istnieją na stronie miasta
 const SECTIONS = ['menu', 'gildia', 'lokal', 'oferta', 'galeria', 'kontakt'];
 

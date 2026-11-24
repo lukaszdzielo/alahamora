@@ -254,7 +254,7 @@ a { color: inherit; }
     }
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1200px) {
     & .header__inner { flex-wrap: nowrap; }
 
     & .header__burger { display: block; }
