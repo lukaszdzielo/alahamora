@@ -10,6 +10,7 @@ import Gallery from '@/components/Gallery';
 import Contact from '@/components/Contact';
 import AppearController from '@/components/AppearController';
 import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
 import Licence from '@/components/Licence';
 import WandCursor from '@/components/WandCursor';
 import LampsController from '@/components/LampsController';
@@ -73,7 +74,8 @@ export default async function CityPage({ params }) {
         <Contact city={data} lamps={data.effects.lamps} />
         <Licence />
       </main>
-      <Footer />
+      <Footer revelio={!!data.revelio} />
+      <BackToTop />
       <AppearController />
       {data.effects.lamps && <LampsController />}
       {data.revelio && <RevelioController />}

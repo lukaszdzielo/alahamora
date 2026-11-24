@@ -51,3 +51,35 @@ export default function scrollToId(id, { offset = 0 } = {}) {
   frame = requestAnimationFrame(step);
   return true;
 }
+
+// Płynny powrót na górę strony (ta sama animacja co przy sekcjach); fokus na początek strony.
+export function scrollToTop() {
+  const startY = window.scrollY;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const focusTop = () => {
+    const first = document.querySelector('.header a, .header button');
+    first?.focus({ preventScroll: true });
+  };
+  cancelAnimationFrame(frame);
+  if (reduce || startY < 2) {
+    window.scrollTo(0, 0);
+    focusTop();
+    return;
+  }
+  const duration = Math.min(1200, Math.max(500, startY * 0.2));
+  const t0 = performance.now();
+  const cancel = () => cancelAnimationFrame(frame);
+  window.addEventListener('wheel', cancel, { passive: true, once: true });
+  window.addEventListener('touchstart', cancel, { passive: true, once: true });
+  const step = (now) => {
+    const t = Math.min(1, (now - t0) / duration);
+    window.scrollTo(0, startY * (1 - easeInOutCubic(t)));
+    if (t < 1) frame = requestAnimationFrame(step);
+    else {
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('touchstart', cancel);
+      focusTop();
+    }
+  };
+  frame = requestAnimationFrame(step);
+}

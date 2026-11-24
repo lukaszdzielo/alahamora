@@ -9,6 +9,7 @@ const PATHS = {
   doorExit: <><path d="M14 21V8a5 5 0 0 0-10 0v13" /><path d="M2 21h13" /><circle cx="11" cy="14" r=".9" /><path d="M22 12h-6M18.5 9 16 12l2.5 3" /></>,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   arrowLeft: <path d="M19 12H5M11 6l-6 6 6 6" />,
+  arrowUp: <path d="M12 19V5M6 11l6-6 6 6" />,
   cal: <><rect x="3.5" y="5" width="17" height="15" rx="2" /><path d="M3.5 10h17M8 3v4M16 3v4" /></>,
   star: <path d="M12 2.5l2 7.5 7.5 2-7.5 2-2 7.5-2-7.5-7.5-2 7.5-2z" />,
   chevron: <path d="m6 9 6 6 6-6" />,

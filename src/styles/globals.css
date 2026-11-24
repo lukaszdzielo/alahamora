@@ -2671,6 +2671,56 @@ html[data-entering] .notice-wrap {
   .rv__step { animation: none; }
 }
 
+/* ---------- Przycisk „do góry” ---------- */
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgb(var(--dark-rgb) / .7);
+  color: var(--accent-light);
+  box-shadow: 0 6px 18px rgb(0 0 0 / .45);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  opacity: 0;
+  translate: 0 14px;
+  pointer-events: none;
+  transition: opacity .35s ease, translate .35s ease, border-color .3s, background .3s, box-shadow .3s;
+
+  &[data-show] { opacity: 1; translate: 0 0; pointer-events: auto; }
+
+  & svg { transition: translate .3s ease; }
+
+  &:hover {
+    border-color: var(--accent);
+    background: rgb(var(--dark-rgb) / .9);
+    box-shadow: 0 6px 18px rgb(0 0 0 / .45), 0 0 16px rgb(var(--line-rgb) / .35);
+
+    & svg { translate: 0 -2px; }
+  }
+
+  &:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* stopka: ostatni rząd nie może chować się pod przyciskiem „do góry” (prawy dolny róg) */
+@media (min-width: 641px) and (max-width: 1400px) {
+  .footer .footer__bottom { padding-right: 64px; }
+}
+
 /* ---------- 404 ---------- */
 .not-found {
   gap: 36px;
@@ -3060,6 +3110,31 @@ html[data-entering] .notice-wrap {
   }
 }
 
+/* Gliwice: zamek jako element Revelio – wrapper .rv przejmuje położenie (i maskę światła),
+   zamek w środku zachowuje swoją maskę kształtu */
+.footer .rv.rv--castle {
+  /* .rv ma padding 60 px i margines −60 px (zapas maski) – stąd +120 px i +60 px */
+  bottom: 46px;
+  left: 50%;
+  translate: calc(-50% + 60px) 0;
+  width: calc(min(100%, 1600px) + 120px);
+  z-index: -1;
+  /* słabiej niż inne rysunki – to duże tło */
+  --rv-peak: .34;
+  --rv-rest: .045;
+  --rv-touch: .12;
+
+  & .footer__castle {
+    position: relative;
+    inset: auto;
+    left: auto;
+    bottom: auto;
+    translate: none;
+    width: 100%;
+    opacity: 1;
+  }
+}
+
 /* zamek w stopce na telefonie: stała wysokość (nie kurczy się do szerokości ekranu),
    wyśrodkowany – boki wychodzą poza ekran i są przycinane */
 @media (max-width: 640px) {
@@ -3068,6 +3143,14 @@ html[data-entering] .notice-wrap {
     height: 340px;
     bottom: 150px;
     opacity: .18;
+  }
+}
+@media (max-width: 640px) {
+  .footer .rv.rv--castle {
+    width: auto;
+    bottom: 150px;
+
+    & .footer__castle { width: auto; height: 340px; bottom: auto; opacity: 1; }
   }
 }
 
