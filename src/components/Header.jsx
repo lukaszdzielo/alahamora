@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import HeaderMenu from './HeaderMenu';
-import { cities } from '@/data/cities';
-
-const cityOptions = Object.values(cities).map(({ slug, name }) => ({ slug, name }));
 
 export default function Header({ city }) {
   return (
@@ -12,7 +9,7 @@ export default function Header({ city }) {
         <Link href={`/${city.slug}/`} className="header__logo" aria-label={`Alahamora ${city.name} – strona główna`}>
           <Logo sub={city.name} />
         </Link>
-        <HeaderMenu nav={city.nav} current={city.slug} cityOptions={cityOptions} />
+        <HeaderMenu nav={city.nav} />
       </div>
     </header>
   );

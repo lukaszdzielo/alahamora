@@ -1,15 +1,25 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CitySelect from './CitySelect';
+import Link from 'next/link';
+import Icon from './Icon';
 import scrollToId from '@/lib/scrollToId';
 
 // Menu w nagłówku. Na szerokich ekranach wszystko w jednej linii,
-// na węższych ekranach (CSS: max-width 1200px – przy szerszych menu mieści się w jednej linii) chowa się pod przyciskiem „hamburger”.
+// na węższych ekranach (CSS: max-width 980px) chowa się pod przyciskiem „hamburger”.
+// Okrągły przycisk z drzwiami = powrót do ekranu wyboru lokalu (na telefonie obok hamburgera).
 // id sekcji, które istnieją na stronie miasta
 const SECTIONS = ['menu', 'gildia', 'lokal', 'oferta', 'galeria', 'kontakt'];
 
-export default function HeaderMenu({ nav, current, cityOptions }) {
+function ExitLink({ className }) {
+  return (
+    <Link href="/" className={`header__exit ${className}`} aria-label="Wszystkie lokale – wybór lokalizacji" title="Wszystkie lokale">
+      <Icon name="doorExit" size={20} stroke={1.6} />
+    </Link>
+  );
+}
+
+export default function HeaderMenu({ nav }) {
   const [open, setOpen] = useState(false);
 
   // zamknij menu klawiszem Escape
@@ -22,6 +32,7 @@ export default function HeaderMenu({ nav, current, cityOptions }) {
 
   return (
     <>
+      <ExitLink className="header__exit--mobile" />
       <button
         type="button"
         className="header__burger"
@@ -61,7 +72,7 @@ export default function HeaderMenu({ nav, current, cityOptions }) {
             );
           })}
         </nav>
-        <CitySelect current={current} options={cityOptions} />
+        <ExitLink className="header__exit--desktop" />
         <a className="btn btn--solid" aria-disabled="true" title="Wkrótce">
           Zarezerwuj
         </a>

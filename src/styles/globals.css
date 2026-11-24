@@ -227,9 +227,26 @@ a { color: inherit; }
     }
   }
 
+  /* powrót do ekranu wyboru lokalu – okrągły przycisk z drzwiami */
+  & .header__exit {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    flex: none;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgb(var(--dark-rgb) / .55);
+    color: var(--accent-light);
+    transition: border-color .3s, background .3s;
+
+    &:hover { border-color: var(--accent); background: rgb(var(--dark-rgb) / .8); }
+  }
+
+  & .header__exit--mobile { display: none; margin-left: auto; }
+
   & .header__burger {
     display: none;
-    margin-left: auto;
     width: 46px;
     height: 46px;
     padding: 0;
@@ -254,7 +271,7 @@ a { color: inherit; }
     }
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 980px) {
     & .header__inner { flex-wrap: nowrap; }
 
     & .header__burger { display: block; }
@@ -290,7 +307,9 @@ a { color: inherit; }
       & a { padding: 12px 4px; border-bottom: 1px solid var(--line); }
     }
 
-    & .city-select select { width: 100%; }
+    & .header__exit--desktop { display: none; }
+    & .header__exit--mobile { display: grid; }
+    & .header__burger { margin-left: -12px; } /* bliżej przycisku z drzwiami */
     & .btn { justify-content: center; }
   }
 }
@@ -432,37 +451,6 @@ a { color: inherit; }
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
-}
-
-/* ---------- Wybór lokalu w nagłówku ---------- */
-.city-select {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  color: var(--ink);
-
-  & select {
-    appearance: none;
-    min-height: 44px;
-    padding: 0 40px 0 38px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgb(var(--dark-rgb) / .55);
-    color: inherit;
-    font: 600 12px/1 var(--font-display), serif;
-    letter-spacing: .08em;
-    cursor: pointer;
-  }
-
-  & .city-select__pin,
-  & .city-select__chevron {
-    position: absolute;
-    pointer-events: none;
-    color: var(--accent);
-  }
-
-  & .city-select__pin { left: 14px; }
-  & .city-select__chevron { right: 14px; }
 }
 
 /* ---------- Pasek z ogłoszeniem ---------- */
