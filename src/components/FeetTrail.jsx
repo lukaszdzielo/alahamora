@@ -39,26 +39,34 @@ export default function FeetTrail({ step = 55 }) {
       const hd = rect(h2, range.getBoundingClientRect()); // sam tekst nagłówka „Urodziny…”
       const orn = h2.previousElementSibling ? rect(h2.previousElementSibling) : hd;
 
-      // Łącznik między sekcjami: ze zdjęcia w dół, bez skrętu w bok – jedynie łagodne przesunięcie
-      // w prawo (płynne „S”), tak żeby ślady kończyły się obok nagłówka „Urodziny…”, a nie na nim.
-      // Przesunięcie odbywa się poniżej listy, jeśli inaczej ślady weszłyby na listę (wąski tablet).
+      // Łącznik między sekcjami: ze zdjęcia w dół jednym długim, łagodnym łukiem – ślady kończą się
+      // obok nagłówka „Urodziny…” lekkim odbiciem w prawo (czarodziej poszedł dalej), nie skrętem.
+      // Łuk zaczyna się zaraz pod zdjęciem; jeśli ślady weszłyby na listę, zakręt robi się niżej.
       // (na 641–991 px notatka „Tędy…” stoi pod listą po prawej – CSS .rv--tedy)
       const x0 = Math.min(ph.l + (ph.r - ph.l) * 0.65, li.l - 45); // na zdjęciu, z dala od listy
-      const x1 = Math.max(x0, hd.r + 60); // obok nagłówka
+      const x1 = Math.max(x0 + 40, hd.r + 100); // obok nagłówka
       const y0 = ph.b - 95;
-      const yA = x1 > li.l - 45 ? li.b + 15 : ph.b + 20; // tu zaczyna się przesunięcie
-      const yB = Math.max(orn.t - 10, yA + 120); // tu się kończy
-      const yEnd = (hd.t + hd.b) / 2;
-      const line = (x, ya, yb) => Array.from({ length: 40 }, (_, i) => [x, ya + ((yb - ya) * i) / 40]);
-      const h = yB - yA;
-      const pts = [
-        ...line(x0, y0, yA),
-        ...bezierPoints([[x0, yA], [x0, yA + h * 0.5], [x1, yB - h * 0.5], [x1, yB]]),
-        ...line(x1, yB, yEnd).slice(1),
-        [x1, yEnd],
-      ];
+      const desc = h2.closest('.section-head')?.querySelector('p');
+      const yEnd = Math.min(hd.b - 15, desc ? rect(desc).t - 45 : Infinity); // nad opisem pod nagłówkiem
+      const curve = (yA, f) => {
+        const H = yEnd - yA;
+        const dx = x1 - x0;
+        return bezierPoints([[x0, yA], [x0, yA + H * f], [x1 - dx * 0.15, yEnd - H * 0.1], [x1 + 30, yEnd]]);
+      };
+      const clearOfList = (pts) => pts.every(([x, y]) => y > li.b + 12 || x < li.l - 40);
+      let yA = ph.b + 20;
+      let arc = null;
+      for (const f of [0.55, 0.65, 0.75, 0.85, 0.95]) {
+        const c = curve(yA, f);
+        if (clearOfList(c)) { arc = c; break; }
+      }
+      if (!arc) {
+        yA = Math.max(yA, li.b + 15);
+        arc = curve(yA, 0.55);
+      }
+      const pts = [...Array.from({ length: 40 }, (_, i) => [x0, y0 + ((yA - y0) * i) / 40]), ...arc];
       const top = ph.b - 135;
-      setGeo({ top, h: yEnd + 40 - top, pts: pts.map(([x, y]) => [x, y - top]) });
+      setGeo({ top, h: yEnd + 50 - top, pts: pts.map(([x, y]) => [x, y - top]) });
       rv.style.top = `${Math.round(top)}px`;
     };
 
