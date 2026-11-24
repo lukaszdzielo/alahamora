@@ -14,7 +14,7 @@
 // TRYB TESTOWY (do ustawiania pozycji): wszystkie elementy widoczne na stałe w 50%,
 // bez światła różdżki, na każdym ekranie. Przed oddaniem ustaw na false.
 // (Można też włączyć tylko w przeglądarce: dopisz do adresu ?revelio=test)
-export const REVELIO_TEST = true;
+export const REVELIO_TEST = false;
 
 export const gliwiceRevelio = {
   // koperta z pieczęcią przypięta do nagłówka hero (renderuje ją Hero); położenie, wielkość i obrót
