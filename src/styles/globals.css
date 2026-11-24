@@ -1484,7 +1484,17 @@ a { color: inherit; }
   .gframe.gframe--wood { --pad: 8px; }
   .gframe .gframe__corner { width: 26px; height: 26px; }
   .gframe .gframe__corner svg { width: 26px; height: 26px; }
-  .gframe__plate { font-size: 9px; padding: 3px 8px; bottom: -10px; }
+  /* tabliczka nie szersza niż obraz – dłuższe podpisy łamią się na dwie linie */
+  .gframe__plate {
+    bottom: -10px;
+    max-width: calc(100% - 8px);
+    width: max-content;
+    padding: 3px 7px;
+    white-space: normal;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: .05em;
+  }
   .gframe-cta .gframe-cta__inner { gap: 6px; padding: 6px; }
   .gframe-cta .gframe-cta__inner strong { font-size: 12px; }
 }
