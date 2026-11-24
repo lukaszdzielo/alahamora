@@ -90,6 +90,7 @@ body {
 
 .page {
   min-height: 100vh;
+  min-height: 100svh;
   overflow-x: clip; /* nic (poświaty latarni, karuzele) nie poszerza strony */
   background: var(--bg);
   color: var(--ink);
@@ -1793,7 +1794,9 @@ a { color: inherit; }
 .picker {
   position: relative;
   overflow: hidden;
+  /* svh = wysokość ekranu przy widocznych paskach przeglądarki (iPhone) – bez zbędnego przewijania */
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2253,6 +2256,17 @@ html[data-entering] .notice-wrap {
   }
 
   .contact .contact__grid { gap: 40px; }
+}
+
+/* ekran wyboru na telefonie: logo i ramy wyżej, bez przewijania */
+@media (max-width: 640px) {
+  .picker {
+    justify-content: flex-start;
+    gap: 28px;
+    padding: max(28px, 7svh) 16px 24px;
+  }
+
+  .picker .picker__logo { padding-top: 0; }
 }
 
 @media (max-width: 400px) {
