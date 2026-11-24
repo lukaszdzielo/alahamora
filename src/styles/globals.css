@@ -2426,9 +2426,12 @@ html[data-entering] .notice-wrap {
 
 .rv-box {
   position: relative;
-  max-width: var(--content-max);
+  /* ta sama szerokość co treść (.wrap) – notatki „left: 0” nie dotykają krawędzi ekranu */
+  width: min(var(--content-max), 100% - 48px);
   height: 100%;
   margin: 0 auto;
+
+  @media (max-width: 640px) { width: min(var(--content-max), 100% - 32px); }
 }
 
 .rv {
@@ -2548,6 +2551,9 @@ html[data-entering] .notice-wrap {
   .rv__draw { width: var(--mw, var(--w)); }
   /* łamie się dopiero, gdy naprawdę brakuje miejsca (wąski telefon) */
   .rv__ink { font-size: 19px; white-space: normal; width: max-content; max-width: calc(100vw - 48px); }
+
+  /* miejsce pod proporcami na „Tu kończy się mapa…” i księgę */
+  #oferta:has(.rv) { padding-bottom: 180px; }
 
   /* kapelusz przy nagłówku chowamy – na telefonie jest osobno, razem z „Psst…” (rv--mobile) */
   .rv.rv--hat { display: none; }
@@ -2876,19 +2882,19 @@ html[data-entering] .notice-wrap {
 /* 900–991 px: Revelio jak na desktopie, ale zdjęcie jest wąską kolumną 2/5 –
    mniejszy kociołek (180 px) nad środkiem zdjęcia, „Eliksir dnia…” obok chochlików */
 @media (min-width: 900px) and (max-width: 991px) {
-  #menu .rv.rv--kociol { left: calc(21% - 90px) !important; top: -45px !important; }
+  #menu .rv.rv--kociol { left: calc(20% - 98px) !important; top: -45px !important; }
   #menu .rv.rv--kociol .rv__draw { width: 180px; }
-  #menu .rv.rv--eliksir { left: calc(21% + 105px) !important; top: 25px !important; }
+  #menu .rv.rv--eliksir { left: calc(20% + 97px) !important; top: 25px !important; }
 }
 
 /* Revelio na tablecie: kociołek i „Eliksir dnia…” nad zdjęciem (lewa kolumna 2/5), nie na środku */
 @media (min-width: 641px) and (max-width: 899px) {
   /* więcej miejsca niż na telefonie – większy kociołek (200 px), dół w tym samym miejscu */
-  #menu .rv.rv--art.rv--mpos { left: calc(21% - 100px) !important; top: -86px !important; }
+  #menu .rv.rv--art.rv--mpos { left: calc(20% - 108px) !important; top: -86px !important; }
   #menu .rv.rv--art.rv--mpos .rv__draw { width: 200px; }
   /* zdjęcie obok tekstu – „Eliksir dnia…” na miejscu jak na desktopie: obok chochlików */
   #menu .rv.rv--ink.rv--mobile {
-    left: calc(21% + 110px) !important;
+    left: calc(20% + 102px) !important;
     top: 30px !important;
     translate: 0 0 !important;
     text-align: left !important;

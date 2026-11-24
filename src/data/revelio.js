@@ -33,18 +33,18 @@ export const gliwiceRevelio = {
     // telefon / tablet: „Eliksir dnia…” wyśrodkowany nad kociołkiem
     { ink: 'Eliksir dnia czeka na odważnych', pos: { left: '50%', top: '-58px', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
     { ink: 'Eliksir dnia czeka na odważnych', cls: 'rv--eliksir', pos: { left: '450px', top: '50px' }, hide: 'mobile' }, // wyżej – niżej wchodził na ornament nagłówka
-    { ink: 'Tędy przeszedł nocą czarodziej', pos: { left: '0', bottom: '56px' }, hide: 'mobile' },
+    { ink: 'Tędy przeszedł nocą czarodziej', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '44px' } },
   ],
   offers: [
     { feet: [[345, -212], [330, 60], [760, 10], [850, 330]], n: 14, w: 1000, h: 600, pos: { left: '0', top: '-240px' }, hide: 'mobile' },
     { draw: 'ksiega2', w: 340, rotate: 10, pos: { right: '3%', bottom: '-120px' }, mobile: { right: '2%', bottom: '-60px', w: 180 } },
-    { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '0', bottom: '56px' }, hide: 'mobile' },
+    { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '100px' } },
   ],
   // sowa na drążku ostatniego proporca (renderuje ją Offers)
   offersOwl: { draw: 'sowa', w: 170 },
-  gallery: [{ ink: 'Najlepszy stolik jest pod portretem', pos: { left: '0', bottom: '100px' }, mobile: { left: '4%', bottom: '60px' } }],
+  gallery: [{ ink: 'Najlepszy stolik jest pod portretem', pos: { left: '0', bottom: '100px' }, mobile: { left: '0', bottom: '60px' } }],
   contact: [
     { feet: [[790, 70], [900, 10], [1050, 120], [1180, 50]], n: 7, w: 1200, h: 180, pos: { left: '0', top: '0' }, hide: 'mobile' },
-    { ink: 'Hasło na dziś: „Alahamora” – szepnij je przy barze', pos: { left: '0', bottom: '56px' }, mobile: { left: '4%', bottom: '40px' } },
+    { ink: 'Hasło na dziś: „Alahamora” – szepnij je przy barze', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '40px' } },
   ],
 };
