@@ -59,6 +59,8 @@ export default function Offers({ offers, lamps, rv }) {
                 <path d="M9 32v22M12 32v24M15 32v24M18 32v24M21 32v22" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
               </svg>
               {rv?.offersOwl && i === offers.items.length - 1 && <RevealItem item={rv.offersOwl} className="rv--owl rv--desktop" />}
+              {/* proporce w dwóch rzędach (768–980 px): sowa na drążku drugiego proporca – górny rząd, po prawej */}
+              {rv?.offersOwl && i === 1 && offers.items.length > 2 && <RevealItem item={rv.offersOwl} className="rv--owl rv--owl-2rows" />}
             </article>
           ))}
         </div>

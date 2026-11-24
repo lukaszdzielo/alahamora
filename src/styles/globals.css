@@ -2566,6 +2566,12 @@ html[data-entering] .notice-wrap {
 @media (max-width: 980px) {
   .rv.rv--owl { display: none; }
 }
+/* …zamiast tego (768–980 px) siada na drążku górnego rzędu, nad drugim proporcem – tam jest wolne miejsce
+   (węższe ekrany: wchodziłaby na opis sekcji i ślady) */
+.rv.rv--owl.rv--owl-2rows { display: none; }
+@media (min-width: 768px) and (max-width: 980px) {
+  .rv.rv--owl.rv--owl-2rows { display: block; }
+}
 
 @media (max-width: 899px) {
   .rv.rv--desktop { display: none; }
