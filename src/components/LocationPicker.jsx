@@ -1,11 +1,12 @@
-import Image from 'next/image';
 import Logo from './Logo';
 import Bricks from './Bricks';
 import DoorLink from './DoorLink';
 
 // Ekran wyboru lokalizacji: tylko logo i ramy z lokalami.
-// Szkło ramy (zdjęcie z hero) i zdjęcie w hero mają to samo view-transition-name,
-// po kliknięciu „wchodzimy w obraz” i zdjęcie staje się hero (DoorLink).
+// Rama działa jak okno: zdjęcie hero leży „za ścianą” na całym ekranie
+// (background-attachment: fixed + cover, ten sam kadr co w hero),
+// a rama pokazuje tylko jego fragment. Po kliknięciu okno się rozszerza (DoorLink)
+// i ten sam obraz staje się hero – bez zmiany kadru i bez przenikania.
 export default function LocationPicker({ cities }) {
   return (
     <main className="picker">
@@ -18,21 +19,16 @@ export default function LocationPicker({ cities }) {
       <ul className="picker__doors" aria-label="Wybierz lokalizację">
         {cities.map((city) => (
           <li key={city.slug} data-city={city.theme}>
-            <DoorLink slug={city.slug} className="door">
+            <DoorLink slug={city.slug} className="door" label={`${city.name} – wejdź`}>
               <span className="door__frame">
-                <span className="door__glass" style={{ viewTransitionName: `hero-${city.slug}` }}>
-                  <Image
-                    className="door__img"
-                    src={city.hero.src}
-                    alt={`${city.name} – wnętrze kawiarni`}
-                    fill
-                    priority
-                    sizes="(max-width: 700px) 90vw, 380px"
-                    style={{ objectPosition: city.hero.position }}
-                  />
-                  <span className="door__caption">
-                    <span className="door__city">{city.name}</span>
-                  </span>
+                <span
+                  className="door__glass"
+                  style={{
+                    backgroundImage: `url(${city.hero.src.src})`,
+                    backgroundPosition: city.hero.position,
+                  }}
+                >
+                  <span className="door__city">{city.name}</span>
                 </span>
               </span>
             </DoorLink>

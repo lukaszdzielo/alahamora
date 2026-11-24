@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { cities, citySlugs } from '@/data/cities';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import Notice from '@/components/Notice';
+import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 import WandCursor from '@/components/WandCursor';
 
@@ -32,7 +34,9 @@ export default async function CityPage({ params }) {
       <Header city={data} />
       <main>
         <Hero city={data} />
-        {/* Kolejne sekcje: Co czeka, Menu, Okazje (proporce), Galeria, Kontakt */}
+        <Notice notice={data.notice} />
+        <Features features={data.features} />
+        {/* Kolejne sekcje: Menu, Okazje (proporce), Galeria, Kontakt */}
       </main>
       <Footer />
       <WandCursor />

@@ -17,6 +17,11 @@
   --accent-light: #E7C982;
   --accent-ink: #1B2238;
   --line: rgb(201 164 92 / .28);
+  --surface-2: #232C47;
+  --dark-rgb: 8 10 20;
+  --line-rgb: 201 164 92;
+  --frame: conic-gradient(from 210deg, #6E5020, #E7C982, #A8833F, #F4DFA6, #7A5A24, #E7C982, #6E5020);
+  --engrave: #2A1E0B;
 }
 
 [data-city='gliwice'] {
@@ -29,6 +34,12 @@
   --accent-light: #E4E9ED;
   --accent-ink: #10201B;
   --line: rgb(200 208 214 / .3);
+  --surface-2: #295047;
+  --dark-rgb: 5 16 13;
+  --line-rgb: 200 208 214;
+  --frame: conic-gradient(from 210deg, #596067, #E9EDF0, #99A1A8, #F7F9FA, #666E75, #DDE2E6, #596067);
+  --engrave: #1C2227;
+  --sub-color: #7FB3A2;
 }
 
 [data-city='picker'] {
@@ -140,6 +151,8 @@ a { color: inherit; }
   padding-block: 14px 40px;
   background: linear-gradient(180deg, rgb(0 0 0 / .7), transparent);
 
+  & .logo__sub { color: var(--sub-color, var(--accent-light)); }
+
   & .header__inner {
     display: flex;
     flex-wrap: wrap;
@@ -168,12 +181,22 @@ a { color: inherit; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: 820px;
+  /* hero = dokładnie wysokość ekranu – ten sam kadr co „okno” na ekranie wyboru */
+  min-height: max(100svh, 560px);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
 
-  & .hero__img { object-fit: cover; }
+  & .hero__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  & .hero__img {
+    object-fit: cover;
+    animation: kenburns 26s ease-in-out infinite alternate;
+  }
 
   & .hero__shade {
     position: absolute;
@@ -224,7 +247,374 @@ a { color: inherit; }
     list-style: none;
     font-size: 15px;
     color: #E6DECB;
+
+    & li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      & svg { color: var(--accent-light); }
+    }
+
+    & a { text-decoration: none; }
   }
+}
+
+/* ---------- Iskry, migotanie, połysk przycisku ---------- */
+@keyframes kenburns {
+  from { scale: 1; }
+  to { scale: 1.08; translate: -1% -1%; }
+}
+
+.spark {
+  position: absolute;
+  bottom: 8%;
+  border-radius: 50%;
+  background: var(--accent-light);
+  box-shadow: 0 0 10px 2px var(--accent-light);
+  opacity: 0;
+  pointer-events: none;
+  animation: rise 9s linear infinite;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) scale(.6); opacity: 0; }
+  15% { opacity: 1; }
+  80% { opacity: .8; }
+  100% { transform: translateY(-320px) scale(1.1); opacity: 0; }
+}
+
+.flicker { animation: flicker 2.8s ease-in-out infinite; }
+
+@keyframes flicker {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--line-rgb) / .0), 0 0 18px rgb(var(--line-rgb) / .35); }
+  50% { box-shadow: 0 0 0 6px rgb(var(--line-rgb) / .12), 0 0 30px rgb(var(--line-rgb) / .55); }
+}
+
+.btn--shine {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 -60%;
+    width: 40%;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / .45), transparent);
+    transform: skewX(-20deg);
+    animation: shine 5s ease-in-out 1.5s infinite;
+  }
+}
+
+@keyframes shine {
+  0%, 70% { left: -60%; }
+  100% { left: 130%; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Wybór lokalu w nagłówku ---------- */
+.city-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+
+  & select {
+    appearance: none;
+    min-height: 44px;
+    padding: 0 40px 0 38px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgb(var(--dark-rgb) / .55);
+    color: inherit;
+    font: 600 12px/1 var(--font-display), serif;
+    letter-spacing: .08em;
+    cursor: pointer;
+  }
+
+  & .city-select__pin,
+  & .city-select__chevron {
+    position: absolute;
+    pointer-events: none;
+    color: var(--accent);
+  }
+
+  & .city-select__pin { left: 14px; }
+  & .city-select__chevron { right: 14px; }
+}
+
+/* ---------- Pasek z ogłoszeniem ---------- */
+.notice-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -34px;
+}
+
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / .8);
+
+  & .notice__icon {
+    flex: none;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  & .notice__body {
+    flex: 1 1 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    & strong {
+      font: 600 17px/1.3 var(--font-display), serif;
+      letter-spacing: .03em;
+    }
+
+    & span {
+      font-size: 15px;
+      color: var(--muted);
+    }
+  }
+}
+
+/* ---------- Nagłówki sekcji ---------- */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 180px;
+  color: var(--accent);
+
+  & .ornament__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-light));
+  }
+
+  & .ornament__line--right { background: linear-gradient(270deg, transparent, var(--accent-light)); }
+
+  &.ornament--center { margin-inline: auto; }
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 60ch;
+
+  & h2 {
+    margin: 0;
+    font-size: clamp(32px, 3.4vw, 48px);
+    letter-spacing: .01em;
+  }
+
+  & p {
+    margin: 0;
+    color: var(--muted);
+  }
+}
+
+.round-btn {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background .3s, color .3s;
+
+  &:hover,
+  &.round-btn--solid {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  &.round-btn--solid:hover { background: var(--accent-light); }
+}
+
+.badge {
+  align-self: center;
+  padding: 6px 9px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font: 700 11px/1 var(--font-display), serif;
+  letter-spacing: .14em;
+  color: var(--accent);
+}
+
+/* ---------- Co czeka… (karuzela zwierciadeł) ---------- */
+.features {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(110px, 12vw, 170px);
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgb(var(--line-rgb) / .10), transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg) 72%, var(--surface) 100%);
+
+  & .features__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  & .features__arrows {
+    display: flex;
+    gap: 12px;
+  }
+
+  & .features__track {
+    display: flex;
+    gap: 36px;
+    margin-top: 56px;
+    padding: 40px max(24px, calc((100% - 1200px) / 2)) 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(24px, calc((100% - 1200px) / 2));
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+}
+
+.mirror {
+  flex: 0 0 clamp(270px, 25vw, 350px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  & .mirror__frame {
+    position: relative;
+    aspect-ratio: 3 / 4.4;
+    padding: 26px 22px 22px;
+    border-radius: 999px 999px 18px 18px;
+    background: var(--frame);
+    box-shadow:
+      0 34px 60px -26px rgb(0 0 0 / .85),
+      inset 0 0 0 1px rgb(255 255 255 / .25),
+      inset 0 0 0 7px rgb(0 0 0 / .18);
+  }
+
+  & .mirror__arc {
+    position: absolute;
+    inset: 0 0 auto;
+    width: 100%;
+    overflow: visible;
+
+    & text {
+      font: 700 11px var(--font-display), serif;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      fill: var(--engrave);
+    }
+  }
+
+  & .mirror__glass {
+    --tx: 0%;
+    --ty: 0%;
+    --sx: 50%;
+    --sy: 30%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 999px 999px 8px 8px;
+    background: #05070d;
+    box-shadow: 0 0 0 3px rgb(0 0 0 / .55), 0 0 0 5px rgb(255 240 210 / .35), inset 0 0 40px rgb(0 0 0 / .6);
+  }
+
+  /* zdjęcie większe od szkła – ma zapas na przesuwanie za kursorem */
+  & .mirror__img {
+    inset: -6% !important;
+    width: 112% !important;
+    height: 112% !important;
+    object-fit: cover;
+    translate: var(--tx) var(--ty);
+    transition: translate .35s ease-out;
+  }
+
+  & .mirror__mist {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(30% 22% at 35% 40%, rgb(var(--line-rgb) / .18), transparent 70%),
+      radial-gradient(26% 20% at 65% 65%, rgb(255 255 255 / .08), transparent 70%);
+    animation: mist 12s ease-in-out infinite;
+  }
+
+  & .mirror__sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    background: radial-gradient(circle at var(--sx) var(--sy), rgb(255 255 255 / .28), transparent 45%);
+    transition: opacity .25s;
+  }
+
+  & .mirror__glass[data-active='true'] .mirror__sheen { opacity: 1; }
+
+  & .mirror__shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgb(255 255 255 / .14), transparent 32%, transparent 70%, rgb(255 255 255 / .06));
+  }
+
+  & .mirror__text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-inline: 8px;
+    text-align: center;
+
+    & h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.3;
+      letter-spacing: .04em;
+    }
+
+    & p {
+      margin: 0;
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+  }
+}
+
+@keyframes mist {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(4%, -3%); }
 }
 
 /* ---------- Ekran wyboru ---------- */
@@ -242,7 +632,7 @@ a { color: inherit; }
   background:
     radial-gradient(60% 45% at 50% -5%, rgb(255 236 200 / .10), transparent 70%),
     radial-gradient(130% 100% at 50% 50%, transparent 55%, rgb(0 0 0 / .55) 100%),
-    linear-gradient(90deg, #1B2440 0%, #1A2742 28%, #1A2E3A 50%, #183A32 72%, #173B31 100%);
+    linear-gradient(90deg, #173B31 0%, #183A32 28%, #1A2E3A 50%, #1A2742 72%, #1B2440 100%); /* zieleń (Gliwice) → granat (Katowice) */
 
   & > *:not(.bricks) { position: relative; }
 
@@ -296,47 +686,31 @@ a { color: inherit; }
     border-radius: 190px 190px 18px 18px;
     background: linear-gradient(160deg, var(--accent), rgb(0 0 0 / .25) 45%, var(--accent));
     box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8);
-    transition: transform .4s ease, box-shadow .4s ease;
+    transition: box-shadow .4s ease;
   }
 
   & .door__glass {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     width: 100%;
     height: 100%;
+    padding-bottom: 28px;
     overflow: hidden;
     border-radius: 180px 180px 12px 12px;
-    background: #000;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgb(0 0 0 / .85) 0%, transparent 45%);
-    }
-  }
-
-  & .door__img {
-    object-fit: cover;
-    filter: brightness(.82);
-    transition: filter .4s ease, scale .6s ease;
-  }
-
-  & .door__caption {
-    position: absolute;
-    inset: auto 0 24px;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding-inline: 16px;
+    background-color: #000;
+    /* „okno”: zdjęcie hero rozłożone na cały ekran, rama pokazuje jego fragment */
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   & .door__city {
     font: 600 34px/1 var(--font-display), serif;
     letter-spacing: .08em;
     color: #fff;
+    text-shadow: 0 2px 4px rgb(0 0 0 / .9), 0 0 24px rgb(0 0 0 / .8);
   }
 
 
@@ -345,15 +719,11 @@ a { color: inherit; }
 
   &:hover,
   &:focus-visible {
+    /* bez transform – przesunięcie ramy zepsułoby background-attachment: fixed */
     & .door__frame {
-      transform: translateY(-6px);
-      box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8), 0 0 40px rgb(255 255 255 / .10);
+      box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8), 0 0 0 1px var(--accent-light), 0 0 46px color-mix(in srgb, var(--accent-light) 35%, transparent);
     }
 
-    & .door__img {
-      filter: brightness(1);
-      scale: 1.03;
-    }
   }
 
   &:focus-visible { outline: none; }
@@ -500,20 +870,26 @@ a { color: inherit; }
 }
 
 /* ---------- Animacja „wejście w obraz” (View Transitions) ---------- */
-/* Zdjęcie z ramy płynnie rośnie do pełnego hero; reszta strony się przenika. */
-::view-transition-group(*) {
-  animation-duration: .75s;
-  animation-timing-function: cubic-bezier(.65, 0, .25, 1);
+/* Hero ('hero-photo') stoi od razu na swoim miejscu i ma ten sam kadr co okno w ramie.
+   Odsłaniamy go wycinkiem: od prostokąta ramy (zmienne --vt-* ustawia DoorLink) do całego ekranu. */
+::view-transition-group(hero-photo) { animation: none; }
+::view-transition-old(hero-photo) { display: none; }
+::view-transition-new(hero-photo) {
+  animation: vt-open-window .85s cubic-bezier(.65, 0, .25, 1) both;
 }
 
-::view-transition-old(*),
-::view-transition-new(*) {
-  height: 100%;
-  object-fit: cover;
+@keyframes vt-open-window {
+  from {
+    clip-path: inset(var(--vt-top) var(--vt-right) var(--vt-bottom) var(--vt-left) round 180px 180px 12px 12px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0);
+  }
 }
 
-::view-transition-old(root) { animation: vt-fade-out .45s ease both; }
-::view-transition-new(root) { animation: vt-fade-in .55s .2s ease both; }
+/* reszta strony: ściana i druga rama znikają, nagłówek i teksty hero pojawiają się na końcu */
+::view-transition-old(root) { animation: vt-fade-out .7s ease both; }
+::view-transition-new(root) { animation: vt-fade-in .5s .45s ease both; }
 
 @keyframes vt-fade-out { to { opacity: 0; } }
 @keyframes vt-fade-in { from { opacity: 0; } }
