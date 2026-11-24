@@ -2436,10 +2436,10 @@ html[data-entering] .notice-wrap {
 .rv-anchor { position: relative; display: inline-block; }
 .features:has(.rv--hat) { padding-top: max(clamp(110px, 12vw, 170px), 260px); }
 
-/* „Psst… szukasz czegoś?” obok kapelusza, na wysokości jego ronda */
+/* „Psst… szukasz czegoś?” obok czubka kapelusza */
 .rv.rv--psst {
   left: 100%;
-  bottom: 70px;
+  bottom: 190px;
   margin-left: 150px; /* 210 px za końcem nagłówka – 60 px zapasu maski */
 }
 .rv.rv--mobile { display: none; }
@@ -2474,6 +2474,31 @@ html[data-entering] .notice-wrap {
   .rv.rv--hat { display: none; }
   .rv.rv--mobile { display: block; }
   .features:has(.rv--hat) { padding-top: 170px; }
+}
+
+/* szerszy telefon / tablet (560–899 px): miejsca jest więcej, więc kapelusz wraca na koniec
+   nagłówka (mniejszy), a „Psst…” stoi obok jego czubka – jak na desktopie */
+@media (min-width: 560px) and (max-width: 899px) {
+  .features:has(.rv--hat) { padding-top: 210px; }
+  .rv.rv--mobile { display: none; }
+
+  .rv.rv--hat {
+    display: block;
+    left: 100%;
+    right: auto;
+    bottom: 6px;
+    margin-left: -90px; /* -30 px (wejście na nagłówek) + -60 px zapasu */
+  }
+
+  .rv.rv--psst.rv--desktop {
+    display: block;
+    left: auto;
+    right: -34px; /* prawy brzeg napisu tuż przed czubkiem kapelusza */
+    bottom: 132px;
+    margin: -60px;
+
+    & .rv__ink { white-space: nowrap; max-width: none; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
