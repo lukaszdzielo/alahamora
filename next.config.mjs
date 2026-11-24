@@ -11,6 +11,8 @@ const nextConfig = {
   basePath,
   // Przy eksporcie statycznym Next nie ma serwera do optymalizacji obrazków.
   images: { unoptimized: true },
+  // podgląd na telefonie w tej samej sieci Wi‑Fi (npm run dev:phone) – zezwól na adresy z sieci lokalnej
+  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.*.*.*', '*.local'],
 };
 
 export default nextConfig;
