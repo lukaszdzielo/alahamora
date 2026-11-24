@@ -1725,7 +1725,11 @@ a { color: inherit; }
     z-index: 2;
     translate: -50% 50%;
     white-space: nowrap;
-    box-shadow: 0 6px 18px rgb(0 0 0 / .45);
+    /* ciemna obwódka + przyciemnienie wokół, żeby przycisk nie zlewał się z jasnym papierem */
+    box-shadow:
+      0 0 0 2px rgb(46 30 14 / .8),
+      0 0 18px 6px rgb(40 24 10 / .38),
+      0 8px 18px rgb(0 0 0 / .45);
   }
 
   /* Znacznik: lakowa pieczęć (Seal.jsx) wyśrodkowana dokładnie na współrzędnych lokalu */
@@ -1734,7 +1738,7 @@ a { color: inherit; }
     left: 50%;
     top: 50%;
     z-index: 1;
-    width: clamp(60px, 17cqi, 88px);
+    width: clamp(40px, 11.3cqi, 59px); /* ok. 1/3 mniejsza niż pierwsza wersja */
     aspect-ratio: 1;
     translate: -50% -50%;
     pointer-events: none;
