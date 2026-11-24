@@ -2862,10 +2862,23 @@ html[data-entering] .notice-wrap {
   }
 }
 
+/* od 992 px zawsze dwie kolumny (auto-fit przy 992–1007 px dawał jedną z ogromnym zdjęciem) */
+@media (min-width: 992px) {
+  .menu .menu__grid { grid-template-columns: 1fr 1fr; }
+}
+
 /* Revelio poniżej 900 px: więcej miejsca nad menu na kociołek i „Eliksir dnia…”,
    żeby napis nie zlewał się z tekstem kart z poprzedniej sekcji */
-@media (max-width: 899px) {
+@media (max-width: 991px) {
   #menu:has(.rv) { padding-top: 180px; }
+}
+
+/* 900–991 px: Revelio jak na desktopie, ale zdjęcie jest wąską kolumną 2/5 –
+   mniejszy kociołek (180 px) nad środkiem zdjęcia, „Eliksir dnia…” obok chochlików */
+@media (min-width: 900px) and (max-width: 991px) {
+  #menu .rv.rv--kociol { left: calc(21% - 90px) !important; top: -45px !important; }
+  #menu .rv.rv--kociol .rv__draw { width: 180px; }
+  #menu .rv.rv--eliksir { left: calc(21% + 105px) !important; top: 25px !important; }
 }
 
 /* Revelio na tablecie: kociołek i „Eliksir dnia…” nad zdjęciem (lewa kolumna 2/5), nie na środku */

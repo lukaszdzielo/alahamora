@@ -29,10 +29,10 @@ export const gliwiceRevelio = {
   // „Psst…” tuż obok kapelusza (desktop) – też przypięte do nagłówka
   featuresTitleNote: { ink: 'Psst… szukasz czegoś?', hide: 'mobile' },
   menu: [
-    { draw: 'kociol', w: 280, pos: { left: '150px', top: '-70px' }, mobile: { left: 'calc(50% - 75px)', top: '-15px', w: 150 } },
+    { draw: 'kociol', cls: 'rv--kociol', w: 280, pos: { left: '150px', top: '-70px' }, mobile: { left: 'calc(50% - 75px)', top: '-15px', w: 150 } },
     // telefon / tablet: „Eliksir dnia…” wyśrodkowany nad kociołkiem
     { ink: 'Eliksir dnia czeka na odważnych', pos: { left: '50%', top: '-58px', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
-    { ink: 'Eliksir dnia czeka na odważnych', pos: { left: '450px', top: '50px' }, hide: 'mobile' }, // wyżej – niżej wchodził na ornament nagłówka
+    { ink: 'Eliksir dnia czeka na odważnych', cls: 'rv--eliksir', pos: { left: '450px', top: '50px' }, hide: 'mobile' }, // wyżej – niżej wchodził na ornament nagłówka
     { ink: 'Tędy przeszedł nocą czarodziej', pos: { left: '0', bottom: '56px' }, hide: 'mobile' },
   ],
   offers: [

@@ -52,7 +52,7 @@ export function RevealItem({ item, className = '', style }) {
     if (mobile[k] !== undefined) vars[`--m-${k}`] = mobile[k];
   });
   const kind = item.ink ? ' rv--ink' : ' rv--art'; // tekst / rysunek – inna widoczność (CSS)
-  const cls = `rv${kind}${item.hide === 'mobile' ? ' rv--desktop' : ''}${item.hide === 'desktop' ? ' rv--mobile' : ''}${mobile.left !== undefined || mobile.right !== undefined || mobile.top !== undefined || mobile.bottom !== undefined ? ' rv--mpos' : ''} ${className}`;
+  const cls = `rv${kind}${item.hide === 'mobile' ? ' rv--desktop' : ''}${item.hide === 'desktop' ? ' rv--mobile' : ''}${mobile.left !== undefined || mobile.right !== undefined || mobile.top !== undefined || mobile.bottom !== undefined ? ' rv--mpos' : ''} ${item.cls ? ` ${item.cls}` : ''} ${className}`;
 
   let inner = null;
   if (item.draw) {
