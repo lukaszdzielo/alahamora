@@ -191,7 +191,7 @@ export const cities = {
     gallery: {
       title: 'Zajrzyj do środka',
       lead: 'Granatowe ściany, złote ramy, setki światełek i drzwi, które prowadzą nie wiadomo dokąd.',
-      url: 'https://alahamora.pl/galeria/',
+      url: null, // galeria Katowic – link na razie nieaktywny
       frames: ['gold-orn', 'black-silver', 'gothic-silver', 'oval-wood', 'wood', 'arch-gold', 'black-orn', 'oval-silver', 'gothic-black', 'silver', 'wood-orn', 'pewter'],
       items: [
         { img: katowiceBlueHall, caption: 'Granatowa sala' },
