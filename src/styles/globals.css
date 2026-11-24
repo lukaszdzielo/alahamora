@@ -7,7 +7,7 @@
 
 /* ---------- Szerokości ----------
    --content-max: kontener z treścią (teksty, siatki)
-   --page-max:    maksymalna szerokość elementów wizualnych (karuzele, zamek w stopce);
+   --page-max:    maksymalna szerokość elementów wizualnych (karuzele; zamek w stopce ma własne max 1440px);
                   tła sekcji mogą iść na całą szerokość ekranu */
 :root {
   --content-max: 1200px;
@@ -2007,7 +2007,7 @@ a { color: inherit; }
     bottom: 46px;
     left: 50%;
     translate: -50% 0;
-    width: min(100%, var(--page-max));
+    width: min(100%, 1440px); /* na szerokich ekranach nie rośnie dalej – zostaje na środku */
     z-index: -1;
     aspect-ratio: 939 / 430;
     background: var(--accent);
