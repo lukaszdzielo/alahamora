@@ -2546,7 +2546,8 @@ html[data-entering] .notice-wrap {
   }
 
   .rv__draw { width: var(--mw, var(--w)); }
-  .rv__ink { font-size: 19px; white-space: normal; max-width: 260px; }
+  /* łamie się dopiero, gdy naprawdę brakuje miejsca (wąski telefon) */
+  .rv__ink { font-size: 19px; white-space: normal; width: max-content; max-width: calc(100vw - 48px); }
 
   /* kapelusz przy nagłówku chowamy – na telefonie jest osobno, razem z „Psst…” (rv--mobile) */
   .rv.rv--hat { display: none; }
@@ -2564,15 +2565,15 @@ html[data-entering] .notice-wrap {
     display: block;
     left: 100%;
     right: auto;
-    bottom: 6px;
-    margin-left: -90px; /* -30 px (wejście na nagłówek) + -60 px zapasu */
+    bottom: 16px;
+    margin-left: -50px; /* tuż za końcem nagłówka (+10 px), -60 px zapasu maski */
   }
 
   .rv.rv--psst.rv--desktop {
     display: block;
     left: auto;
-    right: -34px; /* prawy brzeg napisu tuż przed czubkiem kapelusza */
-    bottom: 132px;
+    right: -74px; /* prawy brzeg napisu tuż przed czubkiem kapelusza */
+    bottom: 142px;
     margin: -60px;
 
     & .rv__ink { white-space: nowrap; max-width: none; }
