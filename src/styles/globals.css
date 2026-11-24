@@ -2559,7 +2559,7 @@ html[data-entering] .notice-wrap {
    nagłówka (mniejszy), a „Psst…” stoi obok jego czubka – jak na desktopie */
 @media (min-width: 560px) and (max-width: 899px) {
   .features:has(.rv--hat) { padding-top: 210px; }
-  .rv.rv--mobile { display: none; }
+  .features .rv.rv--mobile { display: none; }
 
   .rv.rv--hat {
     display: block;
@@ -2860,6 +2860,12 @@ html[data-entering] .notice-wrap {
     outline-offset: 8px;
     margin-top: 8px;
   }
+}
+
+/* Revelio na tablecie: kociołek i „Eliksir dnia…” nad zdjęciem (lewa kolumna 2/5), nie na środku */
+@media (min-width: 641px) and (max-width: 899px) {
+  #menu .rv.rv--art.rv--mpos { left: calc(21% - 75px) !important; }
+  #menu .rv.rv--ink.rv--mobile { left: 21% !important; }
 }
 
 /* na telefonie zdjęcie nad listą, ale poziome i niższe */
