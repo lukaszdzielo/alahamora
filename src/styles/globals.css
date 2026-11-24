@@ -2518,14 +2518,14 @@ html[data-entering] .notice-wrap {
 .rv.rv--psst {
   left: 100%;
   bottom: 190px;
-  margin-left: 150px; /* 210 px za końcem nagłówka – 60 px zapasu maski */
+  margin-left: 180px; /* 240 px za końcem nagłówka – 60 px zapasu maski */
 }
 .rv.rv--mobile { display: none; }
 
 .rv.rv--hat {
   left: 100%;
   bottom: 10px;
-  margin-left: -96px; /* -36px (wejście na nagłówek) + -60px zapasu */
+  margin-left: -66px; /* -6px (prawie na końcu nagłówka) + -60px zapasu */
 }
 
 /* sowa siedzi na drążku ostatniego proporca */
@@ -2552,7 +2552,7 @@ html[data-entering] .notice-wrap {
   /* kapelusz przy nagłówku chowamy – na telefonie jest osobno, razem z „Psst…” (rv--mobile) */
   .rv.rv--hat { display: none; }
   .rv.rv--mobile { display: block; }
-  .features:has(.rv--hat) { padding-top: 170px; }
+  .features:has(.rv--hat) { padding-top: 190px; }
 }
 
 /* szerszy telefon / tablet (560–899 px): miejsca jest więcej, więc kapelusz wraca na koniec

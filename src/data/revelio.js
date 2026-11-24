@@ -19,9 +19,10 @@ export const gliwiceRevelio = {
   hero: [{ draw: 'koperta', w: 400, rotate: -4, pos: { right: '70px', top: '240px' }, hide: 'mobile' }],
   features: [
     // telefon/tablet: kapelusz i „Psst…” razem nad nagłówkiem (kapelusz przy nagłówku nie ma tam miejsca)
-    // kapelusz przy końcu nagłówka (ok. 250 px od lewej), napis po lewej na wysokości ronda
-    { draw: 'kapelusz', w: 120, rotate: 18, pos: { left: 'min(calc(100% - 130px), 240px)', top: '58px' }, hide: 'desktop' },
-    { ink: 'Psst… szukasz czegoś?', pos: { left: '20px', top: '72px' }, hide: 'desktop' },
+    // kapelusz przy końcu nagłówka; „Psst…” liczone od pozycji kapelusza (ta sama zmienna),
+    // więc zawsze stoi nad nim, przy czubku – jak na desktopie
+    { draw: 'kapelusz', w: 120, rotate: 18, pos: { left: 'min(calc(100% - 130px), 240px)', top: '64px' }, hide: 'desktop' },
+    { ink: 'Psst… szukasz czegoś?', pos: { right: 'calc(100% - min(calc(100% - 130px), 240px) - 92px)', top: '30px' }, hide: 'desktop' },
   ],
   // kapelusz siedzi na końcu nagłówka „Co czeka w Gildii” (renderuje go Features)
   featuresTitle: { draw: 'kapelusz', w: 250, rotate: 24, mobileW: 150 },
