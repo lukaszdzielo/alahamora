@@ -1240,6 +1240,16 @@ a { color: inherit; }
 
 /* telefon: dwa mniejsze proporce w rzędzie */
 @media (max-width: 640px) {
+  /* świece za tekstem przygaszone, a tekst z delikatnym ciemnym cieniem – czytelniejszy */
+  .offers .offers__candles { opacity: .35; }
+
+  .offers .section-head {
+    & h2,
+    & p { text-shadow: 0 1px 2px rgb(0 0 0 / .9), 0 0 18px rgb(var(--bg-rgb) / .95); }
+
+    & p { color: color-mix(in srgb, var(--muted) 70%, var(--ink)); }
+  }
+
   .banners {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 70px 16px;
