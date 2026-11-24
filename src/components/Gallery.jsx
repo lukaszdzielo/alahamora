@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Icon from './Icon';
 import SectionHead from './SectionHead';
+import Tiles from './Tiles';
 
 // „Zajrzyj do środka / do Gildii” – ściana z kafli i obrazy w różnych ramach,
 // rozmieszczone jak w salonie (siatka 12 kolumn × 10 rzędów).
@@ -110,7 +111,7 @@ export default function Gallery({ gallery, lamps }) {
 
   return (
     <section id="galeria" className="gallery">
-      <div className="gallery__tiles" aria-hidden="true" />
+      <Tiles />
       <div className="gallery__fade" aria-hidden="true" />
 
       <div className="wrap gallery__inner">

@@ -5,12 +5,20 @@
 import useWandCursor from '@/hooks/useWandCursor';
 
 export default function WandCursor() {
-  const wandRef = useWandCursor();
+  const { wandRef, tiltRef, glowRef, sparksRef } = useWandCursor();
 
   return (
-    <div ref={wandRef} className="wand" data-visible="false" aria-hidden="true">
-      <span className="wand__stick" />
-      <span className="wand__tip" />
-    </div>
+    <>
+      {/* światło Lumos wokół czubka różdżki */}
+      <div ref={glowRef} className="wand-glow" data-visible="false" aria-hidden="true" />
+      {/* opyłki sypiące się z różdżki */}
+      <div ref={sparksRef} className="wand-sparks" aria-hidden="true" />
+      <div ref={wandRef} className="wand" data-visible="false" aria-hidden="true">
+        <div ref={tiltRef} className="wand__tilt">
+          <span className="wand__stick" />
+          <span className="wand__tip" />
+        </div>
+      </div>
+    </>
   );
 }
