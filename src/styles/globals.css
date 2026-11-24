@@ -177,10 +177,10 @@ a { color: inherit; }
 
   & .logo__sub {
     position: absolute;
-    left: 24%;
-    top: 86.5%;
-    font: 600 10px/1 var(--font-display), serif;
-    letter-spacing: .24em;
+    left: 28%; /* dalej od brody klucza */
+    top: 87%;
+    font: 600 8.5px/1 var(--font-display), serif;
+    letter-spacing: .22em;
     text-transform: uppercase;
     white-space: nowrap;
   }
