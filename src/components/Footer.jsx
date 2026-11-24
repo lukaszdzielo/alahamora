@@ -44,8 +44,9 @@ export default function Footer() {
       <div className="wrap footer__bottom">
         <p className="footer__legal">
           <span>© {new Date().getFullYear()} Alahamora. Wszelkie prawa zastrzeżone.</span>
-          <a href="#">Polityka prywatności</a>
-          <a href="#">Regulamin</a>
+          {/* strony jeszcze nie istnieją – link nieaktywny (kursor „zakaz”) */}
+          <a aria-disabled="true" title="Wkrótce">Polityka prywatności</a>
+          <a aria-disabled="true" title="Wkrótce">Regulamin</a>
         </p>
         <p>
           Realizacja:{' '}

@@ -27,7 +27,9 @@ export default function useWandCursor() {
     const onMove = (event) => {
       x = event.clientX;
       y = event.clientY;
-      wand.dataset.visible = 'true';
+      // nad nieaktywnym linkiem chowamy różdżkę i zostawiamy systemowy kursor „zakaz”
+      const blocked = event.target instanceof Element && event.target.closest('[aria-disabled="true"]');
+      wand.dataset.visible = blocked ? 'false' : 'true';
       if (!frame) frame = requestAnimationFrame(render);
     };
 
