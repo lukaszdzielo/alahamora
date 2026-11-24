@@ -9,6 +9,11 @@
 //   { feet: [[x,y] ×4], n: 14, w, h, pos: {...} }          – ślady stóp po krzywej Béziera
 // hide: 'mobile' – nie pokazuj poniżej 900 px (brak miejsca); mobile: {...} – inna pozycja na telefonie.
 
+// TRYB TESTOWY (do ustawiania pozycji): wszystkie elementy widoczne na stałe w 50%,
+// bez światła różdżki, na każdym ekranie. Przed oddaniem ustaw na false.
+// (Można też włączyć tylko w przeglądarce: dopisz do adresu ?revelio=test)
+export const REVELIO_TEST = true;
+
 export const gliwiceRevelio = {
   hero: [{ draw: 'koperta', w: 400, rotate: -4, pos: { right: '70px', top: '240px' }, hide: 'mobile' }],
   features: [{ ink: 'Psst… szukasz czegoś?', pos: { left: '63%', top: '58px' }, hide: 'mobile' }],

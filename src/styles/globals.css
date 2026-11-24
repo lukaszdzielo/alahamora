@@ -1005,6 +1005,11 @@ a { color: inherit; }
     box-shadow: 0 0 18px 6px rgb(255 200 110 / .28);
     animation: candle-flicker 1.6s ease-in-out infinite;
   }
+
+  /* świeca kolidująca z tekstem lub sową – schowana (Candles.jsx) */
+  transition: opacity .4s;
+
+  &[data-hidden='true'] { opacity: 0; }
 }
 
 @keyframes candle-float {
@@ -2417,6 +2422,12 @@ html[data-entering] .notice-wrap {
   display: block;
   overflow: visible;
   filter: drop-shadow(0 0 6px rgb(var(--line-rgb) / .8));
+}
+
+/* tryb testowy (REVELIO_TEST w data/revelio.js lub ?revelio=test): wszystko na stałe w 50% */
+.revelio-test .rv {
+  opacity: .5 !important;
+  mask-image: none !important;
 }
 
 /* ślady stóp „idą” – kolejne odciski rozjaśniają się po sobie */

@@ -1,5 +1,6 @@
 import Icon from './Icon';
 import SectionHead from './SectionHead';
+import Candles from './Candles';
 import Revelio, { RevealItem } from './Revelio';
 
 // „Urodziny, klasy i okazje” – oferty jako wiszące proporce (sztandary wycięte w szpic).
@@ -8,8 +9,6 @@ import Revelio, { RevealItem } from './Revelio';
 
 // gotyckie okna: [x, szerokość, wysokość] w układzie 1440×520
 const WINDOWS = [[60, 120, 330], [300, 150, 400], [600, 170, 440], [900, 150, 400], [1180, 130, 350]];
-// świece: [left %, top %, opóźnienie s, skala]
-const CANDLES = [[66, 16, 1.2, 0.9], [74, 26, 3.4, 1.05], [82, 13, 0.4, 0.8], [90, 23, 5.1, 1.1], [96, 15, 2.2, 0.85], [58, 20, 4.4, 0.95], [3, 18, 1.8, 1], [4, 36, 5.6, 0.8], [52, 30, 2.9, 1.15]];
 // wzory tkaniny – po kolei dla proporców
 const PATTERNS = ['diamond', 'dots', 'stripes', 'chevron'];
 
@@ -29,13 +28,7 @@ export default function Offers({ offers, lamps, rv }) {
           ))}
         </svg>
       </div>
-      <div className="offers__candles" aria-hidden="true">
-        {CANDLES.map(([left, top, delay, scale], i) => (
-          <span key={i} className="candle" style={{ left: `${left}%`, top: `${top}%`, animationDelay: `-${delay}s`, '--s': scale }}>
-            <span className="candle__flame" style={{ animationDelay: `-${delay * 0.7}s` }} />
-          </span>
-        ))}
-      </div>
+      <Candles />
 
       <div className="wrap offers__inner">
         <SectionHead id="offers" title={offers.title} lead={offers.lead} lamp={lamps ? 'side' : false} />

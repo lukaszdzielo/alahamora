@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { REVELIO_TEST } from '@/data/revelio';
 
 // Revelio: światło różdżki odsłania ukryte rysunki (.rv).
 // Każdy .rv ma maskę – koło światła w punkcie (--rx, --ry) liczonym względem samego elementu.
@@ -8,6 +9,10 @@ import { useEffect } from 'react';
 // Bez kursora (telefon, tablet) maski nie ma – CSS pokazuje rysunki od razu.
 export default function RevelioController() {
   useEffect(() => {
+    if (REVELIO_TEST || new URLSearchParams(window.location.search).get('revelio') === 'test') {
+      document.documentElement.classList.add('revelio-test');
+      return () => document.documentElement.classList.remove('revelio-test');
+    }
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const items = Array.from(document.querySelectorAll('.rv'));
     if (!items.length) return;
