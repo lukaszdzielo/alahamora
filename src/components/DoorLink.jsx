@@ -69,7 +69,10 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
     link.dataset.opening = '';
 
     const root = document.documentElement;
-    const vw = root.clientWidth;
+    // szerokość strony bez paska przewijania: przy scrollbar-gutter: stable Chrome podaje
+    // w root.clientWidth pełną szerokość okna, a hero ma szerokość .page (o pasek węższą)
+    // – stąd było ok. 9 px przeskoku zdjęcia w bok po wejściu na stronę miasta
+    const vw = link.closest('.page')?.clientWidth || document.body.clientWidth || root.clientWidth;
     const vh = window.innerHeight;
     const heroH = parseFloat(getComputedStyle(root).getPropertyValue('--hero-h')) || 820;
     const [px, py] = position.split(' ').map((v) => parseFloat(v) / 100);
