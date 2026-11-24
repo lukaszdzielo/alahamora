@@ -1287,6 +1287,9 @@ a { color: inherit; }
 
 .gframe-cell {
   position: relative;
+  grid-column: var(--col);
+  grid-row: var(--row);
+  padding: var(--pad, 0);
   margin: 0;
   text-decoration: none;
   color: inherit;
@@ -1403,6 +1406,7 @@ a { color: inherit; }
 
 .gframe-cta[aria-disabled='true'] {
   opacity: .7;
+  text-decoration: none;
 
   & > .gframe { animation: none !important; }
   & .gframe-cta__inner { background: radial-gradient(circle at 50% 40%, rgb(var(--line-rgb) / .28), transparent 70%), var(--bg) !important; }
@@ -1410,7 +1414,6 @@ a { color: inherit; }
 }
 
 .gframe-cta {
-  padding: 6px 4px;
 
   & .gframe-cta__inner {
     display: flex;
@@ -1466,19 +1469,31 @@ a { color: inherit; }
   }
 }
 
+/* telefon / tablet: osobny nieregularny układ (6 kolumn) – pozycje z SLOTS_MOBILE */
 @media (max-width: 900px) {
   .salon {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: none;
-    grid-auto-rows: 220px;
-    gap: 34px 20px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(25, clamp(34px, 7.5vw, 62px));
+    gap: 14px 12px;
   }
 
-  .salon > * {
-    grid-column: auto !important;
-    grid-row: auto !important;
-    padding: 0 !important;
+  .gframe-cell {
+    grid-column: var(--mcol);
+    grid-row: var(--mrow);
+    padding: var(--mpad, 0);
   }
+
+  .gframe { --pad: 7px; }
+  .gframe.gframe--wood { --pad: 8px; }
+  .gframe .gframe__corner { width: 26px; height: 26px; }
+  .gframe .gframe__corner svg { width: 26px; height: 26px; }
+  .gframe__plate { font-size: 9px; padding: 3px 8px; bottom: -10px; }
+  .gframe-cta .gframe-cta__inner { gap: 6px; padding: 6px; }
+  .gframe-cta .gframe-cta__inner strong { font-size: 12px; }
+}
+
+@media (max-width: 420px) {
+  .gframe-cta .gframe-cta__enter { display: none; }
 }
 
 /* ---------- Kontakt ---------- */

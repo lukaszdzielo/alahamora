@@ -4,7 +4,8 @@ import SectionHead from './SectionHead';
 
 // „Zajrzyj do środka / do Gildii” – ściana z kafli i obrazy w różnych ramach,
 // rozmieszczone jak w salonie (siatka 12 kolumn × 10 rzędów).
-// Każde miejsce: [kolumny, rzędy, wcięcie w komórce]
+// Każde miejsce: [kolumny, rzędy, wcięcie w komórce] – desktop (12 kolumn × 10 rzędów)
+// oraz osobny, też nieregularny układ na telefon (6 kolumn × 25 rzędów).
 const SLOTS = [
   ['1/5', '1/6', '0'],
   ['5/9', '1/4', '4px 18px 10px 0'],
@@ -19,6 +20,32 @@ const SLOTS = [
   ['9/13', '8/11', '6px 0 0'],
   ['1/5', '9/11', '8px 26px 0 0'],
 ];
+
+const SLOTS_MOBILE = [
+  ['1/5', '1/7', '0'],
+  ['5/7', '1/4', '4px 0 6px 4px'],
+  ['5/7', '4/9', '6px 2px 0 6px'],
+  ['1/3', '7/11', '10px 6px 4px 0'],
+  ['3/5', '7/10', '12px 4px 4px 6px'],
+  ['5/7', '9/14', '4px 0 0 4px'],
+  ['1/3', '11/15', '8px 6px 0 0'],
+  ['3/5', '13/18', '10px 4px 6px 4px'],
+  ['5/7', '14/18', '6px 0 4px 8px'],
+  ['1/3', '15/22', '10px 4px 0 0'],
+  ['3/7', '18/22', '14px 0 0 6px'],
+  ['2/6', '22/26', '12px 6px 0'],
+];
+const CTA_SLOT = ['7/9', '4/7'];
+const CTA_SLOT_MOBILE = ['3/5', '10/13'];
+
+const place = ([col, row, pad], [mcol, mrow, mpad]) => ({
+  '--col': col,
+  '--row': row,
+  '--pad': pad,
+  '--mcol': mcol,
+  '--mrow': mrow,
+  '--mpad': mpad,
+});
 
 // Style ram: metal, kształt, kolor filetu (wewnętrznej listwy), ornamenty w rogach, kolor tabliczki
 const FRAMES = {
@@ -96,13 +123,13 @@ export default function Gallery({ gallery, lamps }) {
 
         <div className="salon">
           {gallery.items.map((item, i) => {
-            const [col, row, inset] = SLOTS[i];
+
             const name = gallery.frames[i];
             const frame = FRAMES[name] ?? FRAMES.gold;
             // tabliczka tylko na ramach prostokątnych i łukowych
             const showCaption = item.caption && frame.plate;
             return (
-              <figure key={i} className="gframe-cell" style={{ gridColumn: col, gridRow: row, padding: inset }} data-appear="">
+              <figure key={i} className="gframe-cell" style={place(SLOTS[i], SLOTS_MOBILE[i])} data-appear="">
                 <div className={frameClass(name)}>
                   <div className="gframe__metal">
                     <div className="gframe__picture">
@@ -110,13 +137,18 @@ export default function Gallery({ gallery, lamps }) {
                     </div>
                   </div>
                   {frame.orn && <Corners />}
+                  {/* tabliczka przymocowana do ramy – kołysze się razem z nią (podpis jest też w alt zdjęcia) */}
+                  {showCaption && (
+                    <span className={`gframe__plate gframe__plate--${frame.plate}`} aria-hidden="true">
+                      {item.caption}
+                    </span>
+                  )}
                 </div>
-                {showCaption && <figcaption className={`gframe__plate gframe__plate--${frame.plate}`}>{item.caption}</figcaption>}
               </figure>
             );
           })}
 
-          <a className="gframe-cell gframe-cta" {...link} style={{ gridColumn: '7/9', gridRow: '4/7' }}>
+          <a className="gframe-cell gframe-cta" {...link} style={place([...CTA_SLOT, '6px 4px'], [...CTA_SLOT_MOBILE, '4px 2px'])}>
             <span className="gframe gframe--gold gframe--orn">
               <span className="gframe__metal">
                 <span className="gframe__picture gframe-cta__inner">
