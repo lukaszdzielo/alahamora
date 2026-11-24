@@ -2556,6 +2556,31 @@ html[data-entering] .notice-wrap {
   margin-left: -66px; /* -6px (prawie na końcu nagłówka) + -60px zapasu */
 }
 
+/* koperta z pieczęcią w hero – przypięta do nagłówka (.hero__title, cała szerokość treści) */
+.hero .hero__title { position: relative; }
+.rv.rv--koperta {
+  top: -45px;
+  right: 70px;
+}
+/* węższy desktop: wyżej, przy prawej krawędzi, trochę mniejsza i bardziej przechylona */
+@media (max-width: 1199px) {
+  .rv.rv--koperta { top: -150px; right: -10px; }
+  .rv.rv--koperta .rv__draw { width: min(400px, 36vw) !important; rotate: -12deg !important; }
+}
+/* tablet: nad nagłówkiem po prawej, mocno przechylona (jak rzucona na stół) */
+@media (max-width: 899px) {
+  .rv.rv--koperta { top: auto; bottom: calc(100% - 90px); right: -10px; }
+  .rv.rv--koperta .rv__draw { width: min(310px, 40vw) !important; rotate: -35deg !important; }
+}
+/* telefon: wystaje za prawą krawędź ekranu, dolnym rogiem dotyka nagłówka */
+@media (max-width: 640px) {
+  .rv.rv--koperta { bottom: calc(100% - 20px); right: -60px; }
+  .rv.rv--koperta .rv__draw { width: min(260px, 56vw) !important; rotate: -40deg !important; }
+}
+@media (max-width: 480px) {
+  .rv.rv--koperta { bottom: calc(100% - 5px); }
+}
+
 /* sowa siedzi na drążku ostatniego proporca */
 .rv.rv--owl {
   right: 9%;
@@ -2854,6 +2879,13 @@ html[data-entering] .notice-wrap {
 /* ---------- Telefony ---------- */
 @media (max-width: 640px) {
   :root { --hero-h: 720px; }
+}
+/* wąskie telefony: tekst hero zajmuje prawie całą wysokość – 80 px więcej, żeby nad nagłówkiem
+   zmieściła się koperta Revelio (wspólne dla obu miast, bo z tej zmiennej korzysta też przejście z ekranu wyboru) */
+@media (max-width: 480px) {
+  :root { --hero-h: 800px; }
+}
+@media (max-width: 640px) {
 
   .wrap { width: min(var(--content-max), 100% - 32px); }
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Icon from './Icon';
-import Revelio from './Revelio';
+import { RevealItem } from './Revelio';
 import ScrollLink from './ScrollLink';
 
 // Iskry unoszące się w prawej części hero: [left %, opóźnienie s, czas s, rozmiar px]
@@ -14,7 +14,6 @@ export default function Hero({ city }) {
 
   return (
     <section className="hero" data-hero={city.slug}>
-      <Revelio items={city.revelio?.hero} />
       <div className="hero__media">
         <Image
           className="hero__img"
@@ -37,10 +36,15 @@ export default function Hero({ city }) {
       ))}
 
       <div className="wrap hero__content">
-        <h1>
-          {h1.before}
-          <em>{h1.em}</em>
-        </h1>
+        {/* nagłówek w ramce – koperta Revelio (Gliwice) przypięta do niego, żeby na każdej
+            szerokości stała obok / nad nagłówkiem, a nie na tekście */}
+        <div className="hero__title">
+          {city.revelio?.heroTitle && <RevealItem item={city.revelio.heroTitle} className="rv--koperta" />}
+          <h1>
+            {h1.before}
+            <em>{h1.em}</em>
+          </h1>
+        </div>
         <p className="hero__lead">{lead}</p>
         <div className="hero__actions">
           {/* rezerwacje jeszcze nie działają – przycisk nieaktywny */}

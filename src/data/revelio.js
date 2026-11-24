@@ -17,7 +17,9 @@
 export const REVELIO_TEST = true;
 
 export const gliwiceRevelio = {
-  hero: [{ draw: 'koperta', w: 400, rotate: -4, pos: { right: '70px', top: '240px' }, hide: 'mobile' }],
+  // koperta z pieczęcią przypięta do nagłówka hero (renderuje ją Hero); położenie, wielkość i obrót
+  // na różnych szerokościach – CSS .rv--koperta (desktop obok nagłówka, tablet/telefon nad nim, po prawej)
+  heroTitle: { draw: 'koperta', w: 400, rotate: -4 },
   // uwaga: .rv ma margin -60px (zapas maski), stąd +60px w translate przy centrowaniu
   features: [
     // telefon/tablet: kapelusz i „Psst…” razem nad nagłówkiem (kapelusz przy nagłówku nie ma tam miejsca)
