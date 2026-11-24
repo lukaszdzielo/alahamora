@@ -37,6 +37,15 @@ public/
   svg/                  ← logo + rysunki (sowa, kapelusz, kociołek, koperta, księga, zamek, różdżka)
 ```
 
+## Zasoby
+
+- `src/assets/img/` – zdjęcia z alahamora.pl (hero, galeria, menu: `food-*`, wnętrza `katowice-*`, `gliwice-*`)
+  – importowane w kodzie (`import foto from '@/assets/img/…'`), Next sam doda ścieżkę dla GitHub Pages
+- `src/assets/img/mapa/` – pergamin do mapy (`pergamin.webp`, przezroczyste tło) i maska kształtu (`maska.png`)
+- `src/assets/svg/` – SVG używane w CSS (logo, różdżka, zamek)
+- `public/svg/` – rysunki Łukasza (sowa, kapelusz, szata, kociołek z chochlikami, koperta, księga ze skarpetą v2)
+- `public/svg/warianty/` – wersje alternatywne (księga v1, kociołek z jednym chochlikiem)
+
 ## Zasada serwer / klient
 
 - Domyślnie każdy komponent jest **serwerowy** – renderuje się do HTML przy budowaniu,
