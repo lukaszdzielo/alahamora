@@ -22,6 +22,28 @@ function ExitLink({ className }) {
 export default function HeaderMenu({ nav }) {
   const [open, setOpen] = useState(false);
 
+  // Przy zmianie szerokości przez granicę 980 px (np. zmniejszanie okna) menu przełącza się
+  // między paskiem a rozwijanym panelem. Bez tego panel na chwilę „mignąłby” w trakcie animacji
+  // znikania – więc na moment wyłączamy animację i zamykamy menu.
+  const [instant, setInstant] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 980px)');
+    let frame = 0;
+    const onChange = () => {
+      setOpen(false);
+      setInstant(true);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        frame = requestAnimationFrame(() => setInstant(false));
+      });
+    };
+    mq.addEventListener('change', onChange);
+    return () => {
+      mq.removeEventListener('change', onChange);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
   // zamknij menu klawiszem Escape
   useEffect(() => {
     if (!open) return;
@@ -46,7 +68,7 @@ export default function HeaderMenu({ nav }) {
         <span />
       </button>
 
-      <div id="header-menu" className="header__menu" data-open={open || undefined}>
+      <div id="header-menu" className="header__menu" data-open={open || undefined} data-instant={instant || undefined}>
         <nav aria-label="Menu główne" className="header__nav">
           {nav.map((item) => {
             const id = item.toLowerCase();

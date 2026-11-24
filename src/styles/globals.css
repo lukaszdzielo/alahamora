@@ -299,6 +299,8 @@ a { color: inherit; }
         opacity: 1;
         translate: 0 0;
       }
+
+      &[data-instant] { transition: none; }
     }
 
     & .header__nav {
