@@ -13,10 +13,14 @@ export default function ParchmentMap({ query, mapsUrl, address }) {
   return (
     <div className="pmap" style={{ '--mask': `url(${innerMask.src})` }}>
       <Image className="pmap__paper" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" />
-      <div className="pmap__map">
-        <iframe src={src} title={`Mapa dojazdu – ${address}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+      {/* .pmap__cut: cień i ciemniejszy brzeg wzdłuż poszarpanej krawędzi (filtr musi być na rodzicu –
+          na elemencie z maską przycięłaby go sama maska) */}
+      <div className="pmap__cut">
+        <div className="pmap__map">
+          <iframe src={src} title={`Mapa dojazdu – ${address}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        </div>
+        <Image className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
       </div>
-      <Image className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
       <div className="pmap__card">
         <strong>{address}</strong>
         <a className="btn btn--solid" href={mapsUrl} target="_blank" rel="noopener">

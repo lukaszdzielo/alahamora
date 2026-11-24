@@ -1668,6 +1668,16 @@ a { color: inherit; }
 
   & .pmap__paper { object-fit: contain; }
 
+  & .pmap__cut {
+    position: absolute;
+    inset: 0;
+    /* poszarpany brzeg mapy: cienka „przypalona” krawędź + miękki cień pod kawałkiem papieru */
+    filter:
+      drop-shadow(0 0 1px rgb(74 46 22 / .95))
+      drop-shadow(0 0 3px rgb(92 60 28 / .45))
+      drop-shadow(0 4px 8px rgb(50 32 14 / .3));
+  }
+
   & .pmap__map {
     position: absolute;
     inset: 0;
