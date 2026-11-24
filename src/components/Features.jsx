@@ -50,6 +50,7 @@ export default function Features({ features, lamp = false, rv }) {
             <span className="rv-anchor">
               {features.title}
               {rv?.featuresTitle && <RevealItem item={rv.featuresTitle} className="rv--hat" />}
+              {rv?.featuresTitleNote && <RevealItem item={rv.featuresTitleNote} className="rv--psst" />}
             </span>
           </h2>
           <p>{features.lead}</p>

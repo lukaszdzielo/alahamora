@@ -2435,6 +2435,13 @@ html[data-entering] .notice-wrap {
    inaczej kapelusz wystaje poza nią i jest ucięty (np. przy 1100 px) */
 .rv-anchor { position: relative; display: inline-block; }
 .features:has(.rv--hat) { padding-top: max(clamp(110px, 12vw, 170px), 260px); }
+
+/* „Psst… szukasz czegoś?” obok kapelusza, na wysokości jego ronda */
+.rv.rv--psst {
+  left: 100%;
+  bottom: 70px;
+  margin-left: 150px; /* 210 px za końcem nagłówka – 60 px zapasu maski */
+}
 .rv.rv--mobile { display: none; }
 
 .rv.rv--hat {
