@@ -1,38 +1,56 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import Logo from './Logo';
+import Bricks from './Bricks';
+import DoorLink from './DoorLink';
 
-// Ekran wyboru: każde „lustro” pokazuje zdjęcie z hero danego lokalu.
-// To samo view-transition-name co w <Hero> – przeglądarka może płynnie
-// przenieść zdjęcie z lustra do hero (animacja opcjonalna, patrz README).
+// Ekran wyboru lokalizacji: ceglana ściana, logo i dwoje drzwi-luster.
+// W lustrach są zdjęcia z hero – to samo view-transition-name co w <Hero>,
+// więc później zrobimy animację „lustro przechodzi w hero”.
 export default function LocationPicker({ cities }) {
   return (
     <main className="picker">
-      <div className="picker__head">
-        <Logo className="picker__logo" />
-        <h1>Wybierz swoją lokalizację</h1>
-      </div>
+      <Bricks />
 
-      <ul className="picker__list">
+      <header className="picker__head">
+        <h1 className="picker__logo">
+          <Logo />
+        </h1>
+        <p className="picker__tagline">Magiczna kawiarnia</p>
+        <p className="picker__lead">
+          Mamy dwoje drzwi do świata czarów. Wybierz, które chcesz otworzyć – zapamiętamy Twój wybór.
+        </p>
+      </header>
+
+      <ul className="picker__doors">
         {cities.map((city) => (
           <li key={city.slug} data-city={city.theme}>
-            <Link href={`/${city.slug}/`} className="mirror">
-              <span className="mirror__frame">
-                <Image
-                  className="mirror__img"
-                  src={city.hero.src}
-                  alt=""
-                  fill
-                  sizes="(max-width: 700px) 80vw, 360px"
-                  style={{ objectPosition: city.hero.position, viewTransitionName: `hero-${city.slug}` }}
-                />
+            <DoorLink slug={city.slug} className="door">
+              <span className="door__frame">
+                <span className="door__glass">
+                  <Image
+                    className="door__img"
+                    src={city.hero.src}
+                    alt={`${city.name} – wnętrze kawiarni`}
+                    fill
+                    sizes="(max-width: 700px) 90vw, 380px"
+                    style={{ objectPosition: city.hero.position, viewTransitionName: `hero-${city.slug}` }}
+                  />
+                  <span className="door__caption">
+                    <span className="door__city">{city.name}</span>
+                    <span className="door__sub">{city.pickerLabel}</span>
+                  </span>
+                </span>
               </span>
-              <span className="mirror__label">{city.pickerLabel}</span>
-              <span className="mirror__city">{city.name}</span>
-            </Link>
+              <span className="door__meta">
+                <span className="door__enter">Wejdź</span>
+                <span>{city.pickerAddress}</span>
+              </span>
+            </DoorLink>
           </li>
         ))}
       </ul>
+
+      <p className="picker__hours">Codziennie 12:00–21:00 w obu lokalach</p>
     </main>
   );
 }
