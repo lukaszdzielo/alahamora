@@ -23,9 +23,9 @@ export default function Hero({ city }) {
           sizes="100vw"
           style={{ objectPosition: hero.position, transformOrigin: hero.position }}
         />
-        {/* gradient jest w tym samym elemencie co zdjęcie – przejście pokazuje już przyciemnione zdjęcie */}
-        <div className="hero__shade" />
       </div>
+      {/* gradient pojawia się już w trakcie „wejścia w obraz” (osobny element przejścia) */}
+      <div className="hero__shade" style={{ viewTransitionName: 'hero-shade' }} />
       {SPARKS.map(([left, delay, duration, size], i) => (
         <span
           key={i}

@@ -1,18 +1,11 @@
+import Image from 'next/image';
 import Logo from './Logo';
 import Bricks from './Bricks';
 import DoorLink from './DoorLink';
 
 // Ekran wyboru lokalizacji: tylko logo i ramy z lokalami.
-// Rama działa jak okno: zdjęcie hero leży „za ścianą” na całym ekranie
-// (background-attachment: fixed + cover, ten sam kadr co w hero),
-// a rama pokazuje tylko jego fragment. Po kliknięciu okno się rozszerza (DoorLink)
-// i ten sam obraz staje się hero – bez zmiany kadru i bez przenikania.
-// '60% 45%' -> { '--px': 0.6, '--py': 0.45 }
-function windowPosition(position) {
-  const [x, y] = position.split(' ').map((v) => parseFloat(v) / 100);
-  return { '--px': x, '--py': y };
-}
-
+// W ramie jest zdjęcie z hero (ten sam kadr co w hero: object-fit cover + ta sama pozycja).
+// Po kliknięciu rama „przybliża się” do nas, a zdjęcie płynnie przekadrowuje się do hero (DoorLink).
 export default function LocationPicker({ cities }) {
   return (
     <main className="picker">
@@ -25,17 +18,18 @@ export default function LocationPicker({ cities }) {
       <ul className="picker__doors" aria-label="Wybierz lokalizację">
         {cities.map((city) => (
           <li key={city.slug} data-city={city.theme}>
-            <DoorLink slug={city.slug} className="door" label={`${city.name} – wejdź`}>
+            <DoorLink slug={city.slug} position={city.hero.position} className="door" label={`${city.name} – wejdź`}>
               <span className="door__frame">
-                <span
-                  className="door__glass"
-                  style={{
-                    backgroundImage: `url(${city.hero.src.src})`,
-                    '--iw': city.hero.src.width,
-                    '--ih': city.hero.src.height,
-                    ...windowPosition(city.hero.position),
-                  }}
-                >
+                <span className="door__glass">
+                  <Image
+                    className="door__img"
+                    src={city.hero.src}
+                    alt=""
+                    fill
+                    priority
+                    sizes="(max-width: 700px) 45vw, 300px"
+                    style={{ objectPosition: city.hero.position }}
+                  />
                   <span className="door__city">{city.name}</span>
                 </span>
               </span>
