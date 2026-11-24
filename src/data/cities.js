@@ -11,6 +11,7 @@ import gliwiceBall from '@/assets/img/gliwice-crystal-ball.webp';
 import gliwiceTeapot from '@/assets/img/gliwice-teapot.webp';
 import gliwicePortraits from '@/assets/img/gliwice-portraits.webp';
 import gliwicePlates from '@/assets/img/gliwice-brass-plates.webp';
+import gliwiceTelefon from '@/assets/img/gliwice-telefon.webp'; // zdjęcie z galerii alahamora.pl (DSA_7907), kadr pionowy
 
 import katowiceHero from '@/assets/img/katowice-hero.webp';
 import katowicePortraits from '@/assets/img/katowice-moving-portraits.webp';
@@ -73,7 +74,7 @@ export const cities = {
         { img: gliwiceForest, title: '100 metrów niezwykłej atmosfery', text: 'Każdy detal tworzy zaczarowany klimat, od zielonych sklepień po złocone fotele.' },
         { img: gliwicePinkTea, title: 'Magiczne przebrania', text: 'Wybierz strój i poczuj się jak prawdziwy czarodziej w zaczarowanym świecie.' },
         { img: gliwicePortraits, placeholder: true, title: 'Kameralny klub dziecięcy', text: 'Przestrzeń tylko dla najmłodszych czarodziejów, pełna zabawy i przygód.' },
-        { img: gliwicePlates, placeholder: true, title: 'Gry i książki', text: 'Regał z grami i książkami zadowoli niejednego czarodzieja. Tu nie da się nudzić.' },
+        { img: gliwiceTelefon, title: 'Gry i książki', text: 'Regał z grami i książkami zadowoli niejednego czarodzieja. Tu nie da się nudzić.' },
         { img: gliwiceCamera, title: 'Miejsca do zdjęć', text: 'Każdy zakątek jest gotowy, by uwiecznić magiczne chwile.' },
         { img: gliwiceBall, title: 'Myślodsiewnia i papier marzeń', text: 'Zostaw to, o czym chcesz zapomnieć, i zasiej nowe marzenia.' },
         { img: gliwiceTeapot, title: 'Pokój pełen antyków', text: 'Mosiądz, porcelana i przedmioty z historią na każdej półce.' },
