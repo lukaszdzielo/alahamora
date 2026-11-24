@@ -1,3 +1,5 @@
+import { gliwiceRevelio } from './revelio';
+
 // Dane lokali. Każde miasto to ten sam widok (CityPage) z innym zestawem danych.
 // Nowa lokalizacja = nowy obiekt tutaj – strona wygeneruje się sama.
 // Kolejność obiektów = kolejność na ekranie wyboru (najpierw Gliwice).
@@ -137,6 +139,7 @@ export const cities = {
       other: { slug: 'katowice', img: katowicePortraits, title: 'Zajrzyj też do Katowic', text: 'Magiczna kawiarnia przy Mariackiej Tylnej: bubble tea i ruchome obrazy.' },
     },
     effects: { lamps: false, revelio: true },
+    revelio: gliwiceRevelio, // ukryte rysunki pod różdżką (src/data/revelio.js)
   },
 
   katowice: {

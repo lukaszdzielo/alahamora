@@ -5,6 +5,7 @@ import Icon from './Icon';
 import Ornament from './Ornament';
 import MirrorCard from './MirrorCard';
 import Lamp from './Lamp';
+import Revelio, { RevealItem } from './Revelio';
 
 // „Co czeka w Gildii” / „Co czeka za drzwiami” – pozioma karuzela zwierciadeł.
 // Przewijanie: natywny scroll z scroll-snap (działa też palcem i touchpadem),
@@ -19,7 +20,7 @@ const FLOOR_SPARKS = [
   [90, 11, 16, 2],
 ];
 
-export default function Features({ features, lamp = false }) {
+export default function Features({ features, lamp = false, rv }) {
   const trackRef = useRef(null);
 
   const scroll = (direction) => {
@@ -32,6 +33,7 @@ export default function Features({ features, lamp = false }) {
 
   return (
     <section id={features.id} className="features">
+      <Revelio items={rv?.features} />
       {/* iskierki unoszące się od dołu sekcji */}
       {FLOOR_SPARKS.map(([left, delay, duration, size]) => (
         <span
@@ -44,7 +46,12 @@ export default function Features({ features, lamp = false }) {
       <div className="wrap features__head">
         <div className={`section-head${lamp ? ' section-head--lamp' : ''}`}>
           {lamp ? <Lamp id="features" /> : <Ornament />}
-          <h2>{features.title}</h2>
+          <h2>
+            <span className="rv-anchor">
+              {features.title}
+              {rv?.featuresTitle && <RevealItem item={rv.featuresTitle} className="rv--hat" />}
+            </span>
+          </h2>
           <p>{features.lead}</p>
         </div>
         <div className="features__arrows">

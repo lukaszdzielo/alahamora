@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Icon from './Icon';
+import Revelio from './Revelio';
 import ScrollLink from './ScrollLink';
 
 // Iskry unoszące się w prawej części hero: [left %, opóźnienie s, czas s, rozmiar px]
@@ -13,6 +14,7 @@ export default function Hero({ city }) {
 
   return (
     <section className="hero" data-hero={city.slug}>
+      <Revelio items={city.revelio?.hero} />
       <div className="hero__media">
         <Image
           className="hero__img"

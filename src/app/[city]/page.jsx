@@ -12,6 +12,7 @@ import AppearController from '@/components/AppearController';
 import Footer from '@/components/Footer';
 import WandCursor from '@/components/WandCursor';
 import LampsController from '@/components/LampsController';
+import RevelioController from '@/components/RevelioController';
 import JsonLd from '@/components/JsonLd';
 import { citySchema } from '@/lib/schema';
 import { OG_BASE } from '@/lib/site';
@@ -64,15 +65,16 @@ export default async function CityPage({ params }) {
       <main>
         <Hero city={data} />
         <Notice notice={data.notice} />
-        <Features features={data.features} lamp={data.effects.lamps} />
-        <Menu menu={data.menu} lamps={data.effects.lamps} />
-        <Offers offers={data.offers} lamps={data.effects.lamps} />
-        <Gallery gallery={data.gallery} lamps={data.effects.lamps} />
+        <Features rv={data.revelio} features={data.features} lamp={data.effects.lamps} />
+        <Menu rv={data.revelio} menu={data.menu} lamps={data.effects.lamps} />
+        <Offers rv={data.revelio} offers={data.offers} lamps={data.effects.lamps} />
+        <Gallery rv={data.revelio} gallery={data.gallery} lamps={data.effects.lamps} />
         <Contact city={data} lamps={data.effects.lamps} />
       </main>
       <Footer />
       <AppearController />
       {data.effects.lamps && <LampsController />}
+      {data.revelio && <RevelioController />}
       <WandCursor />
     </div>
   );

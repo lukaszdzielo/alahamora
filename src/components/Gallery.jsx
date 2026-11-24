@@ -3,6 +3,7 @@ import Icon from './Icon';
 import GalleryFx from './GalleryFx';
 import SectionHead from './SectionHead';
 import Tiles from './Tiles';
+import Revelio from './Revelio';
 
 // „Zajrzyj do środka / do Gildii” – ściana z kafli i obrazy w różnych ramach,
 // rozmieszczone jak w salonie (siatka 12 kolumn × 10 rzędów).
@@ -104,7 +105,7 @@ function Corners() {
   );
 }
 
-export default function Gallery({ gallery, lamps }) {
+export default function Gallery({ gallery, lamps, rv }) {
   // brak adresu galerii = przycisk i ramka „Cała galeria” nieaktywne
   const link = gallery.url
     ? { href: gallery.url, target: '_blank', rel: 'noopener' }
@@ -112,6 +113,7 @@ export default function Gallery({ gallery, lamps }) {
 
   return (
     <section id="galeria" className="gallery">
+      <Revelio items={rv?.gallery} />
       <Tiles />
       <div className="gallery__fade" aria-hidden="true" />
 

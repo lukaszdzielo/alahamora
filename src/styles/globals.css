@@ -2340,6 +2340,146 @@ html[data-entering] .notice-wrap {
 }
 
 
+/* ---------- Revelio (Gliwice): ukryte rysunki pod światłem różdżki ---------- */
+.rv-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.rv-box {
+  position: relative;
+  max-width: var(--content-max);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.rv {
+  position: absolute;
+  color: var(--accent-light);
+  pointer-events: none;
+  /* bez kursora (telefon, tablet) – widać od razu, delikatnie */
+  opacity: .6;
+}
+
+/* z kursorem: ledwo widoczne (ok. 8%), pod światłem różdżki wyraźne (RevelioController ustawia --rx/--ry) */
+.has-revelio .rv {
+  opacity: 1;
+  mask-image: radial-gradient(circle 290px at var(--rx, -9999px) var(--ry, -9999px),
+    rgb(0 0 0 / .85) 0%, rgb(0 0 0 / .62) 38%, rgb(0 0 0 / .2) 62%, rgb(0 0 0 / .08) 78%);
+}
+
+.rv__ink {
+  display: block;
+  font: italic 600 24px/1.25 var(--font-ink, Georgia), Georgia, serif;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgb(var(--line-rgb) / .8);
+}
+
+/* poświata na rodzicu – na elemencie z maską kształtu przycięłaby ją maska */
+.rv__glow {
+  display: block;
+  filter: drop-shadow(0 0 6px rgb(var(--line-rgb) / .8));
+}
+
+.rv__draw {
+  display: block;
+  width: var(--w);
+  background: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.rv svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px rgb(var(--line-rgb) / .8));
+}
+
+/* ślady stóp „idą” – kolejne odciski rozjaśniają się po sobie */
+.rv__step { animation: rv-walk 2.4s ease-in-out infinite; }
+
+@keyframes rv-walk {
+  0%, 100% { opacity: .35; }
+  50% { opacity: 1; }
+}
+
+/* kapelusz na końcu nagłówka „Co czeka w Gildii” */
+.rv-anchor { position: relative; display: inline-block; }
+
+.rv.rv--hat {
+  left: 100%;
+  bottom: 10px;
+  margin-left: -36px;
+  transform-origin: 50% 60%;
+}
+
+/* sowa siedzi na drążku ostatniego proporca */
+.rv.rv--owl {
+  right: 9%;
+  bottom: calc(100% - 14px);
+  z-index: 3;
+}
+
+@media (max-width: 899px) {
+  .rv.rv--desktop { display: none; }
+
+  .rv.rv--mpos {
+    left: var(--m-left, auto) !important;
+    right: var(--m-right, auto) !important;
+    top: var(--m-top, auto) !important;
+    bottom: var(--m-bottom, auto) !important;
+  }
+
+  .rv__draw { width: var(--mw, var(--w)); }
+  .rv__ink { font-size: 19px; white-space: normal; max-width: 260px; }
+
+  /* kapelusz nad nagłówkiem, przy prawej krawędzi */
+  .rv.rv--hat { left: auto; right: -30px; bottom: 70%; margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv__step { animation: none; }
+}
+
+/* ---------- 404 ---------- */
+.not-found {
+  gap: 36px;
+  text-align: center;
+
+  & .not-found__text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 520px;
+  }
+
+  & .not-found__code {
+    margin: 0;
+    font: 600 clamp(64px, 14vw, 120px)/1 var(--font-display, Georgia), serif;
+    letter-spacing: .08em;
+    color: #D8CDB4;
+    text-shadow: 0 0 30px rgb(216 205 180 / .35);
+  }
+
+  & h1 { margin: 0; font: 600 clamp(24px, 4vw, 34px)/1.2 var(--font-display, Georgia), serif; }
+  & p { margin: 0; color: rgb(243 233 210 / .75); }
+
+  & .not-found__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  & .btn { --accent: #D8CDB4; --accent-light: #E8DDC2; --accent-ink: #14171F; }
+}
+
 /* ---------- Drobna magia (z płótna): poświata logo, migotanie gwiazdek ---------- */
 /* logo w nagłówku delikatnie „oddycha” światłem w kolorze akcentu */
 .header .header__logo .logo { animation: logo-glow 5s ease-in-out infinite; }

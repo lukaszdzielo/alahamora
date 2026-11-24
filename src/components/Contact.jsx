@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Icon from './Icon';
 import SectionHead from './SectionHead';
 import ParchmentMap from './ParchmentMap';
+import Revelio from './Revelio';
 
 export default function Contact({ city, lamps }) {
   const { contact } = city;
@@ -15,6 +16,7 @@ export default function Contact({ city, lamps }) {
 
   return (
     <section id="kontakt" className="contact">
+      <Revelio items={city.revelio?.contact} />
       <div className="wrap contact__grid">
         <div className="contact__info">
           <SectionHead id="contact" title={contact.title} lead={contact.lead} lamp={lamps ? 'side' : false} />

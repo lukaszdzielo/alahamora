@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import Icon from './Icon';
 import Clouds from './Clouds';
+import Revelio from './Revelio';
 import SectionHead from './SectionHead';
 
 // „Z magicznej karty” – dwa układy z danych:
 // 'arches' (Katowice): cztery łuki ze zdjęciami potraw,
 // 'list'   (Gliwice):  duże zdjęcie + lista z okrągłymi miniaturami.
-export default function Menu({ menu, lamps }) {
+export default function Menu({ menu, lamps, rv }) {
   const button = (
     <a className="btn" {...(menu.menuUrl && menu.menuUrl !== '#' ? { href: menu.menuUrl } : { 'aria-disabled': 'true', title: 'Wkrótce' })}>
       Całe menu
@@ -16,6 +17,7 @@ export default function Menu({ menu, lamps }) {
   if (menu.layout === 'arches') {
     return (
       <section id="menu" className="menu menu--arches">
+        <Revelio items={rv?.menu} />
         <Clouds />
         <div className="wrap menu__inner">
           <SectionHead id="menu" title={menu.title} lead={menu.lead} lamp={lamps ? 'center' : false} center />
@@ -42,6 +44,7 @@ export default function Menu({ menu, lamps }) {
 
   return (
     <section id="menu" className="menu menu--list">
+      <Revelio items={rv?.menu} />
       <Clouds />
       <div className="wrap menu__grid">
         <div className="menu__photo" data-appear="">

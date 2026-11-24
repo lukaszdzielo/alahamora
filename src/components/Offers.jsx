@@ -1,5 +1,6 @@
 import Icon from './Icon';
 import SectionHead from './SectionHead';
+import Revelio, { RevealItem } from './Revelio';
 
 // „Urodziny, klasy i okazje” – oferty jako wiszące proporce (sztandary wycięte w szpic).
 // Tło: ledwo widoczne gotyckie okna i unoszące się świece.
@@ -17,9 +18,10 @@ function gothicWindow([x, w, h]) {
   return `M${x} ${b}V${b - h + w * 0.55} Q${x} ${b - h} ${x + w / 2} ${b - h - w * 0.35} Q${x + w} ${b - h} ${x + w} ${b - h + w * 0.55}V${b}Z M${x + w / 2} ${b - h - w * 0.2}V${b} M${x} ${b - h * 0.45}H${x + w}`;
 }
 
-export default function Offers({ offers, lamps }) {
+export default function Offers({ offers, lamps, rv }) {
   return (
     <section id="oferta" className="offers">
+      <Revelio items={rv?.offers} />
       <div className="offers__bg" aria-hidden="true">
         <svg className="offers__windows" viewBox="0 0 1440 520" preserveAspectRatio="xMidYMax slice">
           {WINDOWS.map((w, i) => (
@@ -63,6 +65,7 @@ export default function Offers({ offers, lamps }) {
                 <path d="M9 26h12l3 30H6Z" fill="var(--accent)" />
                 <path d="M9 32v22M12 32v24M15 32v24M18 32v24M21 32v22" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
               </svg>
+              {rv?.offersOwl && i === offers.items.length - 1 && <RevealItem item={rv.offersOwl} className="rv--owl rv--desktop" />}
             </article>
           ))}
         </div>
