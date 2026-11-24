@@ -7,6 +7,7 @@
 //   { draw: 'koperta', w: 400, rotate: -4, pos: {...} }   – rysunek z src/assets/svg/revelio
 //   { ink: 'tekst', pos: {...} }                           – notatka atramentem
 //   { feet: [[x,y] ×4], n: 14, w, h, pos: {...} }          – ślady stóp po krzywej Béziera
+//   { feet: [['3%',y] ×4], fluid: true, step: 55, h, ... }   – to samo, x w % szerokości pasa
 // hide: 'mobile' – nie pokazuj poniżej 900 px (brak miejsca); hide: 'desktop' – tylko poniżej 900 px;
 // mobile: {...} – inna pozycja na telefonie.
 
@@ -36,7 +37,12 @@ export const gliwiceRevelio = {
     { ink: 'Tędy przeszedł nocą czarodziej', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '44px' } },
   ],
   offers: [
-    { feet: [[345, -212], [330, 60], [760, 10], [850, 330]], n: 14, w: 1000, h: 600, pos: { left: '0', top: '-240px' }, hide: 'mobile' },
+    // ścieżka czarodzieja – widoczna zawsze, kształt zależy od szerokości:
+    // ≥1248 px (pas treści 1200): spod zdjęcia menu łukiem pod „Całe menu” do sowy
+    { feet: [[345, -212], [360, 200], [650, 80], [860, 330]], n: 14, w: 1000, h: 600, cls: 'rv--wide', pos: { left: '0', top: '-240px' } },
+    // węższe ekrany: fala przez pas między menu a „Urodzinami…”, spod notatki „Tędy przeszedł…” w prawo
+    // (x w % szerokości pasa, y od 40 px nad sekcją; przeliczane przy zmianie szerokości)
+    { feet: [['3%', 30], ['30%', 120], ['60%', 0], ['86%', 135]], fluid: true, step: 55, h: 150, cls: 'rv--narrow', pos: { left: '0', right: '0', top: '-40px' } },
     { draw: 'ksiega2', w: 340, rotate: 10, pos: { right: '3%', bottom: '-120px' }, mobile: { right: '2%', bottom: '-60px', w: 180 } },
     { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '100px' } },
   ],

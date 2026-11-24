@@ -2504,6 +2504,10 @@ html[data-entering] .notice-wrap {
   mask-image: none !important;
 }
 
+/* ścieżka czarodzieja w ofertach: inny kształt na szerokim i węższym pasie treści */
+@media (max-width: 1247px) { .rv.rv--wide { display: none; } }
+@media (min-width: 1248px) { .rv.rv--narrow { display: none; } }
+
 /* ślady stóp „idą” – kolejne odciski rozjaśniają się po sobie */
 .rv__step { animation: rv-walk 2.4s ease-in-out infinite; }
 
