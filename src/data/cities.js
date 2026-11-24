@@ -1,3 +1,6 @@
+import katowiceHero from '@/assets/img/katowice-hero.webp';
+import gliwiceHero from '@/assets/img/gliwice-hero.webp';
+
 // Dane lokali. Każde miasto to ten sam widok (CityPage) z innym zestawem danych.
 // Nowa lokalizacja = nowy obiekt tutaj – strona wygeneruje się sama.
 
@@ -11,7 +14,7 @@ export const cities = {
     lead:
       'Antyczne meble, ruchome obrazy i portale do innych światów. Wpadnij na magiczne bubble tea, kwiatowy napar z wróżeniem z fusów albo wegetariański obiad.',
     hero: {
-      src: '/img/katowice-hero.webp',
+      src: katowiceHero, // import statyczny – Next sam doda basePath (GitHub Pages)
       alt: 'Granatowa sala z obrazami w złotych ramach',
       position: '70% 40%',
     },
@@ -30,7 +33,7 @@ export const cities = {
     lead:
       'Sto metrów niezwykłej atmosfery: antyki, magiczne przebrania i najbardziej różowy pokój. Wpadnij na dymiący eliksir, lody spaghetti albo obiad.',
     hero: {
-      src: '/img/gliwice-hero.webp',
+      src: gliwiceHero,
       alt: 'Zielony salon z antycznymi fotelami',
       position: '60% 45%',
     },

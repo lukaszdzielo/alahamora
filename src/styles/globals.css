@@ -3,6 +3,8 @@
    Natywne zagnieżdżanie CSS (&) + motywy przez [data-city]
    ============================================================ */
 
+/* Ścieżki url() są względne – Next dołącza pliki do builda i sam dodaje basePath (GitHub Pages). */
+
 /* ---------- Motywy ---------- */
 :root,
 [data-city='katowice'] {
@@ -110,7 +112,7 @@ a { color: inherit; }
     width: 160px;
     aspect-ratio: 1500 / 708;
     background: currentColor;
-    mask: url('/svg/logo.svg') center / contain no-repeat;
+    mask: url('../assets/svg/logo.svg') center / contain no-repeat;
   }
 
   & .logo__sub {
@@ -319,7 +321,7 @@ a { color: inherit; }
     opacity: .14;
     pointer-events: none;
     mask:
-      url('/svg/zamek.svg') center bottom / 100% auto no-repeat,
+      url('../assets/svg/zamek.svg') center bottom / 100% auto no-repeat,
       linear-gradient(transparent, #000 38%, #000 86%, transparent);
     mask-composite: intersect;
   }
@@ -410,7 +412,7 @@ a { color: inherit; }
     width: 112px;
     height: 24px;
     background: var(--accent-light);
-    mask: url('/svg/rozdzka.svg') center / contain no-repeat;
+    mask: url('../assets/svg/rozdzka.svg') center / contain no-repeat;
     transform-origin: 100% 50%;
     rotate: -131deg;
     filter: drop-shadow(0 0 3px rgb(0 0 0 / .6));
