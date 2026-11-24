@@ -41,28 +41,36 @@ export default function DoorLink({ slug, className, label, children }) {
     if (!canAnimate || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
 
     event.preventDefault();
+    const link = event.currentTarget;
+    const glass = link.querySelector('.door__glass');
 
-    // Prostokąt „okna” w ramie – od niego zaczyna się odsłanianie hero.
-    const glass = event.currentTarget.querySelector('.door__glass');
-    const rect = glass.getBoundingClientRect();
-    const heroHeight = Math.max(window.innerHeight, 560); // = .hero { min-height }
-    const root = document.documentElement.style;
-    root.setProperty('--vt-top', `${rect.top}px`);
-    root.setProperty('--vt-left', `${rect.left}px`);
-    root.setProperty('--vt-right', `${window.innerWidth - rect.right}px`);
-    root.setProperty('--vt-bottom', `${heroHeight - rect.bottom}px`);
+    // 1) na zdjęciu w ramie pojawiają się gradienty z hero (CSS: .door[data-opening])
+    link.dataset.opening = '';
 
-    // nazwa przejścia tylko na klikniętej ramie (w hero jest ta sama: 'hero-photo')
-    glass.style.viewTransitionName = 'hero-photo';
+    // 2) po chwili „wchodzimy w obraz”
+    setTimeout(() => {
+      // prostokąt „okna” – od niego zaczyna się odsłanianie hero
+      const rect = glass.getBoundingClientRect();
+      const heroHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-h')) || 820;
+      const root = document.documentElement.style;
+      root.setProperty('--vt-top', `${rect.top}px`);
+      root.setProperty('--vt-left', `${rect.left}px`);
+      root.setProperty('--vt-right', `${window.innerWidth - rect.right}px`);
+      root.setProperty('--vt-bottom', `${heroHeight - rect.bottom}px`);
 
-    const transition = document.startViewTransition(async () => {
-      router.push(href);
-      await waitForHero(slug); // „zdjęcie” nowego stanu robimy, gdy hero jest już na stronie
-    });
+      // nazwa przejścia tylko na klikniętej ramie (w hero jest ta sama: 'hero-photo')
+      glass.style.viewTransitionName = 'hero-photo';
 
-    transition.finished.finally(() => {
-      glass.style.viewTransitionName = '';
-    });
+      const transition = document.startViewTransition(async () => {
+        router.push(href);
+        await waitForHero(slug); // „zdjęcie” nowego stanu robimy, gdy hero jest już na stronie
+      });
+
+      transition.finished.finally(() => {
+        glass.style.viewTransitionName = '';
+        delete link.dataset.opening;
+      });
+    }, 320);
   };
 
   return (

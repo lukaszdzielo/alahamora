@@ -13,6 +13,7 @@
   --content-max: 1200px;
   --page-max: 2560px;
   /* min(100%, page-max): działa i w paddingu (100% = rodzic), i w gradiencie maski (100% = element) */
+  --hero-h: 820px; /* wysokość hero jak na płótnie */
   --gutter: max(24px, calc((min(100%, var(--page-max)) - var(--content-max)) / 2));
 }
 
@@ -60,6 +61,13 @@
   --accent: #D8CDB4;
   --accent-light: #E8DDC2;
   --line: rgb(216 205 180 / .3);
+}
+
+/* gradienty na zdjęciu hero (jak na płótnie) – używane też w „oknie” na ekranie wyboru */
+[data-city] {
+  --hero-shade:
+    linear-gradient(0deg, var(--bg) 0%, rgb(var(--bg-rgb) / .85) 12%, rgb(var(--bg-rgb) / 0) 40%),
+    linear-gradient(90deg, rgb(var(--dark-rgb) / .9) 0%, rgb(var(--dark-rgb) / .6) 45%, rgb(var(--dark-rgb) / .05) 78%);
 }
 
 /* ---------- Podstawy ---------- */
@@ -192,8 +200,7 @@ a { color: inherit; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  /* hero = dokładnie wysokość ekranu – ten sam kadr co „okno” na ekranie wyboru */
-  min-height: max(100svh, 560px);
+  min-height: var(--hero-h);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -212,9 +219,7 @@ a { color: inherit; }
   & .hero__shade {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(0deg, var(--bg) 0%, rgb(var(--bg-rgb) / .85) 12%, transparent 40%),
-      linear-gradient(90deg, rgb(0 0 0 / .85) 0%, rgb(0 0 0 / .5) 45%, transparent 78%);
+    background: var(--hero-shade);
   }
 
   & .hero__content {
@@ -677,7 +682,7 @@ a { color: inherit; }
     padding: 0;
     list-style: none;
 
-    & > li { width: min(380px, 100%); }
+    & > li { width: min(clamp(260px, 24vw, 340px), 100%); }
   }
 
 }
@@ -703,7 +708,11 @@ a { color: inherit; }
     transition: box-shadow .4s ease;
   }
 
+  /* „Okno”: zdjęcie leży za ścianą dokładnie tak, jak w hero (pełna szerokość × --hero-h,
+     „cover” + ta sama pozycja). Zmienne --iw, --ih (wymiary zdjęcia), --px, --py (pozycja)
+     ustawia LocationPicker. Dzięki temu kadr w ramie = fragment przyszłego hero. */
   & .door__glass {
+    --sw: max(100vw, calc(var(--hero-h) * var(--iw) / var(--ih)));
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -713,14 +722,38 @@ a { color: inherit; }
     padding-bottom: 28px;
     overflow: hidden;
     border-radius: 180px 180px 12px 12px;
-    background-color: #000;
-    /* „okno”: zdjęcie hero rozłożone na cały ekran, rama pokazuje jego fragment */
-    background-size: cover;
+    background-color: var(--bg);
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-size: var(--sw) auto;
+    background-position:
+      calc((100vw - var(--sw)) * var(--px))
+      calc((var(--hero-h) - var(--sw) * var(--ih) / var(--iw)) * var(--py));
+
+    /* gradienty hero – pojawiają się po kliknięciu, zanim „wejdziemy w obraz” */
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        var(--hero-shade),
+        linear-gradient(var(--bg), var(--bg));
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 100vw var(--hero-h), 100vw var(--hero-h), 100vw 100vh;
+      background-position: 0 0, 0 0, 0 var(--hero-h);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
   }
 
+  &[data-opening] .door__glass::after { opacity: 1; }
+  &[data-opening] .door__city { opacity: 0; }
+
   & .door__city {
+    position: relative;
+    z-index: 1;
+    transition: opacity .3s ease;
     font: 600 34px/1 var(--font-display), serif;
     letter-spacing: .08em;
     color: #fff;
