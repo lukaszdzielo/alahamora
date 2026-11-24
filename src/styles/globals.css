@@ -2871,7 +2871,13 @@ html[data-entering] .notice-wrap {
 /* Revelio na tablecie: kociołek i „Eliksir dnia…” nad zdjęciem (lewa kolumna 2/5), nie na środku */
 @media (min-width: 641px) and (max-width: 899px) {
   #menu .rv.rv--art.rv--mpos { left: calc(21% - 75px) !important; }
-  #menu .rv.rv--ink.rv--mobile { left: 21% !important; }
+  /* zdjęcie obok tekstu – „Eliksir dnia…” na miejscu jak na desktopie: obok chochlików */
+  #menu .rv.rv--ink.rv--mobile {
+    left: calc(21% + 90px) !important;
+    top: 70px !important;
+    translate: 0 0 !important;
+    text-align: left !important;
+  }
 }
 
 /* na telefonie zdjęcie nad listą, ale poziome i niższe */
