@@ -10,7 +10,7 @@ import { useEffect, useRef } from 'react';
 // [left %, top %, opóźnienie s, skala]
 const CANDLES = [[66, 16, 1.2, 0.9], [74, 26, 3.4, 1.05], [82, 13, 0.4, 0.8], [90, 23, 5.1, 1.1], [96, 15, 2.2, 0.85], [58, 20, 4.4, 0.95], [3, 18, 1.8, 1], [4, 36, 5.6, 0.8], [52, 30, 2.9, 1.15]];
 // + ślady stóp Revelio (ścieżka czarodzieja przechodzi przez górę sekcji)
-const AVOID = '.section-head h2, .section-head p, .rv--owl .rv__draw, .rv__step';
+const AVOID = '.section-head h2, .section-head p, .rv--owl .rv__draw, .rv--sowa-head .rv__draw, .rv__step';
 const MARGIN = 24;
 
 export default function Candles() {

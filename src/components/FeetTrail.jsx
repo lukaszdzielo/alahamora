@@ -81,7 +81,25 @@ export default function FeetTrail({ step = 55 }) {
         yA = Math.max(yA, li.b + 15);
         arc = curve(yA, 0.55);
       }
-      const pts = [...Array.from({ length: 40 }, (_, i) => [x0, y0 + ((yA - y0) * i) / 40]), ...arc];
+      let pts = [...Array.from({ length: 40 }, (_, i) => [x0, y0 + ((yA - y0) * i) / 40]), ...arc];
+      let yLast = yEnd;
+
+      // wąski tablet (641–767 px): sowa siedzi na ornamencie nad „Urodzinami…” – ślady schodzą ze
+      // zdjęcia prosto w dół i lekkim łukiem kończą się nad jej głową (czarodziej przyszedł do sowy)
+      const owlEl = box.querySelector('.rv--sowa-head .rv__draw');
+      let owl = null;
+      if (owlEl?.getClientRects().length) {
+        owl = rect(owlEl);
+        const xo = (owl.l + owl.r) / 2;
+        const ye = owl.t - 45;
+        const ys = Math.min(ph.b + 20, ye - 60);
+        const H = ye - ys;
+        pts = [
+          ...Array.from({ length: 40 }, (_, i) => [x0, y0 + ((ys - y0) * i) / 40]),
+          ...bezierPoints([[x0, ys], [x0, ys + H * 0.6], [xo, ye - H * 0.35], [xo, ye]]),
+        ];
+        yLast = ye;
+      }
       // „Tędy przeszedł nocą czarodziej” tuż obok śladów (po prawej, a gdy brak miejsca – po lewej)
       if (noteInk && noteRv) {
         const n = rect(noteInk);
@@ -89,6 +107,7 @@ export default function FeetTrail({ step = 55 }) {
         if (near.length) {
           const w = n.r - n.l;
           let left = Math.max(...near) + 42;
+          if (owl && n.b > owl.t - 10) left = Math.max(left, owl.r + 24); // obok głowy sowy, nie na niej
           if (left + w > b.width) left = Math.max(0, Math.min(...near) - 42 - w);
           noteRv.style.setProperty('left', `${Math.round(left)}px`, 'important');
           noteRv.style.setProperty('right', 'auto', 'important');
@@ -96,7 +115,7 @@ export default function FeetTrail({ step = 55 }) {
       }
 
       const top = ph.b - 135;
-      setGeo({ top, h: yEnd + 50 - top, pts: pts.map(([x, y]) => [x, y - top]) });
+      setGeo({ top, h: yLast + 50 - top, pts: pts.map(([x, y]) => [x, y - top]) });
       rv.style.top = `${Math.round(top)}px`;
     };
 
