@@ -2357,17 +2357,38 @@ html[data-entering] .notice-wrap {
 
 .rv {
   position: absolute;
+  /* zapas wokół rysunku: maska odsłaniania przycina wszystko poza pudełkiem elementu –
+     bez tego obrócone rysunki (kapelusz, koperta, księga) i poświata byłyby ucięte po bokach.
+     Ujemny margines zostawia rysunek w tym samym miejscu. */
+  padding: 60px;
+  margin: -60px;
   color: var(--accent-light);
   pointer-events: none;
-  /* bez kursora (telefon, tablet) – widać od razu, delikatnie */
-  opacity: .6;
+  /* WIDOCZNOŚĆ (0–1) – tu się stroi:
+     --rv-peak  pod samym czubkiem różdżki (desktop)
+     --rv-rest  poza światłem (desktop)
+     --rv-touch telefon / tablet (brak kursora – widać od razu) */
+  --rv-peak: .7;
+  --rv-rest: .05;
+  --rv-touch: .4;
+  opacity: var(--rv-touch);
+
+  /* notatki atramentem – trochę mocniej niż rysunki */
+  &.rv--ink {
+    --rv-peak: 1;
+    --rv-rest: .12;
+    --rv-touch: .75;
+  }
 }
 
-/* z kursorem: ledwo widoczne (ok. 8%), pod światłem różdżki wyraźne (RevelioController ustawia --rx/--ry) */
+/* z kursorem: poza światłem prawie niewidoczne, pod światłem różdżki wyraźne (RevelioController ustawia --rx/--ry) */
 .has-revelio .rv {
   opacity: 1;
   mask-image: radial-gradient(circle 290px at var(--rx, -9999px) var(--ry, -9999px),
-    rgb(0 0 0 / .85) 0%, rgb(0 0 0 / .62) 38%, rgb(0 0 0 / .2) 62%, rgb(0 0 0 / .08) 78%);
+    rgb(0 0 0 / var(--rv-peak)) 0%,
+    rgb(0 0 0 / calc(var(--rv-peak) * .73)) 38%,
+    rgb(0 0 0 / max(var(--rv-rest), calc(var(--rv-peak) * .25))) 62%,
+    rgb(0 0 0 / var(--rv-rest)) 78%);
 }
 
 .rv__ink {
@@ -2412,8 +2433,7 @@ html[data-entering] .notice-wrap {
 .rv.rv--hat {
   left: 100%;
   bottom: 10px;
-  margin-left: -36px;
-  transform-origin: 50% 60%;
+  margin-left: -96px; /* -36px (wejście na nagłówek) + -60px zapasu */
 }
 
 /* sowa siedzi na drążku ostatniego proporca */
@@ -2437,7 +2457,7 @@ html[data-entering] .notice-wrap {
   .rv__ink { font-size: 19px; white-space: normal; max-width: 260px; }
 
   /* kapelusz nad nagłówkiem, przy prawej krawędzi */
-  .rv.rv--hat { left: auto; right: -30px; bottom: 70%; margin-left: 0; }
+  .rv.rv--hat { left: auto; right: -30px; bottom: 70%; margin-left: -60px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

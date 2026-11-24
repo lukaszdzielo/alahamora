@@ -51,7 +51,8 @@ export function RevealItem({ item, className = '', style }) {
   ['left', 'right', 'top', 'bottom'].forEach((k) => {
     if (mobile[k] !== undefined) vars[`--m-${k}`] = mobile[k];
   });
-  const cls = `rv${item.hide === 'mobile' ? ' rv--desktop' : ''}${mobile.left !== undefined || mobile.right !== undefined || mobile.top !== undefined || mobile.bottom !== undefined ? ' rv--mpos' : ''} ${className}`;
+  const kind = item.ink ? ' rv--ink' : ' rv--art'; // tekst / rysunek – inna widoczność (CSS)
+  const cls = `rv${kind}${item.hide === 'mobile' ? ' rv--desktop' : ''}${mobile.left !== undefined || mobile.right !== undefined || mobile.top !== undefined || mobile.bottom !== undefined ? ' rv--mpos' : ''} ${className}`;
 
   let inner = null;
   if (item.draw) {
