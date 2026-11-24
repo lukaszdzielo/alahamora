@@ -623,7 +623,11 @@ a { color: inherit; }
 }
 
 .mirror {
-  flex: 0 0 clamp(270px, 25vw, 350px);
+  /* szerokość w procentach ekranu, ale nigdy większa niż na desktopie (350 px) */
+  flex: 0 0 min(350px, 24vw);
+
+  @media (max-width: 1100px) { flex-basis: min(350px, 30vw); }
+  @media (max-width: 640px) { flex-basis: 54vw; }
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -2314,7 +2318,6 @@ html[data-entering] .notice-wrap {
   }
 
   .mirror {
-    flex-basis: min(62vw, 250px);
     gap: 16px;
 
     & .mirror__frame { padding: 14px; }
