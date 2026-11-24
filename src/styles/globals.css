@@ -2508,6 +2508,11 @@ html[data-entering] .notice-wrap {
 @media (max-width: 1247px) { .rv.rv--wide { display: none; } }
 @media (min-width: 1248px), (max-width: 640px) { .rv.rv--narrow { display: none; } }
 @media (min-width: 641px) { .rv.rv--phone { display: none; } }
+/* 641–991 px (menu 2/5 + 3/5): zdjęcie jest wąskie, więc „Tędy przeszedł…” stoi po prawej, pod listą,
+   a ślady schodzą ze zdjęcia jednym łukiem pod nią – bez zakrętów */
+@media (min-width: 641px) and (max-width: 991px) {
+  #menu .rv.rv--tedy { left: auto !important; right: 0 !important; }
+}
 /* telefon: wyższy pas nad „Urodzinami…”, żeby ścieżka miała gdzie przejść przez cały ekran */
 @media (max-width: 640px) { #oferta:has(.rv--phone) { padding-top: 220px; } }
 

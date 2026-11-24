@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { feetStepsThrough, FeetSteps } from '@/lib/feet';
+import { feetSteps, FeetSteps } from '@/lib/feet';
 
 // Ścieżka czarodzieja na tablecie / mniejszym desktopie (641–1247 px): jak na dużym ekranie
-// zaczyna się na zdjęciu w menu, schodzi w dół pustą kolumną pod zdjęciem, mija koniec
-// notatki „Tędy przeszedł…” i skręca w prawo nad „Urodzinami…” (w stronę sowy).
-// Położenie zdjęcia, listy i notatki zależy od szerokości, więc punkty liczymy z DOM.
+// zaczyna się na zdjęciu w menu, schodzi w dół pustą kolumną pod zdjęciem i jednym
+// łagodnym łukiem skręca w prawo nad „Urodzinami…” (w stronę sowy).
+// Położenie zdjęcia i listy zależy od szerokości, więc punkty liczymy z DOM.
 const offsetY = (el) => parseFloat(getComputedStyle(el).translate.split(' ')[1]) || 0; // animacja pojawiania się
 
 export default function FeetTrail({ step = 55 }) {
@@ -22,8 +22,7 @@ export default function FeetTrail({ step = 55 }) {
     const measure = () => {
       const photo = document.querySelector('#menu .menu__photo');
       const col = document.querySelector('#menu .menu__col');
-      const note = [...document.querySelectorAll('#menu .rv__ink')].find((e) => e.textContent.startsWith('Tędy'));
-      if (!photo || !col || !note || !svg.getClientRects().length) return;
+      if (!photo || !col || !svg.getClientRects().length) return;
       const b = box.getBoundingClientRect();
       const rect = (el) => {
         const r = el.getBoundingClientRect();
@@ -32,18 +31,16 @@ export default function FeetTrail({ step = 55 }) {
       };
       const ph = rect(photo);
       const li = rect(col);
-      const no = rect(note);
       const W = b.width;
 
-      const x0 = Math.min(ph.l + (ph.r - ph.l) * 0.7, li.l - 30); // na zdjęciu, z dala od listy
-      const xNote = Math.max(no.r + 40, x0 + 15); // mija koniec notatki
-      const xDown = Math.min(xNote, li.l - 45);
+      // jedna gładka krzywa: pionowo w dół ze zdjęcia, łagodnym łukiem w prawo nad „Urodziny…”
+      // (na 641–991 px notatka „Tędy…” stoi pod listą, po prawej stronie śladów – CSS .rv--tedy)
+      const x0 = Math.min(ph.l + (ph.r - ph.l) * 0.7, li.l - 45); // na zdjęciu, z dala od listy
       const end = [W * 0.86, 95];
       const pts = [
         [x0, ph.b - 95],
-        [xDown, li.b - 15],
-        [xNote, (no.t + no.b) / 2],
-        [(xNote + end[0]) / 2, 62],
+        [x0, Math.max(li.b + 60, (ph.b + end[1]) / 2)],
+        [x0 + (end[0] - x0) * 0.25, end[1] + 10],
         end,
       ];
       const top = ph.b - 135;
@@ -62,7 +59,7 @@ export default function FeetTrail({ step = 55 }) {
 
   return (
     <svg ref={ref} width="100%" height={geo?.h ?? 1} fill="currentColor" style={{ overflow: 'visible' }}>
-      {geo && <FeetSteps steps={feetStepsThrough(geo.pts, { step })} />}
+      {geo && <FeetSteps steps={feetSteps(geo.pts, { step })} />}
     </svg>
   );
 }

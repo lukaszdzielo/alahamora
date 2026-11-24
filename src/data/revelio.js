@@ -34,7 +34,7 @@ export const gliwiceRevelio = {
     // telefon / tablet: „Eliksir dnia…” wyśrodkowany nad kociołkiem
     { ink: 'Eliksir dnia czeka na odważnych', pos: { left: '50%', top: '-58px', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
     { ink: 'Eliksir dnia czeka na odważnych', cls: 'rv--eliksir', pos: { left: '450px', top: '50px' }, hide: 'mobile' }, // wyżej – niżej wchodził na ornament nagłówka
-    { ink: 'Tędy przeszedł nocą czarodziej', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '44px' } },
+    { ink: 'Tędy przeszedł nocą czarodziej', cls: 'rv--tedy', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '44px' } },
   ],
   offers: [
     // ścieżka czarodzieja – widoczna zawsze, kształt zależy od szerokości:
