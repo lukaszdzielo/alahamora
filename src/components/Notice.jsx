@@ -1,8 +1,10 @@
 import Icon from './Icon';
+import ScrollLink from './ScrollLink';
 
 // Pasek z ogłoszeniem, który nachodzi na dół hero.
+// Przycisk: kotwica (#oferta) – płynne przewijanie; link do rezerwacji – na razie nieaktywny.
 export default function Notice({ notice }) {
-  const external = notice.button.href.startsWith('http');
+  const { href, label } = notice.button;
 
   return (
     <div className="wrap notice-wrap">
@@ -14,9 +16,15 @@ export default function Notice({ notice }) {
           <strong>{notice.title}</strong>
           <span>{notice.text}</span>
         </div>
-        <a className="btn" href={notice.button.href} {...(external ? { target: '_blank', rel: 'noopener' } : {})}>
-          {notice.button.label}
-        </a>
+        {href.startsWith('#') ? (
+          <ScrollLink className="btn" href={href}>
+            {label}
+          </ScrollLink>
+        ) : (
+          <a className="btn" aria-disabled="true" title="Wkrótce">
+            {label}
+          </a>
+        )}
       </aside>
     </div>
   );

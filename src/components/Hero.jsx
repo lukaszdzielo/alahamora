@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Icon from './Icon';
+import ScrollLink from './ScrollLink';
 
 // Iskry unoszące się w prawej części hero: [left %, opóźnienie s, czas s, rozmiar px]
 const SPARKS = [
@@ -8,7 +9,7 @@ const SPARKS = [
 ];
 
 export default function Hero({ city }) {
-  const { hero, h1, lead, hours, addressShort, phone, reserveUrl } = city;
+  const { hero, h1, lead, hours, addressShort, phone } = city;
 
   return (
     <section className="hero" data-hero={city.slug}>
@@ -40,12 +41,13 @@ export default function Hero({ city }) {
         </h1>
         <p className="hero__lead">{lead}</p>
         <div className="hero__actions">
-          <a className="btn btn--solid btn--shine" href={reserveUrl} target="_blank" rel="noopener">
+          {/* rezerwacje jeszcze nie działają – przycisk nieaktywny */}
+          <a className="btn btn--solid btn--shine" aria-disabled="true" title="Wkrótce">
             <Icon name="cal" size={17} /> Zarezerwuj stolik
           </a>
-          <a className="btn" href="#menu">
+          <ScrollLink className="btn" href="#menu">
             Zobacz menu
-          </a>
+          </ScrollLink>
         </div>
         <ul className="hero__facts">
           <li><Icon name="clock" size={17} />{hours}</li>

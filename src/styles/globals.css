@@ -1980,6 +1980,22 @@ a[aria-disabled='true'] {
   text-decoration: underline dotted;
 }
 
+/* nieaktywne przyciski: bez efektów najechania */
+.btn[aria-disabled='true'] {
+  opacity: .55;
+  text-decoration: none;
+  filter: saturate(.6);
+
+  &:hover,
+  &:focus-visible { box-shadow: none; }
+
+  &::before,
+  &::after { display: none; }
+}
+
+.btn--solid[aria-disabled='true']:hover { background: var(--accent); color: var(--accent-ink); }
+.btn:not(.btn--solid)[aria-disabled='true']:hover { background: transparent; color: var(--accent-light); }
+
 .has-wand a[aria-disabled='true'] { cursor: not-allowed !important; }
 
 .wand {

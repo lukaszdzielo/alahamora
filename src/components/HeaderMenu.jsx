@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import CitySelect from './CitySelect';
+import scrollToId from '@/lib/scrollToId';
 
 // Menu w nagłówku. Na szerokich ekranach wszystko w jednej linii,
 // na telefonie (CSS: max-width 960px) chowa się pod przyciskiem „hamburger”.
-export default function HeaderMenu({ nav, current, cityOptions, reserveUrl }) {
+// id sekcji, które istnieją na stronie miasta
+const SECTIONS = ['menu', 'gildia', 'lokal', 'oferta', 'galeria', 'kontakt'];
+
+export default function HeaderMenu({ nav, current, cityOptions }) {
   const [open, setOpen] = useState(false);
 
   // zamknij menu klawiszem Escape
@@ -33,14 +37,32 @@ export default function HeaderMenu({ nav, current, cityOptions, reserveUrl }) {
 
       <div id="header-menu" className="header__menu" data-open={open || undefined}>
         <nav aria-label="Menu główne" className="header__nav">
-          {nav.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setOpen(false)}>
-              {item}
-            </a>
-          ))}
+          {nav.map((item) => {
+            const id = item.toLowerCase();
+            // sekcja, której nie ma na stronie (np. Blog) – link nieaktywny
+            if (!SECTIONS.includes(id)) {
+              return (
+                <a key={item} aria-disabled="true" title="Wkrótce">
+                  {item}
+                </a>
+              );
+            }
+            return (
+              <a
+                key={item}
+                href={`#${id}`}
+                onClick={(event) => {
+                  setOpen(false);
+                  if (scrollToId(id)) event.preventDefault();
+                }}
+              >
+                {item}
+              </a>
+            );
+          })}
         </nav>
         <CitySelect current={current} options={cityOptions} />
-        <a className="btn btn--solid" href={reserveUrl} target="_blank" rel="noopener">
+        <a className="btn btn--solid" aria-disabled="true" title="Wkrótce">
           Zarezerwuj
         </a>
       </div>

@@ -12,7 +12,7 @@ export default function Header({ city }) {
         <Link href={`/${city.slug}/`} className="header__logo" aria-label={`Alahamora ${city.name} – strona główna`}>
           <Logo sub={city.name} />
         </Link>
-        <HeaderMenu nav={city.nav} current={city.slug} cityOptions={cityOptions} reserveUrl={city.reserveUrl} />
+        <HeaderMenu nav={city.nav} current={city.slug} cityOptions={cityOptions} />
       </div>
     </header>
   );

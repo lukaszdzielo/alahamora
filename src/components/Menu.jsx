@@ -8,7 +8,7 @@ import SectionHead from './SectionHead';
 // 'list'   (Gliwice):  duże zdjęcie + lista z okrągłymi miniaturami.
 export default function Menu({ menu, lamps }) {
   const button = (
-    <a className="btn" href={menu.menuUrl}>
+    <a className="btn" {...(menu.menuUrl && menu.menuUrl !== '#' ? { href: menu.menuUrl } : { 'aria-disabled': 'true', title: 'Wkrótce' })}>
       Całe menu
     </a>
   );
