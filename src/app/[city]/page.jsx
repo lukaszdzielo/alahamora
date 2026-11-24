@@ -10,6 +10,7 @@ import Gallery from '@/components/Gallery';
 import Contact from '@/components/Contact';
 import AppearController from '@/components/AppearController';
 import Footer from '@/components/Footer';
+import Licence from '@/components/Licence';
 import WandCursor from '@/components/WandCursor';
 import LampsController from '@/components/LampsController';
 import RevelioController from '@/components/RevelioController';
@@ -70,6 +71,7 @@ export default async function CityPage({ params }) {
         <Offers rv={data.revelio} offers={data.offers} lamps={data.effects.lamps} />
         <Gallery rv={data.revelio} gallery={data.gallery} lamps={data.effects.lamps} />
         <Contact city={data} lamps={data.effects.lamps} />
+        <Licence />
       </main>
       <Footer />
       <AppearController />

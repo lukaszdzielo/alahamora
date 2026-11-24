@@ -2042,6 +2042,84 @@ a { color: inherit; }
   &:focus-visible .door__frame { outline: 2px solid var(--accent-light); outline-offset: 6px; }
 }
 
+/* ---------- Baner licencji „Otwórz z nami Alahamorę” (Licence.jsx) ---------- */
+.licence {
+  position: relative;
+  padding-bottom: clamp(70px, 8vw, 110px);
+  background: var(--bg);
+
+  & .licence__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px 40px;
+    padding: 30px 40px;
+    overflow: hidden;
+    border: 1px solid rgb(var(--line-rgb) / .45);
+    border-radius: 18px;
+    background:
+      radial-gradient(70% 140% at 0% 50%, rgb(var(--line-rgb) / .16), transparent 60%),
+      linear-gradient(120deg, var(--surface), color-mix(in srgb, var(--surface) 70%, #000));
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / .8);
+
+    /* druga, wewnętrzna ramka */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgb(var(--line-rgb) / .18);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+  }
+
+  & .licence__key {
+    width: 110px;
+    height: 130px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 55%, #fff), var(--accent) 45%, color-mix(in srgb, var(--accent) 65%, #000));
+    mask: var(--key) center / contain no-repeat;
+    filter: drop-shadow(0 0 14px rgb(var(--line-rgb) / .5));
+  }
+
+  & .licence__kicker {
+    display: block;
+    margin-bottom: 8px;
+    font: 600 12px/1 var(--font-display), serif;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+  }
+
+  & h2 {
+    margin: 0 0 10px;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.2;
+  }
+
+  & p {
+    margin: 0;
+    max-width: 56ch;
+    color: var(--muted);
+
+    & em {
+      font: italic 600 1.15em var(--font-ink), serif;
+      color: var(--accent-light);
+    }
+  }
+
+  @media (max-width: 760px) {
+    & .licence__card {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      padding: 30px 22px;
+      text-align: center;
+    }
+
+    & .licence__key { width: 84px; height: 100px; }
+  }
+}
+
 /* ---------- Stopka ---------- */
 .footer {
   position: relative;
