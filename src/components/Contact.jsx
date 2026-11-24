@@ -40,7 +40,7 @@ export default function Contact({ city, lamps }) {
           </Link>
         </div>
         <div data-appear="">
-          <ParchmentMap query={contact.mapQuery} mapsUrl={contact.mapsUrl} address={city.addressShort} />
+          <ParchmentMap coords={contact.coords} query={contact.mapQuery} mapsUrl={contact.mapsUrl} address={city.addressShort} />
         </div>
       </div>
     </section>

@@ -127,6 +127,7 @@ export const cities = {
       lead: 'Bez wejściówek i bez planowania. Drzwi Gildii są otwarte codziennie od południa.',
       hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
       mapQuery: 'Alahamora, Zwycięstwa 34, 44-100 Gliwice',
+      coords: [50.2967827, 18.6714271], // punkt lokalu z Google Maps – środek mapy i miejsce różdżki
       mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Alahamora+Zwyci%C4%99stwa+34+Gliwice',
       other: { slug: 'katowice', img: katowicePortraits, title: 'Zajrzyj też do Katowic', text: 'Magiczna kawiarnia przy Mariackiej Tylnej: bubble tea i ruchome obrazy.' },
     },
@@ -222,6 +223,7 @@ export const cities = {
       lead: 'Znajdziesz nas w podwórku przy ulicy Mariackiej Tylnej, kilka minut spacerem od Rynku.',
       hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
       mapQuery: 'Alahamora, Mariacka Tylna 5a, 40-001 Katowice',
+      coords: [50.2572143, 19.0253965],
       mapsUrl: 'https://maps.app.goo.gl/dj2uHzEp8ATLQQyW8',
       other: { slug: 'gliwice', img: gliwiceHero, title: 'Zajrzyj też do Gliwic', text: 'Gildia Czarodziejów: zielone salony, klub dziecięcy i lody spaghetti.' },
     },

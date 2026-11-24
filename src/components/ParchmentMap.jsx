@@ -1,32 +1,45 @@
 import Image from 'next/image';
 import parchment from '@/assets/img/mapa/pergamin.webp';
-// maska-postrzepiona: kształt z poszarpanymi brzegami od Łukasza (24.11); poprzednia, z miękkim brzegiem: maska-srodek.png
 import innerMask from '@/assets/img/mapa/maska-postrzepiona.png';
 import Icon from './Icon';
 
-// Mapa na pergaminie: prawdziwa mapa (Google Maps, bez klucza API) przycięta do kształtu
-// poszarpanego kawałka papieru na środku pergaminu. Na mapę nakładamy fakturę papieru (multiply),
-// więc zagięcia i plamy przebijają przez ulice. Mapą można normalnie przesuwać i przybliżać.
-export default function ParchmentMap({ query, mapsUrl, address }) {
-  const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
+// Mapa na kawałku papieru: prawdziwa mapa Google (bez klucza API) przycięta do kształtu
+// z poszarpanymi brzegami (maska-postrzepiona.png). Na mapę nakładamy fakturę papieru (multiply).
+//
+// Znacznik: Google bez klucza nie pozwala podmienić pinezki, więc:
+// - mapę ustawiamy samymi współrzędnymi (ll=…) – wtedy Google nie rysuje swojej pinezki,
+// - w środku mapy (= dokładnie te współrzędne) stoi nasza różdżka z iskrą,
+// - mapa jest nieruchoma (bez przesuwania), żeby różdżka zawsze wskazywała lokal;
+//   kliknięcie w mapę albo w przycisk otwiera nawigację w Google Maps.
+export default function ParchmentMap({ coords, query, mapsUrl, address }) {
+  const src = coords
+    ? `https://maps.google.com/maps?ll=${coords[0]},${coords[1]}&z=17&output=embed`
+    : `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
 
   return (
     <div className="pmap" style={{ '--mask': `url(${innerMask.src})` }}>
-      <Image className="pmap__paper" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" />
       {/* .pmap__cut: cień i ciemniejszy brzeg wzdłuż poszarpanej krawędzi (filtr musi być na rodzicu –
           na elemencie z maską przycięłaby go sama maska) */}
-      <div className="pmap__cut">
-        <div className="pmap__map">
-          <iframe src={src} title={`Mapa dojazdu – ${address}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+      <a className="pmap__cut" href={mapsUrl} target="_blank" rel="noopener" tabIndex={-1} aria-hidden="true">
+        <div className="pmap__masked">
+          <div className="pmap__map">
+            <iframe src={src} title={`Mapa dojazdu – ${address}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" tabIndex={-1} />
+          </div>
+          <Image className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
         </div>
-        <Image className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
-      </div>
-      <div className="pmap__card">
-        <strong>{address}</strong>
-        <a className="btn btn--solid" href={mapsUrl} target="_blank" rel="noopener">
-          <Icon name="pin" size={16} /> Prowadź do nas
-        </a>
-      </div>
+      </a>
+
+      {coords && (
+        <span className="pmap__marker" aria-hidden="true">
+          <span className="pmap__glow" />
+          <span className="pmap__wand" />
+          <span className="pmap__spark" />
+        </span>
+      )}
+
+      <a className="btn btn--solid pmap__go" href={mapsUrl} target="_blank" rel="noopener">
+        <Icon name="pin" size={16} /> Prowadź do nas
+      </a>
     </div>
   );
 }

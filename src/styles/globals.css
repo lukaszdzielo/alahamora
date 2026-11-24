@@ -1664,13 +1664,14 @@ a { color: inherit; }
   max-width: 580px;
   margin-inline: auto;
   aspect-ratio: 1940 / 1948;
+  margin-bottom: 26px; /* miejsce na przycisk wystający spod mapy */
+  container-type: inline-size;
   filter: drop-shadow(0 30px 40px rgb(0 0 0 / .6));
-
-  & .pmap__paper { object-fit: contain; }
 
   & .pmap__cut {
     position: absolute;
     inset: 0;
+    display: block;
     /* poszarpany brzeg mapy: cienka „przypalona” krawędź + miękki cień pod kawałkiem papieru */
     filter:
       drop-shadow(0 0 1px rgb(74 46 22 / .95))
@@ -1678,10 +1679,17 @@ a { color: inherit; }
       drop-shadow(0 4px 8px rgb(50 32 14 / .3));
   }
 
+  /* maska na wspólnym rodzicu mapy i faktury – przycina oba jednym kształtem */
+  & .pmap__masked {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    mask: var(--mask) center / 100% 100% no-repeat;
+  }
+
   & .pmap__map {
     position: absolute;
     inset: 0;
-    mask: var(--mask) center / 100% 100% no-repeat;
 
     overflow: hidden;
 
@@ -1694,6 +1702,7 @@ a { color: inherit; }
       width: 100%;
       height: calc(100% + 2 * var(--map-crop, 160px));
       border: 0;
+      pointer-events: none; /* mapa nieruchoma – różdżka zawsze wskazuje lokal; klik otwiera Google Maps */
       /* mapa w sepii, żeby pasowała do papieru */
       filter: sepia(.75) saturate(.85) contrast(.95) brightness(.98);
     }
@@ -1701,31 +1710,91 @@ a { color: inherit; }
 
   /* faktura papieru na mapie (zagięcia, plamy) – nie blokuje klikania w mapę */
   & .pmap__texture {
-    object-fit: contain;
+    object-fit: cover;
+    scale: 1.3; /* brzegi starego pergaminu wypychamy poza maskę – zostaje sama faktura papieru */
     mix-blend-mode: multiply;
     opacity: .55;
     pointer-events: none;
-    mask: var(--mask) center / 100% 100% no-repeat;
   }
 
-  & .pmap__card {
+  /* przycisk na środku dolnej krawędzi mapy (w połowie na mapie, w połowie pod nią) */
+  & .pmap__go {
     position: absolute;
-    left: 13%;
-    bottom: 13%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 14px 16px;
-    border: 1px solid rgb(74 52 32 / .4);
-    border-radius: 4px;
-    background: rgb(233 219 184 / .92);
-    color: #4A3420;
+    left: 50%;
+    bottom: 0;
+    z-index: 2;
+    translate: -50% 50%;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgb(0 0 0 / .45);
+  }
 
-    & strong {
-      font: 600 15px/1.2 var(--font-display), serif;
+  /* Znacznik: różdżka wskazuje czubkiem dokładnie środek mapy (= współrzędne lokalu).
+     W rozdzka.svg (870×185) czubek leży w (865, 13) – tam jest punkt obrotu. */
+  & .pmap__marker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(-4px 6px 4px rgb(40 26 10 / .45));
+  }
+
+  & .pmap__wand {
+    --w: clamp(110px, 30cqi, 170px); /* ok. 1/3 szerokości mapy */
+    position: absolute;
+    left: calc(var(--w) * -0.9943);
+    top: calc(var(--w) * 185 / 870 * -0.0703);
+    width: var(--w);
+    aspect-ratio: 870 / 185;
+    /* wypełnienie drewnem (sylwetka) + rysunek konturu z rozdzka.svg na wierzchu */
+    background: linear-gradient(90deg, #4a2e18, #7a5030 40%, #a87a48 78%, #E7C982 97%);
+    mask: url('../assets/img/rozdzka-sylwetka.png') center / 100% 100% no-repeat;
+    transform-origin: 99.43% 7.03%;
+    rotate: 144deg; /* rączka w prawo do góry, czubek w lokal */
+    animation: pmap-tap 2.4s ease-in-out infinite;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgb(40 24 10 / .85);
+      mask: url('../assets/svg/rozdzka.svg') center / 100% 100% no-repeat;
     }
   }
+
+  /* iskra na czubku i ciepła poświata pod nim */
+  & .pmap__spark {
+    position: absolute;
+    left: -8px;
+    top: -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0 18%, rgb(255 236 190 / .95) 32%, rgb(231 201 130 / .5) 58%, transparent 72%);
+    animation: wand-tip 1.6s ease-in-out infinite;
+  }
+
+  & .pmap__glow {
+    position: absolute;
+    left: -34px;
+    top: -34px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 214 120 / .55), rgb(201 164 92 / .18) 45%, transparent 70%);
+    animation: pmap-glow 2.4s ease-in-out infinite;
+  }
+}
+
+/* różdżka lekko „stuka” w miejsce na mapie */
+@keyframes pmap-tap {
+  0%, 100% { rotate: 144deg; }
+  50% { rotate: 139deg; }
+}
+
+@keyframes pmap-glow {
+  0%, 100% { transform: scale(.85); opacity: .7; }
+  50% { transform: scale(1.15); opacity: 1; }
 }
 
 /* ---------- Latarnie i świetlik (Katowice) ---------- */
@@ -2330,15 +2399,7 @@ html[data-entering] .notice-wrap {
   .menu .menu__thumb { width: 72px; height: 72px; }
   .menu .menu__grid { gap: 40px; }
 
-  .pmap .pmap__card {
-    left: 10%;
-    bottom: 9%;
-    padding: 10px 12px;
-    gap: 8px;
-
-    & strong { font-size: 13px; }
-    & .btn { padding: 10px 14px; font-size: 10px; }
-  }
+  .pmap .pmap__go { padding: 10px 14px; font-size: 10px; }
 
   .contact .contact__grid { gap: 40px; }
 }
