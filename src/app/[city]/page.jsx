@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const { city } = await params;
   const data = cities[city];
   return {
-    title: data ? `${data.pickerLabel} – ${data.name}` : 'Nie znaleziono',
+    title: data ? `Magiczna kawiarnia ${data.name}` : 'Nie znaleziono',
     description: data?.lead,
   };
 }

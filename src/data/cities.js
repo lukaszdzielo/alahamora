@@ -9,8 +9,6 @@ export const cities = {
     slug: 'katowice',
     name: 'Katowice',
     theme: 'katowice', // granat + złoto (zmienne w globals.css)
-    pickerLabel: 'Czarodziejska biblioteka',
-    pickerAddress: 'Mariacka Tylna 5a, centrum',
     h1: { before: 'Czarodziejska biblioteka w sercu ', em: 'Katowic' },
     lead:
       'Antyczne meble, ruchome obrazy i portale do innych światów. Wpadnij na magiczne bubble tea, kwiatowy napar z wróżeniem z fusów albo wegetariański obiad.',
@@ -29,8 +27,6 @@ export const cities = {
     slug: 'gliwice',
     name: 'Gliwice',
     theme: 'gliwice', // zieleń + srebro
-    pickerLabel: 'Gildia Czarodziejów',
-    pickerAddress: 'ul. Zwycięstwa 34/U1',
     h1: { before: 'Gildia Czarodziejów w ', em: 'Gliwicach' },
     lead:
       'Sto metrów niezwykłej atmosfery: antyki, magiczne przebrania i najbardziej różowy pokój. Wpadnij na dymiący eliksir, lody spaghetti albo obiad.',

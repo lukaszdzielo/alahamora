@@ -1,34 +1,61 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const STORAGE_KEY = 'alahamora:city';
+// Link do lokalu z animacją „wejścia w obraz” (View Transitions API).
+// Zdjęcie w ramie i zdjęcie w hero mają to samo view-transition-name (`hero-<miasto>`),
+// więc przeglądarka płynnie powiększa zdjęcie z ramy do pełnego hero.
+// Brak wsparcia albo „ogranicz ruch” w systemie = zwykłe przejście (Link działa normalnie).
 
-// Link do lokalu, który zapamiętuje wybór w localStorage
-// i pokazuje znaczek „Ostatnio wybrane” przy drzwiach wybranych poprzednio.
-export default function DoorLink({ slug, className, children }) {
-  const [isLast, setIsLast] = useState(false);
-
-  // localStorage istnieje tylko w przeglądarce – czytamy go dopiero po zamontowaniu.
-  useEffect(() => {
-    try {
-      setIsLast(localStorage.getItem(STORAGE_KEY) === slug);
-    } catch {
-      // np. tryb prywatny z zablokowanym storage – po prostu nic nie pokazujemy
+// Uwaga: w trakcie przejścia przeglądarka wstrzymuje rysowanie strony,
+// więc requestAnimationFrame nie działa – sprawdzamy DOM przez MutationObserver + setTimeout.
+function waitForHero(slug, timeout = 1500) {
+  return new Promise((resolve) => {
+    const found = () => document.querySelector(`[data-hero="${slug}"]`);
+    if (found()) return resolve();
+    const observer = new MutationObserver(() => {
+      if (found()) done();
+    });
+    const timer = setTimeout(done, timeout);
+    function done() {
+      observer.disconnect();
+      clearTimeout(timer);
+      resolve();
     }
-  }, [slug]);
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+}
 
-  const remember = () => {
-    try {
-      localStorage.setItem(STORAGE_KEY, slug);
-    } catch {}
+export default function DoorLink({ slug, className, children }) {
+  const router = useRouter();
+  const href = `/${slug}/`;
+
+  const handleClick = (event) => {
+    const canAnimate =
+      typeof document !== 'undefined' &&
+      'startViewTransition' in document &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // nowa karta, Ctrl/Cmd+klik itp. – zostawiamy przeglądarce
+    if (!canAnimate || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+
+    event.preventDefault();
+    document.documentElement.dataset.transition = slug;
+
+    const transition = document.startViewTransition(async () => {
+      router.push(href);
+      await waitForHero(slug); // „zdjęcie” nowego stanu robimy, gdy hero jest już na stronie
+    });
+
+    transition.finished.finally(() => {
+      delete document.documentElement.dataset.transition;
+    });
   };
 
   return (
-    <Link href={`/${slug}/`} className={className} onClick={remember} data-last={isLast || undefined}>
+    <Link href={href} className={className} onClick={handleClick}>
       {children}
-      {isLast && <span className="door__badge">Ostatnio wybrane</span>}
     </Link>
   );
 }

@@ -4,7 +4,7 @@ export default function Hero({ city }) {
   const { hero, h1, lead, hours, address, phone } = city;
 
   return (
-    <section className="hero">
+    <section className="hero" data-hero={city.slug}>
       {/* view-transition-name łączy to zdjęcie ze zdjęciem w lustrze na ekranie wyboru
           (animacja przejścia – patrz README) */}
       <Image
