@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation';
 // 1) Na żywej stronie (Web Animations API) cała rama przybliża się do nas: rośnie i jedzie
 //    na środek, aż jej szkło przykryje cały ekran; łuk szkła się prostuje, ściana gaśnie.
 // 2) Jednocześnie zdjęcie w szkle zmienia skalę i położenie tak, że NA KOŃCU leży dokładnie
-//    tak samo jak zdjęcie w hero (te same piksele w tym samym miejscu ekranu) i dostaje gradienty hero.
+//    tak samo jak zdjęcie w hero (te same piksele w tym samym miejscu ekranu).
+//    Gradienty hero leżą od razu w docelowym miejscu (.enter-shade) i tylko się rozjaśniają.
 // 3) Dopiero wtedy przechodzimy na stronę miasta – krótkie przenikanie (View Transitions)
 //    jest niewidoczne, bo obraz przed i po jest identyczny; potem wchodzą teksty.
 //
@@ -61,7 +62,6 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
     const frame = link.querySelector('.door__frame');
     const glass = link.querySelector('.door__glass');
     const img = glass?.querySelector('img');
-    const shade = glass?.querySelector('.door__shade');
     if (!frame || !img || !img.naturalWidth) return; // zdjęcie jeszcze się nie wczytało – zwykłe przejście
 
     event.preventDefault();
@@ -109,17 +109,12 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
     const tx = (hero.x - ax) / s - door.x;
     const ty = (hero.y - ay) / s - door.y;
 
-    // gradienty hero ułożone tak, jak będą na stronie miasta (+ tło pod hero)
-    if (shade) {
-      Object.assign(shade.style, {
-        left: `${-ax / s}px`,
-        top: `${-ay / s}px`,
-        width: `${vw / s}px`,
-        height: `${Math.max(vh, heroH) / s}px`,
-        backgroundSize: `100% ${heroH / s}px, 100% ${heroH / s}px, 100% 100%`,
-        backgroundPosition: `0 0, 0 0, 0 ${heroH / s}px`,
-      });
-    }
+    // Gradienty hero NIE są częścią powiększanej ramy – leżą od razu w docelowym miejscu
+    // (cały ekran, jak na stronie miasta) i tylko zmieniają przezroczystość.
+    const shade = document.createElement('div');
+    shade.className = 'enter-shade';
+    shade.dataset.city = link.closest('[data-city]')?.dataset.city ?? '';
+    document.body.appendChild(shade);
 
     const opts = { duration: ZOOM_MS, easing: EASE, fill: 'forwards' };
     const animations = [
@@ -127,7 +122,7 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
       img.animate([{ transform: 'none' }, { transform: `translate(${tx}px, ${ty}px) scale(${k})` }], opts),
       glass.animate([{ borderRadius: getComputedStyle(glass).borderRadius }, { borderRadius: '0px' }], opts),
     ];
-    if (shade) animations.push(shade.animate([{ opacity: 0 }, { opacity: 0 }, { opacity: 1 }], opts));
+    animations.push(shade.animate([{ opacity: 0 }, { opacity: 0, offset: 0.45 }, { opacity: 1 }], opts));
 
     // ściana, logo i druga rama lekko się przybliżają i gasną
     const picker = link.closest('.picker');
@@ -145,6 +140,7 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
         await waitForHero(slug);
       });
       transition.finished.finally(() => {
+        shade.remove();
         setTimeout(() => delete root.dataset.entering, 2000);
       });
     });

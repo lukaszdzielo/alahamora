@@ -1870,13 +1870,19 @@ a { color: inherit; }
   & .door__frame { box-shadow: none; }
 }
 
-.door__shade {
-  position: absolute;
-  z-index: 1;
-  opacity: 0;
+/* gradienty hero w docelowym miejscu (cały ekran) – tylko zmieniają przezroczystość */
+.enter-shade {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
   pointer-events: none;
-  background: var(--hero-shade), linear-gradient(var(--bg), var(--bg));
+  opacity: 0;
+  background:
+    var(--hero-shade),
+    linear-gradient(var(--bg), var(--bg));
   background-repeat: no-repeat;
+  background-size: 100% var(--hero-h), 100% var(--hero-h), 100% 100%;
+  background-position: 0 0, 0 0, 0 var(--hero-h);
 }
 
 .door__img { transform-origin: 0 0; }

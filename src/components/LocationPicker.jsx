@@ -30,8 +30,6 @@ export default function LocationPicker({ cities }) {
                     sizes="(max-width: 700px) 45vw, 300px"
                     style={{ objectPosition: city.hero.position }}
                   />
-                  {/* gradienty hero – pojawiają się w trakcie „wejścia w obraz” (DoorLink) */}
-                  <span className="door__shade" aria-hidden="true" />
                   <span className="door__city">{city.name}</span>
                 </span>
               </span>
