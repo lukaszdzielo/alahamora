@@ -1664,9 +1664,16 @@ a { color: inherit; }
     inset: 0;
     mask: var(--mask) center / 100% 100% no-repeat;
 
+    overflow: hidden;
+
+    /* Embed Google bez klucza nie pozwala wyłączyć kontrolek, więc ramka mapy jest wyższa
+       od pergaminu i przycięta: znika karta miejsca (lewy górny róg), przyciski zoomu
+       i pasek z linkami na dole. Przycięcie równe góra/dół = pinezka zostaje na środku. */
     & iframe {
+      position: absolute;
+      inset: calc(-1 * var(--map-crop, 160px)) 0;
       width: 100%;
-      height: 100%;
+      height: calc(100% + 2 * var(--map-crop, 160px));
       border: 0;
       /* mapa w sepii, żeby pasowała do papieru */
       filter: sepia(.75) saturate(.85) contrast(.95) brightness(.98);
