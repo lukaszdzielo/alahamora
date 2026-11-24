@@ -4,6 +4,11 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Notice from '@/components/Notice';
 import Features from '@/components/Features';
+import Menu from '@/components/Menu';
+import Offers from '@/components/Offers';
+import Gallery from '@/components/Gallery';
+import Contact from '@/components/Contact';
+import AppearController from '@/components/AppearController';
 import Footer from '@/components/Footer';
 import WandCursor from '@/components/WandCursor';
 import LampsController from '@/components/LampsController';
@@ -37,9 +42,13 @@ export default async function CityPage({ params }) {
         <Hero city={data} />
         <Notice notice={data.notice} />
         <Features features={data.features} lamp={data.effects.lamps} />
-        {/* Kolejne sekcje: Menu, Okazje (proporce), Galeria, Kontakt */}
+        <Menu menu={data.menu} lamps={data.effects.lamps} />
+        <Offers offers={data.offers} lamps={data.effects.lamps} />
+        <Gallery gallery={data.gallery} lamps={data.effects.lamps} />
+        <Contact city={data} lamps={data.effects.lamps} />
       </main>
       <Footer />
+      <AppearController />
       {data.effects.lamps && <LampsController />}
       <WandCursor />
     </div>

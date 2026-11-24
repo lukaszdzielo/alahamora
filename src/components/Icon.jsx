@@ -10,6 +10,13 @@ const PATHS = {
   cal: <><rect x="3.5" y="5" width="17" height="15" rx="2" /><path d="M3.5 10h17M8 3v4M16 3v4" /></>,
   star: <path d="M12 2.5l2 7.5 7.5 2-7.5 2-2 7.5-2-7.5-7.5-2 7.5-2z" />,
   chevron: <path d="m6 9 6 6 6-6" />,
+  mail: <><rect x="3" y="5.5" width="18" height="13" rx="2" /><path d="m3.5 7 8.5 6 8.5-6" /></>,
+  ice: <><ellipse cx="12" cy="16.5" rx="9" ry="3" /><path d="M5 15c1-3 2.5-5 7-5s6 2 7 5" /><path d="M7 14.5c1.2-1.5 2.4-2.2 3.8-1.5 1.2.7 2.4.7 3.4-.3 1.1-.8 2.3-.4 3.3 1.1" /><circle cx="12" cy="7" r="1.6" /></>,
+  cake: <><path d="M4 20v-7h16v7" /><path d="M2.5 20h19" /><path d="M4 15.5c2 1.5 4 1.5 6 0s4-1.5 6 0 3 1 4 0" /><path d="M8 13v-3M12 13v-3M16 13v-3" /></>,
+  group: <><circle cx="8.5" cy="8" r="3" /><circle cx="16.5" cy="9" r="2.5" /><path d="M2.5 20c.5-3.5 3-5.5 6-5.5s5.5 2 6 5.5" /><path d="M14 15c1-.5 1.8-.8 2.5-.8 2.5 0 4.5 1.8 5 4.8" /></>,
+  wand: <><path d="M4 20 15 9" /><path d="M17 3l.9 2.1L20 6l-2.1.9L17 9l-.9-2.1L14 6l2.1-.9z" /><path d="M20 12l.5 1 1 .5-1 .5-.5 1-.5-1-1-.5 1-.5z" /></>,
+  gift: <><rect x="3.5" y="9" width="17" height="4" rx=".8" /><path d="M5 13v7h14v-7M12 9v11" /><path d="M12 9c-2 0-4.5-.5-4.5-2.5 0-1.5 1.5-2 2.5-1.5S12 7.5 12 9Zm0 0c2 0 4.5-.5 4.5-2.5 0-1.5-1.5-2-2.5-1.5S12 7.5 12 9Z" /></>,
+  paper: <><path d="M4.5 4h13v16h-11a2 2 0 0 1-2-2Z" /><path d="M17.5 7h2v11a2 2 0 0 1-2 2" /><path d="M7 7.5h8M7 10.5h8M7 13.5h5" /></>,
 };
 
 export default function Icon({ name, size = 18, stroke = 1.7, className }) {

@@ -20,6 +20,16 @@ import katowiceNook from '@/assets/img/katowice-table-nook.webp';
 import foodCake from '@/assets/img/food-cake.webp';
 import foodBeet from '@/assets/img/food-beet-dish.webp';
 
+import foodMysticat from '@/assets/img/food-mysticat.webp';
+import foodBagel from '@/assets/img/food-rainbow-bagel.webp';
+import gliwicePotions from '@/assets/img/gliwice-potions.webp';
+import gliwiceFace from '@/assets/img/gliwice-stone-face.webp';
+import katowiceBlueHall from '@/assets/img/katowice-blue-hall.webp';
+import katowiceSconces from '@/assets/img/katowice-sconces.webp';
+import katowiceDoors from '@/assets/img/katowice-doors.webp';
+import katowiceLanterns from '@/assets/img/katowice-lanterns.webp';
+import katowiceMoss from '@/assets/img/katowice-moss-wall.webp';
+
 // `placeholder: true` = zdjęcie zastępcze (brak zdjęcia tej atrakcji) – do podmiany.
 
 export const cities = {
@@ -63,6 +73,58 @@ export const cities = {
         { img: gliwiceTeapot, title: 'Pokój pełen antyków', text: 'Mosiądz, porcelana i przedmioty z historią na każdej półce.' },
       ],
     },
+    menu: {
+      layout: 'list', // Gliwice: zdjęcie + lista; Katowice: łuki
+      title: 'Dania, których nie ma nigdzie indziej',
+      lead: 'Dymiące eliksiry, lody spaghetti, kultowy MystiCat i pyszne obiady.',
+      image: gliwicePotions,
+      items: [
+        { img: gliwicePotions, title: 'Dymiące eliksiry', text: 'Napoje, które parują, mienią się i zmieniają kolor.' },
+        { icon: 'ice', title: 'Lody spaghetti', text: 'Deser, który wygląda jak obiad. Spróbuj go odróżnić.' },
+        { img: foodMysticat, title: 'MystiCat', text: 'Kultowy deser w kształcie kota na kolorowej posypce.' },
+        { img: foodBeet, title: 'Dania obiadowe', text: 'Pyszne dania na ciepło, gdy magia wzbudzi apetyt.' },
+      ],
+      menuUrl: '#', // TODO: link do pełnego menu Gliwic
+    },
+    offers: {
+      title: 'Urodziny, klasy i rodzinne okazje',
+      lead: 'Urodziny, wycieczki szkolne i rodzinne uroczystości w Gildii. Przygotujemy menu i atrakcje pod Twoją okazję.',
+      items: [
+        { icon: 'cake', title: 'Urodziny', text: 'Magiczne przyjęcie z przebraniami i menu dla młodych czarodziejów.' },
+        { icon: 'group', title: 'Grupy i szkoły', text: 'Wycieczki klasowe i wyjścia zorganizowane do Gildii.' },
+        { icon: 'wand', title: 'Imprezy okolicznościowe', text: 'Chrzciny, komunie, rocznice i spotkania w czarodziejskim wnętrzu.' },
+        { icon: 'paper', title: 'Voucher jak z gazety', text: 'Prezent w formie strony z magicznej gazety, mailem albo na miejscu.' },
+      ],
+    },
+    gallery: {
+      title: 'Zajrzyj do Gildii',
+      lead: 'Zielone salony, mosiężne talerze na kaflach i kamienna twarz w gąszczu.',
+      url: 'https://alahamora.pl/galeria-alahamora-gliwice/',
+      // ramy: kolejno dla 12 miejsc na ścianie (patrz Gallery.jsx)
+      frames: ['silver-orn', 'black', 'gothic-gold', 'oval-wood', 'wood', 'arch-silver', 'black-orn-gold', 'oval-gold', 'gothic-black', 'gold', 'wood-orn', 'bronze'],
+      items: [
+        { img: gliwicePortraits, caption: 'Galeria portretów' },
+        { img: gliwicePlates, caption: 'Mosiężne talerze' },
+        { img: gliwiceFace, caption: 'Kamienna twarz' },
+        { img: gliwiceBall },
+        { img: gliwiceTeapot, caption: 'Antyki' },
+        { img: gliwicePotions, caption: 'Eliksiry' },
+        { img: gliwiceForest, caption: 'Zielone sklepienie' },
+        { img: gliwicePinkTea },
+        { img: gliwiceCamera, caption: 'Kącik do zdjęć' },
+        { img: gliwicePinkRoom, caption: 'Różowy pokój' },
+        { img: gliwiceHero, caption: 'Zielony salon' },
+        { img: foodMysticat, caption: 'MystiCat' },
+      ],
+    },
+    contact: {
+      title: 'Odwiedź Gildię w Gliwicach',
+      lead: 'Bez wejściówek i bez planowania. Drzwi Gildii są otwarte codziennie od południa.',
+      hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
+      mapQuery: 'Alahamora, Zwycięstwa 34, 44-100 Gliwice',
+      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Alahamora+Zwyci%C4%99stwa+34+Gliwice',
+      other: { slug: 'katowice', img: katowicePortraits, title: 'Zajrzyj też do Katowic', text: 'Magiczna kawiarnia przy Mariackiej Tylnej: bubble tea i ruchome obrazy.' },
+    },
     effects: { lamps: false, revelio: true },
   },
 
@@ -103,6 +165,56 @@ export const cities = {
         { img: foodBeet, placeholder: true, title: 'Kuchnia wegetariańska', text: 'Wegetariańska carbonara czy bezmięsny gulasz? Smaki, które oszukają niejednego mięsożercę.' },
         { img: katowiceNook, adult: true, title: 'Dział ksiąg zakazanych', text: 'Tu czeka Tłuczek, najsłynniejsze piwo czarodziejów. Tylko dla dorosłych (18+).' },
       ],
+    },
+    menu: {
+      layout: 'arches',
+      title: 'Z magicznej karty',
+      lead: 'Rzemieślnicze bajgle we wszystkich kolorach tęczy, kremy robione od podstaw i eliksiry z magicznych ziół.',
+      items: [
+        { img: foodMysticat, title: 'MystiCat', text: 'Kultowy deser w kształcie kota na kolorowej posypce.' },
+        { img: foodBagel, title: 'Tęczowe bajgle', text: 'Wypiekane przez naszych prefektów, na słodko i na słono.' },
+        { img: foodCake, title: 'Ciasta z kolorowym kremem', text: 'Kremy robione od podstaw, z odrobiną sekretnej magii.' },
+        { img: foodBeet, title: 'Obiad bez mięsa', text: 'Sezonowe dania wegetariańskie, które zaskakują smakiem.' },
+      ],
+      menuUrl: '#', // TODO: link do pełnego menu Katowic
+    },
+    offers: {
+      title: 'Urodziny, klasy i wyjątkowe okazje',
+      lead: 'Zorganizujemy magiczne urodziny, lekcję dla klasy albo warsztaty. Wybierz okazję, resztą zajmą się czarodzieje.',
+      items: [
+        { icon: 'group', title: 'Wyjście klasowe', price: '10 zł', text: 'Lekcja w bibliotece czarodziejów dla szkół i grup.' },
+        { icon: 'cake', title: 'Magiczne urodziny', text: 'Przyjęcie w zaczarowanym wnętrzu z menu dla małych i dużych czarodziejów.' },
+        { icon: 'wand', title: 'Warsztaty', text: 'Zajęcia z eliksirów, zielarstwa i wróżbiarstwa dla początkujących.' },
+        { icon: 'gift', title: 'Czekolada ze złotym biletem', text: 'Magiczna czekolada na prezent, a w środku złoty bilet do kawiarni.' },
+      ],
+    },
+    gallery: {
+      title: 'Zajrzyj do środka',
+      lead: 'Granatowe ściany, złote ramy, setki światełek i drzwi, które prowadzą nie wiadomo dokąd.',
+      url: 'https://alahamora.pl/galeria/',
+      frames: ['gold-orn', 'black-silver', 'gothic-silver', 'oval-wood', 'wood', 'arch-gold', 'black-orn', 'oval-silver', 'gothic-black', 'silver', 'wood-orn', 'pewter'],
+      items: [
+        { img: katowiceBlueHall, caption: 'Granatowa sala' },
+        { img: katowiceSconces, caption: 'Kinkiety' },
+        { img: katowiceDoors, caption: 'Drzwi do innych światów' },
+        { img: katowicePortraits },
+        { img: katowicePlate, caption: 'Stara zastawa' },
+        { img: katowiceLanterns, caption: 'Lampiony' },
+        { img: katowiceBooth, caption: 'Dormitorium' },
+        { img: foodCake },
+        { img: katowiceMoss, caption: 'Podwórko' },
+        { img: katowiceNook, caption: 'Dział ksiąg zakazanych' },
+        { img: katowiceHero, caption: 'Granatowy salon' },
+        { img: foodMysticat, caption: 'MystiCat' },
+      ],
+    },
+    contact: {
+      title: 'Odwiedź nas w Katowicach',
+      lead: 'Znajdziesz nas w podwórku przy ulicy Mariackiej Tylnej, kilka minut spacerem od Rynku.',
+      hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
+      mapQuery: 'Alahamora, Mariacka Tylna 5a, 40-001 Katowice',
+      mapsUrl: 'https://maps.app.goo.gl/dj2uHzEp8ATLQQyW8',
+      other: { slug: 'gliwice', img: gliwiceHero, title: 'Zajrzyj też do Gliwic', text: 'Gildia Czarodziejów: zielone salony, klub dziecięcy i lody spaghetti.' },
     },
     effects: { lamps: true, revelio: false },
   },

@@ -55,12 +55,17 @@ public/
 - Efekty z projektu (Revelio, latarnie, karuzela zwierciadeł, chmury) robimy jako
   małe komponenty klienckie + własne hooki.
 
-## Do zrobienia (sekcje z projektu na płótnie)
+## Stan sekcji
 
-- [ ] Co czeka za drzwiami (karuzela zwierciadeł, tilt zdjęcia)
-- [ ] Z magicznej karty (Katowice: łuki, Gliwice: lista)
-- [ ] Urodziny, klasy i okazje (proporce + świece)
-- [ ] Galeria (ramy, ściana z kafli)
-- [ ] Kontakt (mapa na pergaminie)
-- [ ] Katowice: latarnie (`useLamps`) · Gliwice: Revelio (`useRevelio`)
-- [ ] Animacja przejścia: lustro → hero (View Transitions)
+- [x] Ekran wyboru lokalizacji + animacja „wejście w obraz” (View Transitions)
+- [x] Nagłówek, hero, pasek ogłoszenia
+- [x] Co czeka (karuzela zwierciadeł)
+- [x] Z magicznej karty (Katowice: łuki, Gliwice: lista) + chmury
+- [x] Urodziny, klasy i okazje (proporce, świece, gotyckie okna)
+- [x] Galeria (ramy z różnych metali, ściana z kafli)
+- [x] Kontakt (dane + prawdziwa mapa Google na pergaminie)
+- [x] Katowice: latarnie i świetlik (`Lamp`, `LampsController`)
+- [x] Pojawianie się elementów przy przewijaniu (`AppearController`, atrybut `data-appear`)
+- [ ] Gliwice: Revelio – ukryte rysunki pod różdżką (sowa, kapelusz, kociołek, koperta, księga…)
+- [ ] Linki do pełnego menu (TODO w `cities.js`), zdjęcia zastępcze (`placeholder: true`)
+- [ ] Wersja mobilna – dopracowanie, dostępność, SEO
