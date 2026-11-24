@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { feetSteps, FeetSteps } from '@/lib/feet';
+import { bezierPoints, stepsAlong, FeetSteps } from '@/lib/feet';
 
 // Ścieżka czarodzieja na tablecie / mniejszym desktopie (641–1247 px): jak na dużym ekranie
 // zaczyna się na zdjęciu w menu, schodzi w dół pustą kolumną pod zdjęciem i jednym
@@ -33,16 +33,17 @@ export default function FeetTrail({ step = 55 }) {
       const li = rect(col);
       const W = b.width;
 
-      // jedna gładka krzywa: pionowo w dół ze zdjęcia, łagodnym łukiem w prawo nad „Urodziny…”
-      // (na 641–991 px notatka „Tędy…” stoi pod listą, po prawej stronie śladów – CSS .rv--tedy)
+      // ze zdjęcia prosto w dół, aż za koniec listy (z „Całe menu”), potem łagodnym łukiem w prawo
+      // nad „Urodziny…” – łuk zaczyna się dopiero pod listą, więc ślady nigdy na nią nie wchodzą.
+      // Kierunek na styku jest ten sam (pionowy), więc przejście jest płynne.
+      // (na 641–991 px notatka „Tędy…” stoi pod listą po prawej – CSS .rv--tedy)
       const x0 = Math.min(ph.l + (ph.r - ph.l) * 0.7, li.l - 45); // na zdjęciu, z dala od listy
       const end = [W * 0.86, 95];
-      const pts = [
-        [x0, ph.b - 95],
-        [x0, Math.max(li.b + 60, (ph.b + end[1]) / 2)],
-        [x0 + (end[0] - x0) * 0.25, end[1] + 10],
-        end,
-      ];
+      const y0 = ph.b - 95;
+      const yTurn = Math.max(li.b + 20, y0 + 40);
+      const line = Array.from({ length: 60 }, (_, i) => [x0, y0 + ((yTurn - y0) * i) / 60]);
+      const arc = bezierPoints([[x0, yTurn], [x0, yTurn + (end[1] - yTurn) * 0.7], [x0 + (end[0] - x0) * 0.3, end[1] + 8], end]);
+      const pts = [...line, ...arc];
       const top = ph.b - 135;
       setGeo({ top, h: 140 - top, pts: pts.map(([x, y]) => [x, y - top]) });
       rv.style.top = `${Math.round(top)}px`;
@@ -51,15 +52,21 @@ export default function FeetTrail({ step = 55 }) {
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(box);
-    const menu = document.querySelector('#menu');
-    if (menu) ro.observe(menu);
+    ['#menu', '#menu .menu__photo', '#menu .menu__col'].forEach((sel) => {
+      const el = document.querySelector(sel);
+      if (el) ro.observe(el);
+    });
     document.fonts?.ready.then(measure);
-    return () => ro.disconnect();
+    window.addEventListener('load', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('load', measure);
+    };
   }, []);
 
   return (
     <svg ref={ref} width="100%" height={geo?.h ?? 1} fill="currentColor" style={{ overflow: 'visible' }}>
-      {geo && <FeetSteps steps={feetSteps(geo.pts, { step })} />}
+      {geo && <FeetSteps steps={stepsAlong(geo.pts, { step })} />}
     </svg>
   );
 }

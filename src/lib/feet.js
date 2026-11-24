@@ -1,7 +1,7 @@
 // Ślady stóp wzdłuż krzywej Béziera (4 punkty kontrolne), na przemian lewa i prawa stopa.
 // n – liczba śladów albo step – odstęp w px (liczba wychodzi z długości krzywej).
 // Rozkłada ślady co równy odcinek wzdłuż gęsto spróbkowanej linii (pts).
-function stepsAlong(pts, { n, step }) {
+export function stepsAlong(pts, { n, step }) {
   const len = [0];
   for (let i = 1; i < pts.length; i += 1) len.push(len[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
   const total = len[len.length - 1];
@@ -26,13 +26,17 @@ function stepsAlong(pts, { n, step }) {
   return out;
 }
 
-// Krzywa Béziera z 4 punktów kontrolnych.
-export function feetSteps(P, opts) {
+// Punkty krzywej Béziera z 4 punktów kontrolnych.
+export function bezierPoints(P, count = 401) {
   const bz = (t) => {
     const u = 1 - t;
     return [0, 1].map((k) => u ** 3 * P[0][k] + 3 * u * u * t * P[1][k] + 3 * u * t * t * P[2][k] + t ** 3 * P[3][k]);
   };
-  return stepsAlong(Array.from({ length: 401 }, (_, i) => bz(i / 400)), opts);
+  return Array.from({ length: count }, (_, i) => bz(i / (count - 1)));
+}
+
+export function feetSteps(P, opts) {
+  return stepsAlong(bezierPoints(P), opts);
 }
 
 // Gładka linia PRZEZ podane punkty (centripetal Catmull-Rom – bez pętli przy nierównych odstępach).
