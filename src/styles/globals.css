@@ -2431,8 +2431,11 @@ html[data-entering] .notice-wrap {
   50% { opacity: 1; }
 }
 
-/* kapelusz na końcu nagłówka „Co czeka w Gildii” */
+/* kapelusz na końcu nagłówka „Co czeka w Gildii” – sekcja potrzebuje więcej miejsca u góry,
+   inaczej kapelusz wystaje poza nią i jest ucięty (np. przy 1100 px) */
 .rv-anchor { position: relative; display: inline-block; }
+.features:has(.rv--hat) { padding-top: max(clamp(110px, 12vw, 170px), 260px); }
+.rv.rv--mobile { display: none; }
 
 .rv.rv--hat {
   left: 100%;
@@ -2460,8 +2463,10 @@ html[data-entering] .notice-wrap {
   .rv__draw { width: var(--mw, var(--w)); }
   .rv__ink { font-size: 19px; white-space: normal; max-width: 260px; }
 
-  /* kapelusz nad nagłówkiem, przy prawej krawędzi */
-  .rv.rv--hat { left: auto; right: -30px; bottom: 70%; margin-left: -60px; }
+  /* kapelusz przy nagłówku chowamy – na telefonie jest osobno, razem z „Psst…” (rv--mobile) */
+  .rv.rv--hat { display: none; }
+  .rv.rv--mobile { display: block; }
+  .features:has(.rv--hat) { padding-top: 170px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
