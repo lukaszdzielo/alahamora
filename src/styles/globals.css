@@ -2390,6 +2390,29 @@ html[data-entering] .notice-wrap {
   .contact .contact__grid { gap: 40px; }
 }
 
+/* Menu Gliwic na tablecie: zamiast zdjęcia 4:5 na całą szerokość (przytłaczało) –
+   układ 1/3 + 2/3: wąskie zdjęcie po lewej, nagłówek i lista po prawej */
+@media (min-width: 641px) and (max-width: 991px) {
+  .menu .menu__grid {
+    grid-template-columns: 1fr 2fr;
+    gap: 44px;
+    align-items: start;
+  }
+
+  .menu .menu__photo {
+    aspect-ratio: 3 / 5;
+    outline-offset: 8px;
+    margin-top: 8px;
+  }
+}
+
+/* na telefonie zdjęcie nad listą, ale poziome i niższe */
+@media (max-width: 640px) {
+  .menu .menu__photo {
+    aspect-ratio: 3 / 2;
+  }
+}
+
 /* karuzela „Co czeka” na telefonie: mniejsze lustra (widać kawałek następnego) */
 @media (max-width: 640px) {
   .features .features__track {
