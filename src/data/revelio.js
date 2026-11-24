@@ -43,8 +43,8 @@ export const gliwiceRevelio = {
     // 641–1247 px: od zdjęcia w menu długim łukiem w dół, do nagłówka „Urodziny…”; notatka „Tędy…” obok śladów
     // (punkty liczone z położenia zdjęcia, listy i notatki – components/FeetTrail.jsx)
     { trail: true, step: 55, cls: 'rv--narrow', pos: { left: '0', right: '0', top: '-40px' } },
-    // telefon (≤640): wyższy pas, ślady wchodzą zza lewej krawędzi ekranu i płynnym „S” znikają za prawą – jakby czarodziej naprawdę tędy przeszedł
-    { feet: [['-14%', 25], ['42%', 5], ['58%', 215], ['114%', 195]], fluid: true, step: 52, h: 250, cls: 'rv--phone', pos: { left: '0', right: '0', top: '-40px' } },
+    // telefon (≤640): ślady po prostu od lewej do prawej (lekka fala), wchodzą i wychodzą poza ekran; pod nimi sowa na ornamencie
+    { feet: [['-10%', 45], ['30%', 15], ['70%', 75], ['110%', 45]], fluid: true, step: 52, h: 250, cls: 'rv--phone', pos: { left: '0', right: '0', top: '-40px' } },
     // <768 px: księga i „Tu kończy się mapa…” wyśrodkowane, napis nad księgą; od 768 px układ docelowy (desktop).
     // Księga ma szerokość --book-w = min(340px, 56vw) (CSS): jak na desktopie, ale na 320 px ok. 180 px.
     // 0.8 × szerokość = wysokość obróconej księgi – napis zawsze 17 px nad nią.
@@ -52,7 +52,7 @@ export const gliwiceRevelio = {
     // ≥768 px: napis tuż na lewo od księgi (księga: right 3%, 340 px; ok. 16 px odstępu od jej obrysu), na wysokości jej środka
     { ink: 'Tu kończy się mapa, a zaczyna kawa', cls: 'rv--mapa-d', pos: { right: 'calc(3% + 375px)', bottom: '30px', textAlign: 'right' }, hide: 'mobile' },
     { ink: 'Tu kończy się mapa, a zaczyna kawa', cls: 'rv--mapa-m', pos: { left: '50%', bottom: 'calc(100px + (var(--book-w) - 180px) * .8)', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
-    // 641–767 px: sowa siedzi na ornamencie nad „Urodzinami…” (gwiazdka ok. 90 px od lewej, linia ok. 125 px
+    // ≤767 px: sowa siedzi na ornamencie nad „Urodzinami…” (gwiazdka ok. 90 px od lewej, linia ok. 125 px
     // od góry sekcji), do niej prowadzą ślady; translate – dół rysunku na linii (60 px zapasu maski × 2)
     { draw: 'sowa', cls: 'rv--sowa-head', w: 150, pos: { left: '15px', top: '125px', translate: '0 calc(-100% + 120px)' } },
   ],

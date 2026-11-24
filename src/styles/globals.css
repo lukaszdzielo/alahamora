@@ -2566,10 +2566,15 @@ html[data-entering] .notice-wrap {
 @media (max-width: 980px) {
   .rv.rv--owl { display: none; }
 }
-/* 641–767 px: sowa na ornamencie nad nagłówkiem sekcji (tam kończą się ślady) */
+/* ≤767 px: sowa na ornamencie nad nagłówkiem sekcji (na tablecie tam kończą się ślady) */
 .rv.rv--sowa-head { display: none; }
-@media (min-width: 641px) and (max-width: 767px) {
+@media (max-width: 767px) {
   .rv.rv--sowa-head { display: block; }
+}
+/* telefon: ornament niżej (wyższy pas na ślady) i mniejsza sowa */
+@media (max-width: 640px) {
+  .rv.rv--sowa-head { left: 30px !important; top: var(--sowa-line, 228px) !important; }
+  .rv.rv--sowa-head .rv__draw { width: 120px; }
 }
 /* tu sowa patrzy w prawo (w stronę sekcji), na desktopie w lewo – lustrzane odbicie rysunku */
 .rv.rv--sowa-head .rv__draw { scale: -1 1; }
