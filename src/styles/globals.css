@@ -1879,18 +1879,17 @@ a { color: inherit; }
 
 
 
+  /* ramy zawsze obok siebie: dwie kolumny po max 300 px, przy węższym ekranie
+     dzielą dostępną szerokość po równo (nigdy nie spadają jedna pod drugą) */
   & .picker__doors {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 300px));
     justify-content: center;
     gap: clamp(16px, 5vw, 56px);
     width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
-
-    /* dwie ramy obok siebie także na telefonie */
-    & > li { width: min(300px, calc(50vw - 32px)); }
   }
 
 }
