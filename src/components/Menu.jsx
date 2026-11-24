@@ -16,7 +16,7 @@ export default function Menu({ menu, lamps }) {
   if (menu.layout === 'arches') {
     return (
       <section id="menu" className="menu menu--arches">
-        <Clouds id="menu-clouds" />
+        <Clouds />
         <div className="wrap menu__inner">
           <SectionHead id="menu" title={menu.title} lead={menu.lead} lamp={lamps ? 'center' : false} center />
           <div className="dishes">
@@ -42,7 +42,7 @@ export default function Menu({ menu, lamps }) {
 
   return (
     <section id="menu" className="menu menu--list">
-      <Clouds id="menu-clouds" />
+      <Clouds />
       <div className="wrap menu__grid">
         <div className="menu__photo" data-appear="">
           <Image src={menu.image} alt={menu.imageAlt || ''} fill sizes="(max-width: 900px) 90vw, 560px" />

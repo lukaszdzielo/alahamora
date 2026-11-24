@@ -768,22 +768,29 @@ a { color: inherit; }
 }
 
 .clouds__track {
+  --tile: 1760px; /* szerokość tekstury przy wysokości 440px – bez skalowania */
   position: absolute;
   inset: 0 auto 0 0;
-  width: 200%;
-  display: flex;
+  width: calc(100% + var(--tile));
+  background: repeat-x 0 0 / var(--tile) 100%;
   animation: cloud-drift linear infinite;
+  will-change: transform;
 
-  & svg {
-    display: block;
-    width: 50%;
-    height: 100%;
-    flex: none;
+  &.clouds__track--a {
+    background-image: url('../assets/img/chmury/chmury-a.webp');
+    opacity: .55;
+    animation-duration: 150s;
+  }
+
+  &.clouds__track--b {
+    background-image: url('../assets/img/chmury/chmury-b.webp');
+    opacity: .42;
+    animation-duration: 85s;
   }
 }
 
 @keyframes cloud-drift {
-  to { transform: translateX(-50%); }
+  to { transform: translateX(calc(-1 * var(--tile))); }
 }
 
 /* ---------- Menu ---------- */
@@ -794,7 +801,9 @@ a { color: inherit; }
 
   &.menu--arches {
     background:
-      radial-gradient(60% 60% at 50% 30%, rgb(var(--line-rgb) / .16), transparent 70%),
+      /* poświata zaczyna się poniżej górnej krawędzi – inaczej na styku z poprzednią sekcją
+         było widać poziomą linię (przebijała przez chmury) */
+      radial-gradient(60% 50% at 50% 40%, rgb(var(--line-rgb) / .16), transparent 70%),
       linear-gradient(180deg, var(--surface) 0%, var(--surface) 80%, var(--bg) 100%);
   }
 
