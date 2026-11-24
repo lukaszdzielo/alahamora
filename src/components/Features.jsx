@@ -4,11 +4,12 @@ import { useRef } from 'react';
 import Icon from './Icon';
 import Ornament from './Ornament';
 import MirrorCard from './MirrorCard';
+import Lamp from './Lamp';
 
 // „Co czeka w Gildii” / „Co czeka za drzwiami” – pozioma karuzela zwierciadeł.
 // Przewijanie: natywny scroll z scroll-snap (działa też palcem i touchpadem),
 // strzałki tylko przesuwają tor o szerokość jednej karty.
-export default function Features({ features }) {
+export default function Features({ features, lamp = false }) {
   const trackRef = useRef(null);
 
   const scroll = (direction) => {
@@ -22,8 +23,8 @@ export default function Features({ features }) {
   return (
     <section id={features.id} className="features">
       <div className="wrap features__head">
-        <div className="section-head">
-          <Ornament />
+        <div className={`section-head${lamp ? ' section-head--lamp' : ''}`}>
+          {lamp ? <Lamp id="features" /> : <Ornament />}
           <h2>{features.title}</h2>
           <p>{features.lead}</p>
         </div>

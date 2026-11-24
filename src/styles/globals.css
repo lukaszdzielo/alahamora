@@ -623,6 +623,159 @@ a { color: inherit; }
   50% { transform: translate(4%, -3%); }
 }
 
+/* ---------- Latarnie i świetlik (Katowice) ---------- */
+.section-head--lamp {
+  position: relative;
+  padding-left: 124px;
+  max-width: calc(60ch + 124px);
+}
+
+.hang {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 3;
+
+  &.hang--side {
+    left: 0;
+    top: -86px;
+    width: 100px;
+    height: 260px;
+
+    & .hang__chain { height: 66px; }
+    & .hang__lamp { top: 62px; width: 100px; height: 142px; }
+    & .hang__halo { top: 128px; width: 420px; height: 420px; }
+    & .hang__pool { left: 300px; top: 40px; width: 900px; height: 420px; }
+  }
+
+  &.hang--center {
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  & .hang__swing {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 0;
+  }
+
+  /* łańcuch łagodnie znika ku górze */
+  & .hang__chain {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 3px;
+    height: 92px;
+    margin-left: -1.5px;
+    background: repeating-linear-gradient(180deg, var(--accent) 0 7px, transparent 7px 10px);
+    mask-image: linear-gradient(180deg, transparent 0%, rgb(0 0 0 / .35) 30%, #000 75%);
+  }
+
+  & .hang__lamp {
+    position: absolute;
+    left: 0;
+    top: 88px;
+    width: 120px;
+    height: 170px;
+    overflow: visible;
+  }
+
+  & .hang__glass {
+    opacity: .12;
+    transition: opacity 1.1s ease .45s;
+  }
+
+  & .hang__flame {
+    opacity: 0;
+    transition: opacity .8s ease .7s;
+  }
+
+  & .hang__halo {
+    position: absolute;
+    left: 50%;
+    top: 150px;
+    width: 560px;
+    height: 560px;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(255 214 140 / .38), rgb(255 190 100 / .12) 32%, transparent 66%);
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 1.4s ease .5s;
+  }
+
+  & .hang__pool {
+    position: absolute;
+    left: 50%;
+    top: 260px;
+    width: 1100px;
+    height: 520px;
+    translate: -50% 0;
+    background: radial-gradient(ellipse 50% 50% at 50% 30%, rgb(255 214 140 / .14), transparent 70%);
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 1.6s ease .6s;
+  }
+
+  &.is-lit {
+    & .hang__glass,
+    & .hang__halo,
+    & .hang__pool { opacity: 1; }
+
+    & .hang__flame {
+      opacity: 1;
+      animation: lamp-flicker 2.2s ease-in-out 1.4s infinite;
+    }
+  }
+}
+
+@keyframes lamp-flicker {
+  0%, 100% { opacity: 1; }
+  30% { opacity: .75; }
+  55% { opacity: .95; }
+  75% { opacity: .7; }
+}
+
+.orb {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF8E2, var(--accent-light) 45%, transparent 72%);
+  box-shadow: 0 0 22px 9px rgb(var(--line-rgb) / .55), 0 0 60px 20px rgb(var(--line-rgb) / .18);
+  opacity: 0;
+  pointer-events: none;
+
+  &.orb--tail {
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    box-shadow: 0 0 12px 4px rgb(var(--line-rgb) / .5);
+  }
+}
+
+@media (max-width: 640px) {
+  .section-head--lamp { padding-left: 84px; }
+  .hang.hang--side { scale: .75; transform-origin: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hang .hang__glass,
+  .hang .hang__flame,
+  .hang .hang__halo,
+  .hang .hang__pool {
+    opacity: 1 !important;
+    transition: none;
+  }
+  .orb { display: none; }
+}
+
 /* ---------- Ekran wyboru ---------- */
 .picker {
   position: relative;

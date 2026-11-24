@@ -6,6 +6,7 @@ import Notice from '@/components/Notice';
 import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 import WandCursor from '@/components/WandCursor';
+import LampsController from '@/components/LampsController';
 
 // Mówi Next.js, które strony wygenerować przy eksporcie: /katowice/ i /gliwice/.
 export function generateStaticParams() {
@@ -35,10 +36,11 @@ export default async function CityPage({ params }) {
       <main>
         <Hero city={data} />
         <Notice notice={data.notice} />
-        <Features features={data.features} />
+        <Features features={data.features} lamp={data.effects.lamps} />
         {/* Kolejne sekcje: Menu, Okazje (proporce), Galeria, Kontakt */}
       </main>
       <Footer />
+      {data.effects.lamps && <LampsController />}
       <WandCursor />
     </div>
   );
