@@ -51,13 +51,14 @@ export default function Offers({ offers, lamps, rv }) {
                   )}
                   <p>{item.text}</p>
                 </span>
+                {/* frędzel w środku proporca – kołysze się razem z nim (przyczepiony do czubka) */}
+                <svg className="banner__tassel" aria-hidden="true" viewBox="0 0 30 70">
+                  <path d="M15 0v18" stroke="var(--accent)" strokeWidth="2" />
+                  <circle cx="15" cy="22" r="5" fill="var(--accent)" />
+                  <path d="M9 26h12l3 30H6Z" fill="var(--accent)" />
+                  <path d="M9 32v22M12 32v24M15 32v24M18 32v24M21 32v22" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
+                </svg>
               </span>
-              <svg className="banner__tassel" aria-hidden="true" viewBox="0 0 30 70">
-                <path d="M15 0v18" stroke="var(--accent)" strokeWidth="2" />
-                <circle cx="15" cy="22" r="5" fill="var(--accent)" />
-                <path d="M9 26h12l3 30H6Z" fill="var(--accent)" />
-                <path d="M9 32v22M12 32v24M15 32v24M18 32v24M21 32v22" stroke="rgba(0,0,0,.35)" strokeWidth="1" />
-              </svg>
               {rv?.offersOwl && i === offers.items.length - 1 && <RevealItem item={rv.offersOwl} className="rv--owl rv--desktop" />}
               {/* proporce w dwóch rzędach (768–980 px): sowa na drążku drugiego proporca – górny rząd, po prawej */}
               {rv?.offersOwl && i === 1 && offers.items.length > 2 && <RevealItem item={rv.offersOwl} className="rv--owl rv--owl-2rows" />}
