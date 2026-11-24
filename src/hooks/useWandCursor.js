@@ -11,6 +11,11 @@ import { useEffect, useRef } from 'react';
  * Na ekranach dotykowych i przy „ogranicz ruch” nic nie robi (zostaje zwykły kursor).
  */
 const SPARK_EVERY_MS = 45;
+
+// Ostatnia pozycja różdżki – przeżywa przejście między stronami (moduł zostaje w pamięci przy
+// nawigacji w aplikacji). Dzięki temu po „wejściu w obraz” różdżka i jej światło są od razu
+// w tym samym miejscu, a nie znikają do pierwszego ruchu myszą (to dawało ciemne mrugnięcie).
+const last = { x: null, y: null, visible: false };
 const SPARK_LIFE_MS = 950;
 
 export default function useWandCursor() {
@@ -28,8 +33,8 @@ export default function useWandCursor() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let frame = 0;
-    let x = -200;
-    let y = -200;
+    let x = last.x ?? -200;
+    let y = last.y ?? -200;
     let lastX = null;
     let angle = 0;
     let lastSpark = 0;
@@ -56,6 +61,8 @@ export default function useWandCursor() {
     const onMove = (event) => {
       x = event.clientX;
       y = event.clientY;
+      last.x = x;
+      last.y = y;
 
       // przechył w stronę ruchu (wygładzony)
       const vx = lastX == null ? 0 : x - lastX;
@@ -67,6 +74,7 @@ export default function useWandCursor() {
       const visible = blocked ? 'false' : 'true';
       wand.dataset.visible = visible;
       glow.dataset.visible = visible;
+      last.visible = !blocked;
 
       const now = performance.now();
       if (!blocked && now - lastSpark > SPARK_EVERY_MS) {
@@ -80,8 +88,22 @@ export default function useWandCursor() {
     const onLeave = () => {
       wand.dataset.visible = 'false';
       glow.dataset.visible = 'false';
+      last.visible = false;
       lastX = null;
     };
+
+    // po zmianie strony: od razu tam, gdzie była (bez wygaszania i ponownego rozjaśniania)
+    if (last.visible && last.x != null) {
+      wand.style.transition = 'none';
+      glow.style.transition = 'none';
+      render();
+      wand.dataset.visible = 'true';
+      glow.dataset.visible = 'true';
+      requestAnimationFrame(() => {
+        wand.style.transition = '';
+        glow.style.transition = '';
+      });
+    }
 
     document.documentElement.classList.add('has-wand');
     window.addEventListener('pointermove', onMove, { passive: true });

@@ -2360,9 +2360,12 @@ a[aria-disabled='true'] {
 /* ---------- Animacja „wejście w obraz” ---------- */
 /* Przybliżanie ramy robi DoorLink (Web Animations API) na żywej stronie.
    Tu tylko krótkie przenikanie przy zmianie strony – obraz przed i po jest ten sam. */
+/* Obraz przed i po zmianie strony jest ten sam (zoom kończy się dokładnie w kadrze hero, nakładka
+   z gradientami jest zdejmowana przed zrzutem nowej strony), więc zamiast przenikania – podmiana
+   w jednej klatce: przenikanie dwóch półprzezroczystych zrzutów dawało krótkie przyciemnienie. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: .35s;
+  animation: none;
 }
 
 .door[data-opening] {

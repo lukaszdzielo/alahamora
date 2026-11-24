@@ -11,7 +11,8 @@ import { useRouter } from 'next/navigation';
 //    tak samo jak zdjęcie w hero (te same piksele w tym samym miejscu ekranu).
 //    Gradienty hero leżą od razu w docelowym miejscu (.enter-shade) i tylko się rozjaśniają.
 // 3) Dopiero wtedy przechodzimy na stronę miasta – krótkie przenikanie (View Transitions)
-//    jest niewidoczne, bo obraz przed i po jest identyczny; potem wchodzą teksty.
+//    jest niewidoczne, bo obraz przed i po jest identyczny (zrzut nowej strony robimy dopiero,
+//    gdy zdjęcie hero jest zdekodowane, a nakładka z gradientami zdjęta); potem wchodzą teksty.
 //
 // Brak wsparcia albo „ogranicz ruch” w systemie = zwykłe przejście (Link działa normalnie).
 
@@ -20,10 +21,14 @@ const EASE = 'cubic-bezier(.55, 0, .3, 1)';
 
 // W trakcie przejścia View Transition przeglądarka wstrzymuje rysowanie (rAF nie działa),
 // dlatego na hero czekamy przez MutationObserver + setTimeout.
+// Czekamy nie tylko na element hero, ale też na WCZYTANE I ZDEKODOWANE zdjęcie – inaczej
+// przeglądarka robi zrzut nowej strony z samymi gradientami hero na ciemnym tle (bez zdjęcia),
+// a przenikanie do tego zrzutu wygląda jak mrugnięcie ciemnym gradientem.
 function waitForHero(slug, timeout = 1500) {
-  return new Promise((resolve) => {
+  const until = Date.now() + timeout;
+  const heroEl = new Promise((resolve) => {
     const found = () => document.querySelector(`[data-hero="${slug}"]`);
-    if (found()) return resolve();
+    if (found()) return resolve(found());
     const observer = new MutationObserver(() => {
       if (found()) done();
     });
@@ -31,9 +36,23 @@ function waitForHero(slug, timeout = 1500) {
     function done() {
       observer.disconnect();
       clearTimeout(timer);
-      resolve();
+      resolve(found());
     }
     observer.observe(document.body, { childList: true, subtree: true });
+  });
+
+  return heroEl.then((hero) => {
+    const img = hero?.querySelector('.hero__img');
+    if (!img) return undefined;
+    const left = Math.max(0, until - Date.now());
+    const loaded = img.complete
+      ? Promise.resolve()
+      : new Promise((resolve) => {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+    const ready = loaded.then(() => (img.decode ? img.decode().catch(() => {}) : undefined));
+    return Promise.race([ready, new Promise((resolve) => setTimeout(resolve, left))]);
   });
 }
 
@@ -129,7 +148,7 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
 
     // ściana, logo i druga rama lekko się przybliżają i gasną
     const picker = link.closest('.picker');
-    picker?.querySelectorAll(':scope > .bricks, :scope > .picker__logo, .picker__doors > li').forEach((el) => {
+    picker?.querySelectorAll(':scope > .bricks, :scope > .picker__sparks, :scope > .picker__logo, .picker__doors > li').forEach((el) => {
       if (el.contains(link)) return;
       el.style.transformOrigin = `${gcx}px ${gcy}px`;
       el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.2)' }], { ...opts, duration: ZOOM_MS * 0.8 });
@@ -141,6 +160,10 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
       const transition = document.startViewTransition(async () => {
         router.push(href);
         await waitForHero(slug);
+        // Nakładka z gradientami była potrzebna tylko na ekranie wyboru. Nowa strona ma już własne
+        // gradienty hero – gdyby nakładka została do końca przejścia, gradienty byłyby podwójne
+        // (ciemne „mrugnięcie” tuż przed jej usunięciem). Zdejmujemy ją przed zrzutem nowej strony.
+        shade.remove();
       });
       transition.finished.finally(() => {
         shade.remove();
