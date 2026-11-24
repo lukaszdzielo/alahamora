@@ -2671,6 +2671,18 @@ html[data-entering] .notice-wrap {
   .rv__step { animation: none; }
 }
 
+/* ekran wyboru: iskry unoszące się od dołu (jak w hero), w kolorze szampana */
+.picker .picker__sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  & .spark {
+    background: #F6E7C8;
+    box-shadow: 0 0 10px 2px rgb(246 231 200 / .85);
+  }
+}
+
 /* ---------- Przycisk „do góry” ---------- */
 .to-top {
   position: fixed;
