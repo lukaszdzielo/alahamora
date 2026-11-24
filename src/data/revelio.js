@@ -45,10 +45,12 @@ export const gliwiceRevelio = {
     { trail: true, step: 55, cls: 'rv--narrow', pos: { left: '0', right: '0', top: '-40px' } },
     // telefon (≤640): wyższy pas, ślady wchodzą zza lewej krawędzi ekranu i płynnym „S” znikają za prawą – jakby czarodziej naprawdę tędy przeszedł
     { feet: [['-14%', 25], ['42%', 5], ['58%', 215], ['114%', 195]], fluid: true, step: 52, h: 250, cls: 'rv--phone', pos: { left: '0', right: '0', top: '-40px' } },
-    // telefon / tablet (<900): księga i „Tu kończy się mapa…” wyśrodkowane, napis nad księgą
-    { draw: 'ksiega2', w: 340, rotate: 10, pos: { right: '3%', bottom: '-120px' }, mobile: { left: 'calc(50% - 90px)', bottom: '-60px', w: 180 } },
-    { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '0', bottom: '56px' }, hide: 'mobile' },
-    { ink: 'Tu kończy się mapa, a zaczyna kawa', pos: { left: '50%', bottom: '100px', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
+    // <768 px: księga i „Tu kończy się mapa…” wyśrodkowane, napis nad księgą; od 768 px układ docelowy (desktop).
+    // Księga ma szerokość --book-w = min(340px, 56vw) (CSS): jak na desktopie, ale na 320 px ok. 180 px.
+    // 0.8 × szerokość = wysokość obróconej księgi – napis zawsze 17 px nad nią.
+    { draw: 'ksiega2', cls: 'rv--book', w: 340, rotate: 10, pos: { right: '3%', bottom: '-120px' }, mobile: { left: 'calc(50% - var(--book-w) / 2)', bottom: '-60px', w: 'var(--book-w)' } },
+    { ink: 'Tu kończy się mapa, a zaczyna kawa', cls: 'rv--mapa-d', pos: { left: '0', bottom: '56px' }, hide: 'mobile' },
+    { ink: 'Tu kończy się mapa, a zaczyna kawa', cls: 'rv--mapa-m', pos: { left: '50%', bottom: 'calc(100px + (var(--book-w) - 180px) * .8)', translate: 'calc(-50% + 60px) 0', textAlign: 'center' }, hide: 'desktop' },
   ],
   // sowa na drążku ostatniego proporca (renderuje ją Offers)
   offersOwl: { draw: 'sowa', w: 170 },

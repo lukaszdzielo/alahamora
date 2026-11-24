@@ -2517,6 +2517,15 @@ html[data-entering] .notice-wrap {
 @media (min-width: 1248px) {
   #menu .rv.rv--tedy { left: 225px !important; }
 }
+/* 768–899 px: księga i „Tu kończy się mapa…” jak na desktopie (napis po lewej, księga po prawej);
+   węższe ekrany – wyśrodkowane (przy 641–767 księga 340 px weszłaby na napis i nagłówek galerii) */
+@media (min-width: 768px) and (max-width: 899px) {
+  #oferta .rv.rv--mapa-m { display: none; }
+  #oferta .rv.rv--mapa-d { display: block; }
+  #oferta .rv.rv--book { left: auto !important; right: 3% !important; bottom: -120px !important; }
+  #oferta .rv.rv--book .rv__draw { width: 340px; }
+  #oferta.offers:has(.rv) { padding-bottom: 200px; }
+}
 /* telefon: wyższy pas nad „Urodzinami…”, żeby ścieżka miała gdzie przejść przez cały ekran */
 @media (max-width: 640px) { #oferta:has(.rv--phone) { padding-top: 220px; } }
 
@@ -2569,7 +2578,9 @@ html[data-entering] .notice-wrap {
   .rv__ink { font-size: 19px; white-space: normal; width: max-content; max-width: calc(100vw - 48px); }
 
   /* miejsce pod proporcami na „Tu kończy się mapa…” i księgę */
-  #oferta:has(.rv) { padding-bottom: 180px; }
+  /* (wyższe, gdy księga jest większa – --book-w) */
+  #oferta { --book-w: min(340px, 56vw); }
+  #oferta:has(.rv) { padding-bottom: calc(180px + (var(--book-w) - 180px) * .8); }
 
   /* kapelusz przy nagłówku chowamy – na telefonie jest osobno, razem z „Psst…” (rv--mobile) */
   .rv.rv--hat { display: none; }

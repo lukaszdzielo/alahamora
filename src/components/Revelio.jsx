@@ -39,7 +39,7 @@ export function RevealItem({ item, className = '', style }) {
         className="rv__draw"
         style={{
           '--w': `${item.w}px`,
-          '--mw': `${mobile.w ?? item.mobileW ?? item.w}px`,
+          '--mw': ((v) => (typeof v === 'number' ? `${v}px` : v))(mobile.w ?? item.mobileW ?? item.w),
           aspectRatio: `${img.width} / ${img.height}`,
           maskImage: `url(${img.src})`,
           rotate: item.rotate ? `${item.rotate}deg` : undefined,
