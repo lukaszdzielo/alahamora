@@ -23,6 +23,8 @@ import katowicePlate from '@/assets/img/katowice-plate.webp';
 import katowiceNook from '@/assets/img/katowice-table-nook.webp';
 import foodCake from '@/assets/img/food-cake.webp';
 import foodBeet from '@/assets/img/food-beet-dish.webp';
+import katowiceNapoje from '@/assets/img/katowice-napoje.webp'; // alahamora.pl Alaha_maj2-34 (czarownica z dymiącymi napojami), kadr 3:4
+import katowiceWege from '@/assets/img/katowice-wege.webp'; // alahamora.pl alahamora_duze-17 (ziemniak z fetą i sałatą), kadr 3:4
 
 import foodMysticat from '@/assets/img/food-mysticat.webp';
 import foodBagel from '@/assets/img/food-rainbow-bagel.webp';
@@ -185,9 +187,9 @@ export const cities = {
       items: [
         { img: katowicePortraits, title: 'Ruchome obrazy', text: 'Portrety w złotych ramach, które nie zawsze siedzą spokojnie. Antyczne meble i portale w samym centrum Katowic.' },
         { img: katowiceBooth, title: 'Twoje dormitorium', text: 'Kameralne loże i zakamarki, w których czas płynie wolniej. Idealne na długą rozmowę przy eliksirze.' },
-        { img: foodCake, placeholder: true, title: 'Magiczne bubble tea', text: 'Jednorożec, Puszek i inne napoje. Każdy smak to inny rodzaj magii do odkrycia.' },
+        { img: katowiceNapoje, title: 'Magiczne napoje', text: 'Jednorożec, Puszek i inne eliksiry. Każdy smak to inny rodzaj magii do odkrycia.' },
         { img: katowicePlate, title: 'Napary kwiatowe', text: 'Prosto z lekcji zielarstwa: flora rozkwitająca w filiżance, ziołowe eliksiry i wróżenie z fusów.' },
-        { img: foodBeet, placeholder: true, title: 'Kuchnia wegetariańska', text: 'Wegetariańska carbonara czy bezmięsny gulasz? Smaki, które oszukają niejednego mięsożercę.' },
+        { img: katowiceWege, title: 'Kuchnia wegetariańska', text: 'Wegetariańska carbonara czy bezmięsny gulasz? Smaki, które oszukają niejednego mięsożercę.' },
         { img: katowiceNook, adult: true, title: 'Dział ksiąg zakazanych', text: 'Tu czeka Tłuczek, najsłynniejsze piwo czarodziejów. Tylko dla dorosłych (18+).' },
       ],
     },
