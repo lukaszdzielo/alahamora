@@ -57,7 +57,7 @@ export default function Footer({ revelio = false }) {
         </p>
         <p>
           Realizacja:{' '}
-          <a className="footer__credit" href="https://github.com/lukaszdzielo" target="_blank" rel="noopener">
+          <a className="footer__credit" href="https://lukaszdzielo.github.io/" target="_blank" rel="noopener">
             LD
           </a>
         </p>
