@@ -734,7 +734,7 @@ a { color: inherit; }
   position: relative;
   width: 120px;
   height: 230px;
-  margin: -40px auto -30px;
+  margin: -40px auto -6px; /* dół latarni ok. 20 px nad nagłówkiem (wcześniej −30 px – grot wchodził na tekst) */
   pointer-events: none;
 }
 
@@ -1297,7 +1297,8 @@ a { color: inherit; }
 .gallery {
   position: relative;
   overflow: hidden;
-  padding-block: clamp(110px, 12vw, 170px);
+  --gallery-pad: clamp(110px, 12vw, 170px);
+  padding-block: var(--gallery-pad);
   background: radial-gradient(70% 50% at 50% 55%, rgb(var(--line-rgb) / .10), transparent 75%), var(--surface);
 
   /* ściana z kafli (z delikatnym światłem i cieniem na krawędziach) */

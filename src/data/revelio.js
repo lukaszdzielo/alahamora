@@ -60,7 +60,9 @@ export const gliwiceRevelio = {
   ],
   // sowa na drążku ostatniego proporca (renderuje ją Offers)
   offersOwl: { draw: 'sowa', w: 170 },
-  gallery: [{ ink: 'Najlepszy stolik jest pod portretem', pos: { left: '0', bottom: '100px' }, mobile: { left: '0', bottom: '60px' } }],
+  // notatka zawsze ok. 26 px pod najniższą ramą (z tabliczką) – odstęp liczony od dolnego paddingu sekcji,
+  // który rośnie z szerokością ekranu (wcześniej stałe 100 px – przy 900–1200 px wchodziła na tabliczkę „MystiCat”)
+  gallery: [{ ink: 'Najlepszy stolik jest pod portretem', pos: { left: '0', bottom: 'calc(var(--gallery-pad) - 68px)' }, mobile: { left: '0', bottom: '60px' } }],
   contact: [
     { feet: [[790, 70], [900, 10], [1050, 120], [1180, 50]], n: 7, w: 1200, h: 180, pos: { left: '0', top: '0' }, hide: 'mobile' },
     { ink: 'Hasło na dziś: „Alahamora” – otwiera niejeden zamek', pos: { left: '0', bottom: '56px' }, mobile: { left: '0', bottom: '40px' } },
