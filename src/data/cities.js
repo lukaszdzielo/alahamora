@@ -136,6 +136,8 @@ export const cities = {
       coords: [50.2967827, 18.6714271], // punkt lokalu z Google Maps – środek mapy i miejsce pieczęci
       seal: 'red', // kolor pieczęci na mapie: 'red' | 'green' (kolory Gliwic) | 'navy' (kolory Katowic)
       mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Alahamora+Zwyci%C4%99stwa+34+Gliwice',
+      // link z ich stopki (ikona „G”) – okno „Napisz opinię” wizytówki Google
+      reviews: { href: 'https://g.page/r/CZEjM5J9BPUeEBM/review', label: 'Oceń nas w Google' },
       other: { slug: 'katowice', img: katowicePortraits, title: 'Zajrzyj też do Katowic', text: 'Magiczna kawiarnia przy Mariackiej Tylnej: bubble tea i ruchome obrazy.' },
     },
     effects: { lamps: false, revelio: true },
@@ -235,6 +237,8 @@ export const cities = {
       coords: [50.2572143, 19.0253965],
       seal: 'red', // 'red' | 'green' | 'navy'
       mapsUrl: 'https://maps.app.goo.gl/dj2uHzEp8ATLQQyW8',
+      // w ich stopce Katowic ikona „G” prowadzi do wizytówki w Google Maps (tam są opinie)
+      reviews: { href: 'https://maps.app.goo.gl/dj2uHzEp8ATLQQyW8', label: 'Opinie w Google' },
       other: { slug: 'gliwice', img: gliwiceHero, title: 'Zajrzyj też do Gliwic', text: 'Gildia Czarodziejów: zielone salony, klub dziecięcy i lody spaghetti.' },
     },
     effects: { lamps: true, revelio: false },

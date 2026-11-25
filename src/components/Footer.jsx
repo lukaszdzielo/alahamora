@@ -23,7 +23,7 @@ const icons = {
 
 const labels = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok' };
 
-export default function Footer({ revelio = false }) {
+export default function Footer({ revelio = false, reviews }) {
   return (
     <footer className="footer">
       {revelio ? (
@@ -46,6 +46,17 @@ export default function Footer({ revelio = false }) {
               </a>
             </li>
           ))}
+          {/* opinie Google – zamiast samej ikony „G” (u nich wygląda jak stary Google+) czytelny przycisk z gwiazdką */}
+          {reviews && (
+            <li className="footer__reviews">
+              <a href={reviews.href} target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2.8l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 16.8l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z" />
+                </svg>
+                {reviews.label}
+              </a>
+            </li>
+          )}
         </ul>
       </div>
       <div className="wrap footer__bottom">
