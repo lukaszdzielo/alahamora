@@ -168,7 +168,7 @@ export const cities = {
     notice: {
       icon: 'school',
       title: 'Wyjście klasowe za 10 zł od osoby',
-      text: 'Lekcja w czarodziejskiej bibliotece dla szkół i grup zorganizowanych.',
+      text: 'Lekcja zielarstwa i dymiące napary dla szkół i grup zorganizowanych.',
       button: { label: 'Sprawdź ofertę', href: '#oferta' },
     },
     features: {
@@ -201,7 +201,7 @@ export const cities = {
       title: 'Urodziny, klasy i wyjątkowe okazje',
       lead: 'Zorganizujemy magiczne urodziny, lekcję dla klasy albo warsztaty. Wybierz okazję, resztą zajmą się czarodzieje.',
       items: [
-        { icon: 'group', title: 'Wyjście klasowe', price: '10 zł', text: 'Lekcja w bibliotece czarodziejów dla szkół i grup.' },
+        { icon: 'group', title: 'Wyjście klasowe', price: '10 zł', text: 'Lekcja zielarstwa i dymiące napary dla szkół i grup.' },
         { icon: 'cake', title: 'Magiczne urodziny', text: 'Przyjęcie w zaczarowanym wnętrzu z menu dla małych i dużych czarodziejów.' },
         { icon: 'wand', title: 'Warsztaty', text: 'Zajęcia z eliksirów, zielarstwa i wróżbiarstwa dla początkujących.' },
         { icon: 'gift', title: 'Czekolada ze złotym biletem', text: 'Magiczna czekolada na prezent, a w środku złoty bilet do kawiarni.' },
