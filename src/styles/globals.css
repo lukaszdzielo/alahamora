@@ -2226,6 +2226,18 @@ a { color: inherit; }
     }
   }
 
+  /* tablet: przycisk pod tekstem (w trzech kolumnach tekst był ściśnięty do kilku słów w linii),
+     klucz po lewej na wysokość całości */
+  @media (min-width: 761px) and (max-width: 1199px) {
+    & .licence__card {
+      grid-template-columns: auto 1fr;
+      gap: 22px 36px;
+
+      & .licence__key { grid-row: span 2; }
+      & .btn { justify-self: start; }
+    }
+  }
+
   @media (max-width: 760px) {
     & .licence__card {
       grid-template-columns: 1fr;
