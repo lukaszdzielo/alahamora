@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import Icon from './Icon';
 import { RevealItem } from './Revelio';
 import ScrollLink from './ScrollLink';
@@ -15,7 +15,7 @@ export default function Hero({ city }) {
   return (
     <section className="hero" data-hero={city.slug}>
       <div className="hero__media">
-        <Image
+        <Picture
           className="hero__img"
           src={hero.src}
           alt={hero.alt}

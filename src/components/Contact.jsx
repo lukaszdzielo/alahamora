@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import Link from 'next/link';
 import Icon from './Icon';
 import SectionHead from './SectionHead';
@@ -33,7 +33,7 @@ export default function Contact({ city, lamps }) {
           </ul>
           <Link className="contact__other" href={`/${contact.other.slug}/`} data-appear="">
             <span className="contact__other-img">
-              <Image src={contact.other.img} alt="" fill sizes="64px" />
+              <Picture src={contact.other.img} alt="" fill sizes="64px" />
             </span>
             <span>
               <strong>{contact.other.title}</strong>

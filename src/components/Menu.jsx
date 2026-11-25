@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import Icon from './Icon';
 import Clouds from './Clouds';
 import Revelio from './Revelio';
@@ -26,7 +26,7 @@ export default function Menu({ menu, lamps, rv }) {
               <article key={item.title} className="dish" data-appear="">
                 <div className="dish__arch">
                   {item.img ? (
-                    <Image src={item.img} alt={item.title} fill sizes="(max-width: 700px) 90vw, 280px" />
+                    <Picture src={item.img} alt={item.title} fill sizes="(max-width: 700px) 90vw, 280px" />
                   ) : (
                     <span className="dish__icon"><Icon name={item.icon} size={96} stroke={1.1} /></span>
                   )}
@@ -48,7 +48,7 @@ export default function Menu({ menu, lamps, rv }) {
       <Clouds />
       <div className="wrap menu__grid">
         <div className="menu__photo" data-appear="">
-          <Image src={menu.image} alt={menu.imageAlt || ''} fill sizes="(max-width: 900px) 90vw, 560px" />
+          <Picture src={menu.image} alt={menu.imageAlt || ''} fill sizes="(max-width: 900px) 90vw, 560px" />
         </div>
         <div className="menu__col">
           <SectionHead id="menu" title={menu.title} lead={menu.lead} lamp={lamps ? 'side-short' : false} />
@@ -57,7 +57,7 @@ export default function Menu({ menu, lamps, rv }) {
               <li key={item.title} data-appear="">
                 <span className="menu__thumb">
                   {item.img ? (
-                    <Image src={item.img} alt="" fill sizes="100px" />
+                    <Picture src={item.img} alt="" fill sizes="100px" />
                   ) : (
                     <Icon name={item.icon} size={50} stroke={1.3} />
                   )}

@@ -9,10 +9,11 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath,
-  // Przy eksporcie statycznym Next nie ma serwera do optymalizacji obrazków.
+  // dla <Picture>: adresy gotowych rozmiarów zdjęć w public/_img też potrzebują basePath
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  // Przy eksporcie statycznym Next nie ma serwera do optymalizacji obrazków –
+  // rozmiary AVIF/WebP robi scripts/images.mjs, a wyświetla je components/Picture.jsx.
   images: { unoptimized: true },
-  // podgląd na telefonie w tej samej sieci Wi‑Fi (npm run dev:phone) – zezwól na adresy z sieci lokalnej
-  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.*.*.*', '*.local'],
 };
 
 export default nextConfig;

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import parchment from '@/assets/img/mapa/pergamin.webp';
 import innerMask from '@/assets/img/mapa/maska-postrzepiona.png';
 import Icon from './Icon';
@@ -26,7 +26,7 @@ export default function ParchmentMap({ coords, seal = 'red', query, mapsUrl, add
           <div className="pmap__map">
             <iframe src={src} title={`Mapa dojazdu – ${address}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" tabIndex={-1} />
           </div>
-          <Image className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
+          <Picture className="pmap__texture" src={parchment} alt="" fill sizes="(max-width: 900px) 92vw, 580px" aria-hidden="true" />
         </div>
       </a>
 

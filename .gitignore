@@ -5,3 +5,7 @@ out/
 .vscode/
 *.log
 .env*
+
+# generowane przez scripts/images.mjs (npm run images)
+public/_img/
+src/data/images.json

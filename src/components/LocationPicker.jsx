@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import Logo from './Logo';
 import Bricks from './Bricks';
 import DoorLink from './DoorLink';
@@ -38,13 +38,15 @@ export default function LocationPicker({ cities }) {
             <DoorLink slug={city.slug} position={city.hero.position} className="door" label={`${city.name} – wejdź`}>
               <span className="door__frame">
                 <span className="door__glass">
-                  <Image
+                  <Picture
                     className="door__img"
                     src={city.hero.src}
                     alt=""
                     fill
                     priority
-                    sizes="(max-width: 700px) 45vw, 300px"
+                    // ten sam rozmiar co w hero: po kliknięciu rama rośnie na cały ekran,
+                    // a strona miasta bierze to samo zdjęcie z pamięci podręcznej – bez rozmycia i czekania
+                    sizes="100vw"
                     style={{ objectPosition: city.hero.position }}
                   />
                   <span className="door__city">{city.name}</span>

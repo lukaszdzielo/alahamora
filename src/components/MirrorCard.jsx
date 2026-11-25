@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Picture from './Picture';
 import { useRef } from 'react';
 
 // Zwierciadło: rama stoi w miejscu, a zdjęcie w środku lekko „pływa” za kursorem
@@ -36,7 +36,7 @@ export default function MirrorCard({ item, frost }) {
     <article className="mirror" onPointerMove={onMove} onPointerLeave={onLeave}>
       <div className="mirror__frame">
         <div className="mirror__glass" ref={glassRef}>
-          <Image className="mirror__img" src={item.img} alt="" fill sizes="(max-width: 700px) 80vw, 350px" />
+          <Picture className="mirror__img" src={item.img} alt="" fill sizes="(max-width: 700px) 80vw, 350px" />
           <span className="mirror__mist" aria-hidden="true" />
           {frost && (
             <>

@@ -26,6 +26,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # gotowe rozmiary zdjęć (scripts/images.mjs) – przy kolejnych buildach robione są tylko zmienione
+      - uses: actions/cache@v4
+        with:
+          path: public/_img
+          key: img-${{ hashFiles('src/assets/img/**', 'scripts/images.mjs') }}
+          restore-keys: img-
       - run: npm run build
         env:
           PAGES_BASE_PATH: /${{ github.event.repository.name }}

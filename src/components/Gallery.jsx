@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Picture from './Picture';
 import Icon from './Icon';
 import GalleryFx from './GalleryFx';
 import SectionHead from './SectionHead';
@@ -200,7 +200,7 @@ export default function Gallery({ gallery, lamps, rv }) {
                 <div className={frameClass(name)}>
                   <div className="gframe__metal">
                     <div className="gframe__picture">
-                      <Image
+                      <Picture
                         className={item.fx?.hue ? 'gfx-hue' : undefined}
                         src={item.img}
                         alt={item.alt || item.caption || ''}
