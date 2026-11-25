@@ -2088,6 +2088,26 @@ a { color: inherit; }
 
 }
 
+/* ekran wyboru: .picker to tło na cały ekran, w środku dwie części – <main> (logo i ramy,
+   wyśrodkowane w dostępnej wysokości, z własnymi odstępami) i <footer> (socket z prawami autorskimi,
+   osobno pod spodem, bez odstępów części głównej). 404 używa samego .picker (bez podziału). */
+.picker.picker--home {
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+
+.picker .picker__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding: 48px 20px 40px;
+}
+
 /* drzwi-lustro; kolor ramy z motywu miasta ([data-city] na <li>) */
 .door {
   position: relative;
@@ -2852,10 +2872,7 @@ html[data-entering] .notice-wrap {
 /* ekran wyboru: mała stopka przy dolnej krawędzi – ten sam kontener i układ co dół stopki
    na stronach miast (szerokość treści, cienka linia, prawa zastrzeżone po lewej, realizacja po prawej) */
 .picker .picker__footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
+  padding-bottom: 18px;
   font-size: 13px;
   color: rgb(243 233 210 / .55);
 
@@ -3389,20 +3406,20 @@ html[data-entering] .notice-wrap {
 
 /* ekran wyboru na telefonie: logo i ramy jako jedna grupa na środku (równe odstępy nad i pod nią),
    między logo a ramami mniejszy odstęp (0,4 tego nad/pod); wcześniej: trzy równe odstępy (siatka z trzema
-   jednakowymi „oddechami” 1fr); stopka w układzie (nie absolutnie), na samym dole; bez przewijania */
+   jednakowymi „oddechami” 1fr); siatka w <main>, stopka (socket) osobno pod nim; bez przewijania */
 @media (max-width: 640px) {
-  .picker {
+  .picker .picker__main {
     display: grid;
-    grid-template-rows: 1fr auto minmax(24px, .4fr) auto 1fr auto;
+    grid-template-rows: 1fr auto minmax(24px, .4fr) auto 1fr;
     justify-items: center;
     align-items: center;
     gap: 0;
-    padding: 20px 16px 12px;
+    padding: 20px 16px 16px;
   }
 
   .picker .picker__logo { grid-row: 2; padding-top: 0; }
   .picker .picker__doors { grid-row: 4; }
-  .picker .picker__footer { grid-row: 6; position: relative; inset: auto; width: calc(100% + 32px); margin-inline: -16px; }
+  .picker .picker__footer { padding-bottom: 12px; }
 }
 
 @media (max-width: 400px) {

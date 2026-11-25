@@ -148,7 +148,7 @@ export default function DoorLink({ slug, position = '50% 50%', className, label,
 
     // ściana, logo i druga rama lekko się przybliżają i gasną
     const picker = link.closest('.picker');
-    picker?.querySelectorAll(':scope > .bricks, :scope > .picker__sparks, :scope > .picker__logo, :scope > .picker__footer, .picker__doors > li').forEach((el) => {
+    picker?.querySelectorAll('.bricks, .picker__sparks, .picker__logo, .picker__footer, .picker__doors > li').forEach((el) => {
       if (el.contains(link)) return;
       el.style.transformOrigin = `${gcx}px ${gcy}px`;
       el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(1.2)' }], { ...opts, duration: ZOOM_MS * 0.8 });

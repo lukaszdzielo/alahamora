@@ -15,7 +15,10 @@ const SPARKS = [
 
 export default function LocationPicker({ cities }) {
   return (
-    <main className="picker">
+    // .picker = tło na cały ekran (cegły, iskry); w środku dwie części:
+    // <main> – logo i wybór lokalu (wyśrodkowane, z odstępami), <footer> – pasek z prawami autorskimi (socket),
+    // poza odstępami części głównej, zawsze na dole
+    <div className="picker picker--home">
       <Bricks />
       <div className="picker__sparks" aria-hidden="true">
         {SPARKS.map(([left, delay, duration, size], i) => (
@@ -27,37 +30,39 @@ export default function LocationPicker({ cities }) {
         ))}
       </div>
 
-      <h1 className="picker__logo">
-        <Logo />
-        <span className="sr-only"> – magiczna kawiarnia w Gliwicach i Katowicach</span>
-      </h1>
+      <main className="picker__main">
+        <h1 className="picker__logo">
+          <Logo />
+          <span className="sr-only"> – magiczna kawiarnia w Gliwicach i Katowicach</span>
+        </h1>
 
-      <ul className="picker__doors" aria-label="Wybierz lokalizację">
-        {cities.map((city) => (
-          <li key={city.slug} data-city={city.theme}>
-            <DoorLink slug={city.slug} position={city.hero.position} className="door" label={`${city.name} – wejdź`}>
-              <span className="door__frame">
-                <span className="door__glass">
-                  <Picture
-                    className="door__img"
-                    src={city.hero.src}
-                    alt=""
-                    fill
-                    priority
-                    // ten sam rozmiar co w hero: po kliknięciu rama rośnie na cały ekran,
-                    // a strona miasta bierze to samo zdjęcie z pamięci podręcznej – bez rozmycia i czekania
-                    sizes="100vw"
-                    style={{ objectPosition: city.hero.position }}
-                  />
-                  <span className="door__city">{city.name}</span>
+        <ul className="picker__doors" aria-label="Wybierz lokalizację">
+          {cities.map((city) => (
+            <li key={city.slug} data-city={city.theme}>
+              <DoorLink slug={city.slug} position={city.hero.position} className="door" label={`${city.name} – wejdź`}>
+                <span className="door__frame">
+                  <span className="door__glass">
+                    <Picture
+                      className="door__img"
+                      src={city.hero.src}
+                      alt=""
+                      fill
+                      priority
+                      // ten sam rozmiar co w hero: po kliknięciu rama rośnie na cały ekran,
+                      // a strona miasta bierze to samo zdjęcie z pamięci podręcznej – bez rozmycia i czekania
+                      sizes="100vw"
+                      style={{ objectPosition: city.hero.position }}
+                    />
+                    <span className="door__city">{city.name}</span>
+                  </span>
                 </span>
-              </span>
-            </DoorLink>
-          </li>
-        ))}
-      </ul>
+              </DoorLink>
+            </li>
+          ))}
+        </ul>
+      </main>
 
-      {/* mała stopka – zawsze na dole ekranu (prawa zastrzeżone, dokumenty, realizacja) */}
+      {/* mała stopka (socket) – osobno pod częścią główną, zawsze na dole: prawa zastrzeżone, realizacja */}
       <footer className="picker__footer">
         {/* ten sam układ co dół stopki na stronach miast: kontener treści, linia, legal po lewej, realizacja po prawej */}
         <div className="picker__footer-inner">
@@ -74,6 +79,6 @@ export default function LocationPicker({ cities }) {
           </p>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
