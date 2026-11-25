@@ -59,11 +59,10 @@ export default function LocationPicker({ cities }) {
       <footer className="picker__footer">
         {/* ten sam układ co dół stopki na stronach miast: kontener treści, linia, legal po lewej, realizacja po prawej */}
         <div className="picker__footer-inner">
+          {/* bez Polityki prywatności i Regulaminu – są w stopce stron miast; ekran wyboru nie zbiera danych.
+              Gdy dojdą cookies/analityka, wrócić tu z linkiem do polityki (decyzja Łukasza 25.11) */}
           <p className="picker__legal">
             <span>© {new Date().getFullYear()} Alahamora. Wszelkie prawa zastrzeżone.</span>
-            {/* strony jeszcze nie istnieją – link nieaktywny (kursor „zakaz”) */}
-            <a aria-disabled="true" title="Wkrótce">Polityka prywatności</a>
-            <a aria-disabled="true" title="Wkrótce">Regulamin</a>
           </p>
           <p>
             Realizacja:{' '}
