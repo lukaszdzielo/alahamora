@@ -35,6 +35,8 @@ jobs:
       - run: npm run build
         env:
           PAGES_BASE_PATH: /${{ github.event.repository.name }}
+          # indeksowanie włączone także w podglądzie na GitHub Pages (decyzja Łukasza 25.11 – realne wyniki SEO)
+          SITE_INDEX: '1'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

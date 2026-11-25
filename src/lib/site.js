@@ -4,9 +4,10 @@
 // adresów kanonicznych, mapy strony i obrazków OG (Facebook/Messenger chcą pełnych linków).
 // Na docelowej domenie ustaw w workflow: NEXT_PUBLIC_SITE_URL=https://twojadomena.pl
 //
-// SITE_INDEX – czy wyszukiwarki mogą indeksować stronę. Domyślnie NIE: to koncepcja
-// na GitHub Pages, nie powinna konkurować w Google z prawdziwą alahamora.pl.
-// Na docelowej domenie ustaw SITE_INDEX=1.
+// SITE_INDEX – czy wyszukiwarki mogą indeksować stronę (meta robots + robots.txt).
+// Domyślnie NIE (lokalne buildy). Workflow GitHub Pages ustawia SITE_INDEX=1 – od 25.11
+// podgląd też jest indeksowany (decyzja Łukasza: realne wyniki Lighthouse SEO).
+// Wyłączenie: usuń SITE_INDEX z .github/workflows/deploy.yml.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://lukaszdzielo.github.io/alahamora').replace(/\/+$/, '');
 export const SITE_INDEX = process.env.SITE_INDEX === '1';
 
