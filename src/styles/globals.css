@@ -549,14 +549,35 @@ a { color: inherit; }
   background: transparent;
   color: var(--accent);
   cursor: pointer;
-  transition: background .3s, color .3s;
+  transition: background .3s, color .3s, box-shadow .3s, opacity .3s, border-color .3s;
 
-  &:hover,
+  & svg { transition: translate .3s cubic-bezier(.3, .7, .3, 1); }
+
+  /* najechanie: wypełnienie kolorem akcentu, poświata i strzałka lekko „idzie” w swoją stronę */
+  &:hover:not([aria-disabled='true']) {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 0 0 4px rgb(var(--line-rgb) / .14), 0 0 22px rgb(var(--line-rgb) / .35);
+  }
+  &.round-btn--prev:hover:not([aria-disabled='true']) svg { translate: -3px 0; }
+  &.round-btn--next:hover:not([aria-disabled='true']) svg { translate: 3px 0; }
+  &:active:not([aria-disabled='true']) { background: var(--accent-light); }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 3px;
+  }
+
+  /* początek / koniec karuzeli – strzałka przygaszona i nieaktywna */
+  &[aria-disabled='true'] {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+
   &.round-btn--solid {
     background: var(--accent);
     color: var(--accent-ink);
   }
-
   &.round-btn--solid:hover { background: var(--accent-light); }
 }
 
@@ -3226,9 +3247,9 @@ html[data-entering] .notice-wrap {
   translate: calc(-50% + 60px) 0;
   width: calc(min(100%, 1600px) + 120px);
   z-index: -1;
-  /* słabiej niż inne rysunki – to duże tło */
+  /* słabiej niż inne rysunki – to duże tło (bez światła 8 %, wcześniej 4,5 %) */
   --rv-peak: .34;
-  --rv-rest: .045;
+  --rv-rest: .08;
   --rv-touch: .12;
 
   & .footer__castle {
@@ -3255,9 +3276,10 @@ html[data-entering] .notice-wrap {
 @media (max-width: 640px) {
   .footer .rv.rv--castle {
     width: auto;
-    bottom: 150px;
+    bottom: 100px;
 
-    & .footer__castle { width: auto; height: 340px; bottom: auto; opacity: 1; }
+    /* telefon: zamek większy (wcześniej 340 px wysokości, bottom 150) – wypełnia pas nad stopką */
+    & .footer__castle { width: auto; height: 440px; bottom: auto; opacity: 1; }
   }
 }
 
