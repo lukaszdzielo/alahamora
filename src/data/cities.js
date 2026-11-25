@@ -33,6 +33,9 @@ import katowiceSconces from '@/assets/img/katowice-sconces.webp';
 import katowiceDoors from '@/assets/img/katowice-doors.webp';
 import katowiceLanterns from '@/assets/img/katowice-lanterns.webp';
 import katowiceMoss from '@/assets/img/katowice-moss-wall.webp';
+// mapy okolicy: OpenStreetMap (OpenFreeMap, styl „liberty” przekolorowany na pergamin), środek = coords lokalu
+import gliwiceMap from '@/assets/img/mapa/osm-gliwice.webp';
+import katowiceMap from '@/assets/img/mapa/osm-katowice.webp';
 
 // gallery.items[].fx = drobne efekty na zdjęciu (opis w components/GalleryFx.jsx)
 // `placeholder: true` = zdjęcie zastępcze (brak zdjęcia tej atrakcji) – do podmiany.
@@ -134,6 +137,7 @@ export const cities = {
       hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
       mapQuery: 'Alahamora, Zwycięstwa 34, 44-100 Gliwice',
       coords: [50.2967827, 18.6714271], // punkt lokalu z Google Maps – środek mapy i miejsce pieczęci
+      mapImg: gliwiceMap, // statyczna mapa OSM 1200×1200 (środek = coords)
       seal: 'red', // kolor pieczęci na mapie: 'red' | 'green' (kolory Gliwic) | 'navy' (kolory Katowic)
       mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Alahamora+Zwyci%C4%99stwa+34+Gliwice',
       // link z ich stopki (ikona „G”) – okno „Napisz opinię” wizytówki Google
@@ -235,6 +239,7 @@ export const cities = {
       hoursLong: 'Poniedziałek–niedziela, 12:00–21:00',
       mapQuery: 'Alahamora, Mariacka Tylna 5a, 40-001 Katowice',
       coords: [50.2572143, 19.0253965],
+      mapImg: katowiceMap,
       seal: 'red', // 'red' | 'green' | 'navy'
       mapsUrl: 'https://maps.app.goo.gl/dj2uHzEp8ATLQQyW8',
       // w ich stopce Katowic ikona „G” prowadzi do wizytówki w Google Maps (tam są opinie)
