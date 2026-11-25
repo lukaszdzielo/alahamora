@@ -2563,7 +2563,8 @@ html[data-entering] .notice-wrap {
    jak pod różdżką; dodatkowo światło pod palcem (--rx/--ry z RevelioController) */
 .has-revelio-touch .rv {
   opacity: 1;
-  --rv-touch-rest: max(var(--rv-rest) * 2, calc(var(--rv-peak) * var(--rv-near, 0)));
+  /* --rv-touch-max: jak mocno element rozjaśnia się przy środku ekranu (domyślnie jak pod różdżką) */
+  --rv-touch-rest: max(var(--rv-rest) * 2, calc(var(--rv-touch-max, var(--rv-peak)) * var(--rv-near, 0)));
   mask-image: radial-gradient(circle 220px at var(--rx, -9999px) var(--ry, -9999px),
     rgb(0 0 0 / var(--rv-peak)) 0%,
     rgb(0 0 0 / max(var(--rv-touch-rest), calc(var(--rv-peak) * .7))) 45%,
@@ -3242,7 +3243,11 @@ html[data-entering] .notice-wrap {
 /* zamek jako element Revelio (oba miasta) – wrapper .rv przejmuje położenie (i maskę światła),
    zamek w środku zachowuje swoją maskę kształtu */
 .footer .rv.rv--castle {
-  /* .rv ma padding 60 px i margines −60 px (zapas maski) – stąd +120 px i +60 px */
+  /* .rv ma padding 60 px i margines −60 px (zapas maski) – stąd +120 px i +60 px;
+     od dołu bez zapasu (podstawa zamku jest płaska) – inaczej pudełko wystawało pod stopkę
+     i strona przewijała się 14–30 px za nią */
+  padding-bottom: 0;
+  margin-bottom: 0;
   bottom: 46px;
   left: 50%;
   translate: calc(-50% + 60px) 0;
@@ -3252,6 +3257,9 @@ html[data-entering] .notice-wrap {
   --rv-peak: .34;
   --rv-rest: .08;
   --rv-touch: .12;
+  /* dotyk: przy dojechaniu do stopki zamek tylko lekko się rozjaśnia (z 16 % do 22 %),
+     żeby logo, ikony i przyciski na nim były czytelne */
+  --rv-touch-max: .22;
 
   & .footer__castle {
     position: relative;
@@ -3277,10 +3285,11 @@ html[data-entering] .notice-wrap {
 @media (max-width: 640px) {
   .footer .rv.rv--castle {
     width: auto;
-    bottom: 100px;
+    bottom: 30px;
 
-    /* telefon: zamek większy (wcześniej 340 px wysokości, bottom 150) – wypełnia pas nad stopką */
-    & .footer__castle { width: auto; height: 440px; bottom: auto; opacity: 1; }
+    /* telefon: zamek duży jak na desktopie – sięga pod baner licencji, widać tylko jego środek
+       (boki poza ekranem), działa jak tło stopki */
+    & .footer__castle { width: auto; height: 640px; bottom: auto; opacity: 1; }
   }
 }
 
