@@ -3225,12 +3225,13 @@ html[data-entering] .notice-wrap {
   }
 }
 
-/* ekran wyboru na telefonie: równe odstępy – góra ekranu → logo → ramy → stopka (siatka z trzema
+/* ekran wyboru na telefonie: logo i ramy jako jedna grupa na środku (równe odstępy nad i pod nią),
+   między logo a ramami mniejszy odstęp (0,4 tego nad/pod); wcześniej: trzy równe odstępy (siatka z trzema
    jednakowymi „oddechami” 1fr); stopka w układzie (nie absolutnie), na samym dole; bez przewijania */
 @media (max-width: 640px) {
   .picker {
     display: grid;
-    grid-template-rows: 1fr auto 1fr auto 1fr auto;
+    grid-template-rows: 1fr auto minmax(24px, .4fr) auto 1fr auto;
     justify-items: center;
     align-items: center;
     gap: 0;
