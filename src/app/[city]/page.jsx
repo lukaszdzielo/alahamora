@@ -74,11 +74,12 @@ export default async function CityPage({ params }) {
         <Contact city={data} lamps={data.effects.lamps} />
         <Licence />
       </main>
-      <Footer revelio={!!data.revelio} reviews={data.contact.reviews} />
+      <Footer reviews={data.contact.reviews} />
       <BackToTop />
       <AppearController />
       {data.effects.lamps && <LampsController />}
-      {data.revelio && <RevelioController />}
+      {/* Revelio: w Gliwicach rysunki i notatki, w obu miastach zamek w stopce */}
+      <RevelioController />
       <WandCursor />
     </div>
   );

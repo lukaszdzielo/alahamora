@@ -23,17 +23,14 @@ const icons = {
 
 const labels = { facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok' };
 
-export default function Footer({ revelio = false, reviews }) {
+export default function Footer({ reviews }) {
   return (
     <footer className="footer">
-      {revelio ? (
-        // Gliwice: zamek jako element Revelio – ledwo widoczny, wyraźniejszy pod światłem różdżki
-        <div className="rv rv--art rv--castle" aria-hidden="true">
-          <div className="footer__castle" />
-        </div>
-      ) : (
-        <div className="footer__castle" aria-hidden="true" />
-      )}
+      {/* zamek jako element Revelio (oba miasta) – ledwo widoczny, wyraźniejszy pod światłem różdżki;
+          na dotyku – gdy stopka jest blisko środka ekranu i pod palcem */}
+      <div className="rv rv--art rv--castle" aria-hidden="true">
+        <div className="footer__castle" />
+      </div>
       <div className="wrap footer__top">
         <a href="#" className="footer__logo" aria-label="Alahamora – strona główna">
           <Logo />

@@ -3217,7 +3217,7 @@ html[data-entering] .notice-wrap {
   }
 }
 
-/* Gliwice: zamek jako element Revelio – wrapper .rv przejmuje położenie (i maskę światła),
+/* zamek jako element Revelio (oba miasta) – wrapper .rv przejmuje położenie (i maskę światła),
    zamek w środku zachowuje swoją maskę kształtu */
 .footer .rv.rv--castle {
   /* .rv ma padding 60 px i margines −60 px (zapas maski) – stąd +120 px i +60 px */
