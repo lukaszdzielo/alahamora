@@ -50,18 +50,18 @@ const place = ([col, row, pad], [mcol, mrow, mpad]) => ({
   '--mpad': mpad,
 });
 
-// Style ram: metal, kształt, kolor filetu (wewnętrznej listwy), ornamenty w rogach, kolor tabliczki
+// Style ram: metal, kształt, kolor filetu (wewnętrznej listwy), ornament w rogach (shell / gothic / filigree), kolor tabliczki
 const FRAMES = {
   'gold': { metal: 'gold', plate: 'gold' },
-  'gold-orn': { metal: 'gold', orn: true, plate: 'gold' },
+  'gold-orn': { metal: 'gold', orn: 'shell', plate: 'gold' },
   'silver': { metal: 'silver', plate: 'silver' },
-  'silver-orn': { metal: 'silver', orn: true, plate: 'silver' },
+  'silver-orn': { metal: 'silver', orn: 'shell', plate: 'silver' },
   'black': { metal: 'black', fillet: 'gold', plate: 'gold' },
   'black-silver': { metal: 'black', fillet: 'silver', plate: 'silver' },
-  'black-orn': { metal: 'black', fillet: 'silver', orn: true, plate: 'silver' },
-  'black-orn-gold': { metal: 'black', fillet: 'gold', orn: true, plate: 'gold' },
+  'black-orn': { metal: 'black', fillet: 'silver', orn: 'filigree', plate: 'silver' },
+  'black-orn-gold': { metal: 'black', fillet: 'gold', orn: 'filigree', plate: 'gold' },
   'wood': { metal: 'wood', fillet: 'gold', plate: 'gold' },
-  'wood-orn': { metal: 'wood', fillet: 'gold', orn: true, plate: 'gold' },
+  'wood-orn': { metal: 'wood', fillet: 'gold', orn: 'gothic', plate: 'gold' },
   'bronze': { metal: 'bronze', plate: 'gold' },
   'pewter': { metal: 'pewter', plate: 'silver' },
   'arch-gold': { metal: 'gold', shape: 'arch', plate: 'gold' },
@@ -85,25 +85,87 @@ function frameClass(name) {
   ].filter(Boolean).join(' ');
 }
 
-function Corners() {
+// Ozdobniki narożników: B – rokokowa muszla, C – gotycki trójliść, D – filigran.
+// Kolor (złoto / srebro) bierze się z metalu ramy albo z jej filetu.
+const DARK = '#2a1f10';
+const CORNER_ART = {
+  shell: (
+    <>
+      <path d="M6 6 L38 14 C40 18 39 22 36 25 C38 28 36 33 32 33 C32 37 28 39 25 37 C22 40 17 40 14 38 Z" />
+      <path d="M6 6 L38 14M6 6 L35 25M6 6 L31 33M6 6 L24 37M6 6 L14 38" stroke={DARK} strokeOpacity=".45" strokeWidth="1.3" fill="none" />
+      <path d="M38 14c6-2 12 0 14 5-3-2-8-2-12 0" fill="none" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M14 38c-2 6 0 12 5 14-2-3-2-8 0-12" fill="none" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M3 3h16c-5 1-9 2-12 4C5 6 4 5 3 3ZM3 3v16c1-5 2-9 4-12C6 5 5 4 3 3Z" />
+      <circle cx="8" cy="8" r="3.4" />
+    </>
+  ),
+  gothic: (
+    <>
+      <path d="M4 4H54v3H7v47H4Z" />
+      <circle cx="17" cy="17" r="13" />
+      <g fill={DARK} fillOpacity=".55">
+        <circle cx="17" cy="11.5" r="4.2" />
+        <circle cx="11.5" cy="20" r="4.2" />
+        <circle cx="22.5" cy="20" r="4.2" />
+        <circle cx="17" cy="17" r="2.4" />
+      </g>
+      <circle cx="17" cy="17" r="13" fill="none" stroke={DARK} strokeOpacity=".4" strokeWidth="1" />
+      <path d="M54 5.5l4-3v6Z M5.5 54l-3 4h6Z" />
+      <path d="M34 7c2 3 2 6 0 8M7 34c3 2 6 2 8 0" fill="none" strokeWidth="2" strokeLinecap="round" />
+    </>
+  ),
+  filigree: (
+    <>
+      <g fill="none" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M5 5H40c5 0 8 3 7 7-1 3-5 3-6 0" />
+        <path d="M5 5V40c0 5 3 8 7 7 3-1 3-5 0-6" />
+        <path d="M10 10H30c3 0 5 2 4 4M10 10V30c0 3 2 5 4 4" />
+        <path d="M14 14c6 2 10 6 12 12" />
+        <path d="M20 13c3-3 7-3 9 0M13 20c-3 3-3 7 0 9" />
+      </g>
+      <path d="M10 6.5 L13.5 10 10 13.5 6.5 10Z" />
+      <circle cx="27" cy="27" r="2.2" />
+    </>
+  ),
+};
+
+// wspólne gradienty metalu dla wszystkich narożników sekcji
+function CornerDefs() {
+  const grad = (id, stops) => (
+    <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+      {stops.map(([o, c]) => <stop key={o} offset={o} stopColor={c} />)}
+    </linearGradient>
+  );
+  return (
+    <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true" focusable="false">
+      <defs>
+        {grad('gc-gold', [['0', '#FFF1C4'], ['.35', '#E7C982'], ['.7', '#A8833F'], ['1', '#6E5020']])}
+        {grad('gc-silver', [['0', '#FFFFFF'], ['.35', '#DDE2E6'], ['.7', '#99A1A8'], ['1', '#596067']])}
+      </defs>
+    </svg>
+  );
+}
+
+function Corners({ variant = 'shell', tone = 'gold' }) {
+  const paint = `url(#gc-${tone})`;
   const one = (
-    <svg viewBox="0 0 40 40" width="38" height="38" fill="currentColor">
-      <path d="M3 3h18c-7 1-10 4-11 11C9 7 6 4 3 3Z" />
-      <path d="M3 3v18c1-7 4-10 11-11C7 9 4 6 3 3Z" />
-      <circle cx="14" cy="14" r="3.2" />
-      <path d="M17 6c5 0 9 2 11 6-3-2-7-3-11-2ZM6 17c0 5 2 9 6 11-2-3-3-7-2-11Z" opacity=".8" />
+    <svg viewBox="0 0 60 60" fill={paint} stroke={paint}>
+      {CORNER_ART[variant] ?? CORNER_ART.shell}
     </svg>
   );
   return (
     <>
       {['tl', 'tr', 'bl', 'br'].map((c) => (
-        <span key={c} className={`gframe__corner gframe__corner--${c}`} aria-hidden="true">
+        <span key={c} className={`gframe__corner gframe__corner--${c} gframe__corner--${variant}`} aria-hidden="true">
           {one}
         </span>
       ))}
     </>
   );
 }
+
+// złoto albo srebro – według filetu, a gdy go nie ma, według metalu ramy
+const cornerTone = (f) => ((f.fillet ?? f.metal) === 'silver' ? 'silver' : 'gold');
 
 export default function Gallery({ gallery, lamps, rv }) {
   // brak adresu galerii = przycisk i ramka „Cała galeria” nieaktywne
@@ -113,6 +175,7 @@ export default function Gallery({ gallery, lamps, rv }) {
 
   return (
     <section id="galeria" className="gallery">
+      <CornerDefs />
       <Revelio items={rv?.gallery} />
       <Tiles />
       <div className="gallery__fade" aria-hidden="true" />
@@ -147,7 +210,7 @@ export default function Gallery({ gallery, lamps, rv }) {
                       <GalleryFx fx={item.fx} ratio={item.img.width / item.img.height} />
                     </div>
                   </div>
-                  {frame.orn && <Corners />}
+                  {frame.orn && <Corners variant={frame.orn} tone={cornerTone(frame)} />}
                   {/* tabliczka przymocowana do ramy – kołysze się razem z nią (podpis jest też w alt zdjęcia) */}
                   {showCaption && (
                     <span className={`gframe__plate gframe__plate--${frame.plate}`} aria-hidden="true">
@@ -172,7 +235,7 @@ export default function Gallery({ gallery, lamps, rv }) {
                   </span>
                 </span>
               </span>
-              <Corners />
+              <Corners variant="shell" tone="gold" />
             </span>
           </a>
         </div>

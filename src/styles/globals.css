@@ -1409,17 +1409,21 @@ a { color: inherit; }
   &.gframe--gothic { --clip: polygon(0.0% 100.0%,0.0% 22.0%,0.4% 19.8%,1.5% 17.6%,3.4% 15.4%,6.0% 13.3%,9.4% 11.3%,13.4% 9.3%,18.1% 7.4%,23.4% 5.7%,29.3% 4.0%,35.7% 2.5%,42.6% 1.2%,50.0% 0.0%,57.4% 1.2%,64.3% 2.5%,70.7% 4.0%,76.6% 5.7%,81.9% 7.4%,86.6% 9.3%,90.6% 11.3%,94.0% 13.3%,96.6% 15.4%,98.5% 17.6%,99.6% 19.8%,100.0% 22.0%,100.0% 100.0%); }
 
   & .gframe__corner {
+    --cs: 56px;
+    --co: -9px;
     position: absolute;
     z-index: 2;
-    width: 38px;
-    height: 38px;
-    color: var(--corner);
-    filter: drop-shadow(0 2px 3px rgb(0 0 0 / .6));
+    width: var(--cs);
+    height: var(--cs);
+    pointer-events: none;
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / .7));
 
-    &.gframe__corner--tl { left: -6px; top: -6px; }
-    &.gframe__corner--tr { right: -6px; top: -6px; scale: -1 1; }
-    &.gframe__corner--bl { left: -6px; bottom: -6px; scale: 1 -1; }
-    &.gframe__corner--br { right: -6px; bottom: -6px; scale: -1 -1; }
+    & svg { display: block; width: 100%; height: 100%; }
+
+    &.gframe__corner--tl { left: var(--co); top: var(--co); }
+    &.gframe__corner--tr { right: var(--co); top: var(--co); scale: -1 1; }
+    &.gframe__corner--bl { left: var(--co); bottom: var(--co); scale: 1 -1; }
+    &.gframe__corner--br { right: var(--co); bottom: var(--co); scale: -1 -1; }
   }
 }
 
@@ -1540,8 +1544,7 @@ a { color: inherit; }
 
   .gframe { --pad: 7px; }
   .gframe.gframe--wood { --pad: 8px; }
-  .gframe .gframe__corner { width: 26px; height: 26px; }
-  .gframe .gframe__corner svg { width: 26px; height: 26px; }
+  .gframe .gframe__corner { --cs: 38px; --co: -6px; }
   /* tabliczka nie szersza niż obraz – dłuższe podpisy łamią się na dwie linie */
   .gframe__plate {
     bottom: -10px;
