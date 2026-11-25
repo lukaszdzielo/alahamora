@@ -551,17 +551,16 @@ a { color: inherit; }
   cursor: pointer;
   transition: background .3s, color .3s, box-shadow .3s, opacity .3s, border-color .3s;
 
-  & svg { transition: translate .3s cubic-bezier(.3, .7, .3, 1); }
-
-  /* najechanie: wypełnienie kolorem akcentu, poświata i strzałka lekko „idzie” w swoją stronę */
-  &:hover:not([aria-disabled='true']) {
-    background: var(--accent);
-    color: var(--accent-ink);
-    box-shadow: 0 0 0 4px rgb(var(--line-rgb) / .14), 0 0 22px rgb(var(--line-rgb) / .35);
+  /* najechanie (tylko urządzenia z kursorem – na dotyku :hover „przykleja się” po stuknięciu):
+     wypełnienie kolorem akcentu i lekka poświata */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not([aria-disabled='true']) {
+      background: var(--accent);
+      color: var(--accent-ink);
+      box-shadow: 0 0 0 4px rgb(var(--line-rgb) / .14), 0 0 22px rgb(var(--line-rgb) / .35);
+    }
   }
-  &.round-btn--prev:hover:not([aria-disabled='true']) svg { translate: -3px 0; }
-  &.round-btn--next:hover:not([aria-disabled='true']) svg { translate: 3px 0; }
-  &:active:not([aria-disabled='true']) { background: var(--accent-light); }
+  &:active:not([aria-disabled='true']) { background: var(--accent-light); color: var(--accent-ink); }
 
   &:focus-visible {
     outline: 2px solid var(--accent-light);
@@ -578,7 +577,9 @@ a { color: inherit; }
     background: var(--accent);
     color: var(--accent-ink);
   }
-  &.round-btn--solid:hover { background: var(--accent-light); }
+  @media (hover: hover) and (pointer: fine) {
+    &.round-btn--solid:hover { background: var(--accent-light); }
+  }
 }
 
 .badge {
