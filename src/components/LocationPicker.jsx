@@ -54,6 +54,22 @@ export default function LocationPicker({ cities }) {
           </li>
         ))}
       </ul>
+
+      {/* mała stopka – zawsze na dole ekranu (prawa zastrzeżone, dokumenty, realizacja) */}
+      <footer className="picker__footer">
+        <span>© {new Date().getFullYear()} Alahamora. Wszelkie prawa zastrzeżone.</span>
+        <span className="picker__footer-links">
+          {/* strony jeszcze nie istnieją – link nieaktywny (kursor „zakaz”) */}
+          <a aria-disabled="true" title="Wkrótce">Polityka prywatności</a>
+          <a aria-disabled="true" title="Wkrótce">Regulamin</a>
+          <span>
+            Realizacja:{' '}
+            <a className="picker__credit" href="https://lukaszdzielo.github.io/" target="_blank" rel="noopener">
+              LD
+            </a>
+          </span>
+        </span>
+      </footer>
     </main>
   );
 }

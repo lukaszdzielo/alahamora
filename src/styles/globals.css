@@ -2686,6 +2686,48 @@ html[data-entering] .notice-wrap {
   }
 }
 
+/* ekran wyboru: mała stopka przy dolnej krawędzi */
+.picker .picker__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 22px;
+  padding: 0 16px;
+  font-size: 12px;
+  letter-spacing: .02em;
+  text-align: center;
+  color: rgb(243 233 210 / .5);
+
+  & .picker__footer-links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 18px;
+  }
+
+  & a { color: inherit; }
+
+  & .picker__credit {
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(243 233 210 / .8);
+
+    &:hover { color: #F6E7C8; }
+  }
+  @media (max-width: 400px) {
+    bottom: 12px;
+    gap: 2px 12px;
+    font-size: 11px;
+    letter-spacing: 0;
+
+    & .picker__footer-links { gap: 2px 12px; }
+  }
+}
+
 /* ---------- Przycisk „do góry” ---------- */
 .to-top {
   position: fixed;
