@@ -127,11 +127,18 @@ a { color: inherit; }
   color: var(--accent-light);
   transition: background .3s, color .3s, box-shadow .3s;
 
-  &:hover,
   &:focus-visible {
     background: var(--accent-light);
     color: var(--accent-ink);
     box-shadow: 0 0 24px rgb(var(--line-rgb, 216 205 180) / .35);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--accent-light);
+      color: var(--accent-ink);
+      box-shadow: 0 0 24px rgb(var(--line-rgb, 216 205 180) / .35);
+    }
   }
 
   /* przelatujący błysk przy najechaniu */
@@ -145,15 +152,22 @@ a { color: inherit; }
     pointer-events: none;
   }
 
-  &:hover::before { left: 130%; transition: left .7s ease; }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before { left: 130%; transition: left .7s ease; }
+  }
 
   &.btn--solid {
     background: var(--accent);
     color: var(--accent-ink);
 
-    &:hover { background: var(--accent-light); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { background: var(--accent-light); }
+    }
   }
 }
+
+/* Uwaga: wszystkie efekty :hover są w @media (hover: hover) and (pointer: fine) – na telefonie
+   i tablecie stuknięcie zostawiało „przyklejony” hover (np. wypełniony przycisk, kołysząca się rama). */
 
 /* ---------- Logo (maska SVG) ---------- */
 .logo {
@@ -223,7 +237,9 @@ a { color: inherit; }
       text-transform: uppercase;
       text-decoration: none;
 
-      &:hover { color: var(--accent-light); }
+      @media (hover: hover) and (pointer: fine) {
+        &:hover { color: var(--accent-light); }
+      }
     }
   }
 
@@ -240,7 +256,9 @@ a { color: inherit; }
     color: var(--accent-light);
     transition: border-color .3s, background .3s;
 
-    &:hover { border-color: var(--accent); background: rgb(var(--dark-rgb) / .8); }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { border-color: var(--accent); background: rgb(var(--dark-rgb) / .8); }
+    }
   }
 
   & .header__exit--mobile { display: none; margin-left: auto; }
@@ -960,7 +978,9 @@ a { color: inherit; }
     color: var(--muted);
   }
 
-  &:hover .dish__arch img { scale: 1.05; }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .dish__arch img { scale: 1.05; }
+  }
 }
 
 /* ---------- Okazje: proporce ---------- */
@@ -1219,7 +1239,6 @@ a { color: inherit; }
   & .banner__icon,
   & .banner__outline { transition: box-shadow .5s ease, color .5s ease, stroke .5s ease; }
 
-  &:hover,
   &:focus-visible {
     & .banner__body {
       animation: banner-sway 1.6s cubic-bezier(.3, .6, .3, 1) both;
@@ -1234,6 +1253,24 @@ a { color: inherit; }
     }
 
     & .banner__outline { stroke: rgb(var(--line-rgb) / .7); }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      & .banner__body {
+        animation: banner-sway 1.6s cubic-bezier(.3, .6, .3, 1) both;
+        filter: drop-shadow(0 34px 30px rgb(0 0 0 / .7)) drop-shadow(0 0 18px rgb(var(--line-rgb) / .3));
+      }
+
+      & .banner__tassel { animation: tassel-swing 1.8s cubic-bezier(.3, .6, .3, 1) .08s both; }
+
+      & .banner__icon {
+        color: #fff;
+        box-shadow: inset 0 0 0 2px var(--accent-light), inset 0 0 0 6px rgb(0 0 0 / .35), inset 0 0 0 7px rgb(var(--line-rgb) / .7), 0 0 26px rgb(var(--line-rgb) / .45);
+      }
+
+      & .banner__outline { stroke: rgb(var(--line-rgb) / .7); }
+    }
   }
 
   &:focus-visible { outline: none; }
@@ -1450,14 +1487,22 @@ a { color: inherit; }
   }
 }
 
-.gframe-cell:hover .gframe__picture img { scale: 1.05; }
+@media (hover: hover) and (pointer: fine) {
+  .gframe-cell:hover .gframe__picture img { scale: 1.05; }
+}
 
-/* hover: obraz lekko kołysze się na gwoździu (punkt zawieszenia nad ramą) */
-.gframe-cell:hover > .gframe,
-.gframe-cta:hover > .gframe,
 .gframe-cta:focus-visible > .gframe {
   transform-origin: 50% -24px;
   animation: frame-swing 1.6s cubic-bezier(.3, .6, .3, 1) both;
+}
+
+/* hover: obraz lekko kołysze się na gwoździu (punkt zawieszenia nad ramą) */
+@media (hover: hover) and (pointer: fine) {
+  .gframe-cell:hover > .gframe,
+  .gframe-cta:hover > .gframe {
+    transform-origin: 50% -24px;
+    animation: frame-swing 1.6s cubic-bezier(.3, .6, .3, 1) both;
+  }
 }
 
 @keyframes frame-swing {
@@ -1521,7 +1566,6 @@ a { color: inherit; }
     transition: background .6s ease;
   }
 
-  &:hover,
   &:focus-visible {
     outline: none;
 
@@ -1536,6 +1580,24 @@ a { color: inherit; }
     }
 
     & .gframe-cta__enter svg { translate: 4px 0; }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      outline: none;
+
+      & .gframe-cta__inner {
+        background: radial-gradient(circle at 50% 40%, rgb(var(--line-rgb) / .45), transparent 72%), var(--bg);
+
+        & > svg {
+          rotate: 180deg;
+          scale: 1.25;
+          filter: drop-shadow(0 0 10px var(--accent-light));
+        }
+      }
+
+      & .gframe-cta__enter svg { translate: 4px 0; }
+    }
   }
 
   & .gframe-cta__enter svg { transition: translate .4s ease; }
@@ -1639,7 +1701,9 @@ a { color: inherit; }
     }
 
     & a { text-decoration: none; }
-    & a:hover { color: var(--accent-light); }
+    @media (hover: hover) and (pointer: fine) {
+      & a:hover { color: var(--accent-light); }
+    }
   }
 
   & .contact__other {
@@ -1662,9 +1726,11 @@ a { color: inherit; }
       color: var(--muted);
     }
 
-    &:hover {
-      border-color: var(--accent);
-      background: rgb(var(--line-rgb) / .06);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: var(--accent);
+        background: rgb(var(--line-rgb) / .06);
+      }
     }
   }
 
@@ -1751,7 +1817,11 @@ a { color: inherit; }
     box-shadow: 0 0 8px 4px rgb(239 227 198 / .82);
 
     & a { color: inherit; text-decoration: none; }
-    & a:hover, & a:focus-visible { text-decoration: underline; }
+    & a:focus-visible { text-decoration: underline; }
+
+    @media (hover: hover) and (pointer: fine) {
+      & a:hover { text-decoration: underline; }
+    }
   }
 
   /* przycisk na środku dolnej krawędzi mapy (w połowie na mapie, w połowie pod nią) */
@@ -2068,13 +2138,22 @@ a { color: inherit; }
 
 
 
-  &:hover,
   &:focus-visible {
     /* bez transform – przesunięcie ramy zepsułoby background-attachment: fixed */
     & .door__frame {
       box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8), 0 0 0 1px var(--accent-light), 0 0 46px color-mix(in srgb, var(--accent-light) 35%, transparent);
     }
 
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      /* bez transform – przesunięcie ramy zepsułoby background-attachment: fixed */
+      & .door__frame {
+        box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8), 0 0 0 1px var(--accent-light), 0 0 46px color-mix(in srgb, var(--accent-light) 35%, transparent);
+      }
+
+    }
   }
 
   &:focus-visible { outline: none; }
@@ -2221,10 +2300,12 @@ a { color: inherit; }
       color: var(--ink);
       transition: color .3s, background .3s, border-color .3s;
 
-      &:hover {
-        color: var(--accent-ink);
-        background: var(--accent-light);
-        border-color: var(--accent-light);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: var(--accent-ink);
+          background: var(--accent-light);
+          border-color: var(--accent-light);
+        }
       }
     }
 
@@ -2243,7 +2324,9 @@ a { color: inherit; }
       white-space: nowrap;
 
       & svg { color: var(--accent-light); transition: color .3s; }
-      &:hover svg { color: var(--accent-ink); }
+      @media (hover: hover) and (pointer: fine) {
+        &:hover svg { color: var(--accent-ink); }
+      }
     }
   }
 
@@ -2287,15 +2370,22 @@ a[aria-disabled='true'] {
   text-decoration: none;
   filter: saturate(.6);
 
-  &:hover,
   &:focus-visible { box-shadow: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { box-shadow: none; }
+  }
 
   &::before,
   &::after { display: none; }
 }
 
-.btn--solid[aria-disabled='true']:hover { background: var(--accent); color: var(--accent-ink); }
-.btn:not(.btn--solid)[aria-disabled='true']:hover { background: transparent; color: var(--accent-light); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--solid[aria-disabled='true']:hover { background: var(--accent); color: var(--accent-ink); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(.btn--solid)[aria-disabled='true']:hover { background: transparent; color: var(--accent-light); }
+}
 
 /* nad nieaktywnym elementem różdżka się chowa i pokazujemy kursor „niedostępne” –
    także nad elementami W ŚRODKU (np. napisy w ramie „Cała galeria”), inaczej
@@ -2784,7 +2874,9 @@ html[data-entering] .notice-wrap {
     text-decoration: none;
     color: rgb(243 233 210 / .85);
 
-    &:hover { color: #F6E7C8; }
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { color: #F6E7C8; }
+    }
   }
 
   /* telefon: wszystko na środku, mniejszy tekst */
@@ -2830,12 +2922,14 @@ html[data-entering] .notice-wrap {
 
   & svg { transition: translate .3s ease; }
 
-  &:hover {
-    border-color: var(--accent);
-    background: rgb(var(--dark-rgb) / .9);
-    box-shadow: 0 6px 18px rgb(0 0 0 / .45), 0 0 16px rgb(var(--line-rgb) / .35);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: var(--accent);
+      background: rgb(var(--dark-rgb) / .9);
+      box-shadow: 0 6px 18px rgb(0 0 0 / .45), 0 0 16px rgb(var(--line-rgb) / .35);
 
-    & svg { translate: 0 -2px; }
+      & svg { translate: 0 -2px; }
+    }
   }
 
   &:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
@@ -2960,7 +3054,9 @@ html[data-entering] .notice-wrap {
   transition: scale .6s ease; /* rośnie razem ze zdjęciem przy najechaniu */
 }
 
-.gframe-cell:hover .gfx { scale: 1.05; }
+@media (hover: hover) and (pointer: fine) {
+  .gframe-cell:hover .gfx { scale: 1.05; }
+}
 
 .gfx__flick {
   position: absolute;
