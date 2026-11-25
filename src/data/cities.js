@@ -63,7 +63,7 @@ export const cities = {
     reserveUrl: 'https://alahamora.pl/rezerwacje-gliwice/',
     notice: {
       icon: 'door',
-      title: 'Od 11 marca wchodzisz bez wejściówek',
+      title: 'Od teraz wchodzisz bez wejściówek',
       text: 'Możesz wpaść spontanicznie na kawę, deser lub obiad. Rezerwacja przyda się przy większej grupie.',
       button: { label: 'Zarezerwuj stolik', href: 'https://alahamora.pl/rezerwacje-gliwice/' },
     },
