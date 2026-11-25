@@ -2173,7 +2173,9 @@ a { color: inherit; }
     bottom: 46px;
     left: 50%;
     translate: -50% 0;
-    width: min(100%, 1600px); /* na szerokich ekranach nie rośnie dalej – zostaje na środku */
+    /* min. 1400 px (jak na desktopie) – na węższych ekranach boki są przycinane, zamek zostaje duży;
+       na szerokich nie rośnie ponad 1600 px */
+    width: clamp(1400px, 100%, 1600px);
     z-index: -1;
     aspect-ratio: 939 / 430;
     background: var(--accent);
@@ -3251,7 +3253,7 @@ html[data-entering] .notice-wrap {
   bottom: 46px;
   left: 50%;
   translate: calc(-50% + 60px) 0;
-  width: calc(min(100%, 1600px) + 120px);
+  width: calc(clamp(1400px, 100%, 1600px) + 120px);
   z-index: -1;
   /* słabiej niż inne rysunki – to duże tło (bez światła 8 %, wcześniej 4,5 %) */
   --rv-peak: .34;
@@ -3272,25 +3274,9 @@ html[data-entering] .notice-wrap {
   }
 }
 
-/* zamek w stopce na telefonie: stała wysokość (nie kurczy się do szerokości ekranu),
-   wyśrodkowany – boki wychodzą poza ekran i są przycinane */
 @media (max-width: 640px) {
-  .footer .footer__castle {
-    width: auto;
-    height: 340px;
-    bottom: 150px;
-    opacity: .18;
-  }
-}
-@media (max-width: 640px) {
-  .footer .rv.rv--castle {
-    width: auto;
-    bottom: 30px;
-
-    /* telefon: zamek duży jak na desktopie – sięga pod baner licencji, widać tylko jego środek
-       (boki poza ekranem), działa jak tło stopki */
-    & .footer__castle { width: auto; height: 640px; bottom: auto; opacity: 1; }
-  }
+  /* telefon: zamek tej samej wielkości co na desktopie (1400 px, widać środek), trochę niżej */
+  .footer .rv.rv--castle { bottom: 30px; }
 }
 
 /* ekran wyboru na telefonie: logo i ramy jako jedna grupa na środku (równe odstępy nad i pod nią),
