@@ -18,15 +18,18 @@ const MANIFEST = path.join(ROOT, 'src/data/images.json');
 const HASHES = path.join(OUT, '.zrodla.json');
 
 // szerokości wariantów (większych niż oryginał nie robimy – oryginał dochodzi jako ostatni)
-const WIDTHS = [320, 480, 800, 1200, 1600, 2000, 2560];
+const WIDTHS = [320, 480, 640, 800, 1200, 1600, 2000, 2560];
 // tekstury i maski używane w CSS – zostają tak, jak są
 const SKIP_DIRS = ['chmury'];
 const EXT = /\.(webp|jpe?g)$/i;
 
+// małe warianty (telefony, gęste ekrany – mniej widać artefakty) mocniej skompresowane, duże (desktop) łagodniej
 const FORMATS = {
-  avif: (img) => img.avif({ quality: 52, effort: 4 }),
-  webp: (img) => img.webp({ quality: 78, effort: 4 }),
+  avif: (img, w) => img.avif({ quality: w <= 800 ? 44 : 52, effort: 4 }),
+  webp: (img, w) => img.webp({ quality: w <= 800 ? 72 : 78, effort: 4 }),
 };
+// zmiana szerokości lub ustawień kompresji = wszystkie zdjęcia robione od nowa
+const SETTINGS = JSON.stringify({ WIDTHS, FORMATS: Object.values(FORMATS).map(String) });
 
 async function walk(dir) {
   const out = [];
@@ -61,14 +64,14 @@ async function main() {
     const buf = await readFile(file);
     const meta = await sharp(buf).metadata();
     const widths = [...WIDTHS.filter((w) => w < meta.width), meta.width];
-    hashes[name] = sha1(buf);
+    hashes[name] = sha1(Buffer.concat([buf, Buffer.from(SETTINGS)]));
     const same = old[name] === hashes[name];
 
     for (const w of widths) {
       for (const [fmt, encode] of Object.entries(FORMATS)) {
         const target = path.join(OUT, `${name}-${w}.${fmt}`);
         if (same && (await exists(target))) continue;
-        await encode(sharp(buf).resize({ width: w })).toFile(target);
+        await encode(sharp(buf).resize({ width: w }), w).toFile(target);
         made += 1;
       }
     }
