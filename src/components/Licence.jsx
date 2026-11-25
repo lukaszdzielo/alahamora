@@ -9,7 +9,7 @@ export default function Licence() {
       <div className="wrap">
         <div className="licence__card" data-appear="">
           {/* klucz ze skrzydłami z logo – maska CSS, kolor z motywu miasta */}
-          <span className="licence__key" style={{ '--key': `url(${key.src})` }} aria-hidden="true" />
+          <span className="licence__key" style={{ '--key': `url(${key.src})` }} aria-hidden="true" data-lazy="" />
           <div>
             <span className="licence__kicker">Licencja Alahamora</span>
             <h2 id="licence-title">Marzysz o własnej magicznej kawiarni?</h2>

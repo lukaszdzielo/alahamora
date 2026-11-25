@@ -8,7 +8,7 @@
 // pikselach było widać miejsce styku.)
 export default function Clouds() {
   return (
-    <div className="clouds" aria-hidden="true">
+    <div className="clouds" aria-hidden="true" data-lazy="">
       <div className="clouds__track clouds__track--a" />
       <div className="clouds__track clouds__track--b" />
     </div>

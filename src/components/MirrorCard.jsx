@@ -36,7 +36,7 @@ export default function MirrorCard({ item, frost }) {
     <article className="mirror" onPointerMove={onMove} onPointerLeave={onLeave}>
       <div className="mirror__frame">
         <div className="mirror__glass" ref={glassRef}>
-          <Picture className="mirror__img" src={item.img} alt="" fill sizes="(max-width: 700px) 80vw, 350px" />
+          <Picture className="mirror__img" src={item.img} alt="" fill sizes="(max-width: 640px) 54vw, (max-width: 1100px) min(350px, 30vw), min(350px, 24vw)" />
           <span className="mirror__mist" aria-hidden="true" />
           {frost && (
             <>

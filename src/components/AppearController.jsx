@@ -32,7 +32,27 @@ export default function AppearController() {
     items.forEach((el) => observer.observe(el));
     document.documentElement.classList.add('appear-ready');
 
-    return () => observer.disconnect();
+    // Leniwe grafiki z CSS (rysunki Revelio, chmury, zamek, klucz): elementy z data-lazy dostają
+    // obrazek (maskę / tło) dopiero ok. 800 px przed wjazdem na ekran. Przy wczytaniu strony
+    // nie konkurują o łącze ze zdjęciem hero (ok. 600 KB grafik niewidocznych na starcie).
+    const lazy = Array.from(document.querySelectorAll('[data-lazy]'));
+    const lazyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-lazy', 'in');
+            lazyObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '800px 0px' },
+    );
+    lazy.forEach((el) => lazyObserver.observe(el));
+
+    return () => {
+      observer.disconnect();
+      lazyObserver.disconnect();
+    };
   }, []);
 
   return null;

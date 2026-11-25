@@ -29,7 +29,7 @@ export default function Footer({ reviews }) {
       {/* zamek jako element Revelio (oba miasta) – ledwo widoczny, wyraźniejszy pod światłem różdżki;
           na dotyku – gdy stopka jest blisko środka ekranu i pod palcem */}
       <div className="rv rv--art rv--castle" aria-hidden="true">
-        <div className="footer__castle" />
+        <div className="footer__castle" data-lazy="" />
       </div>
       <div className="wrap footer__top">
         <a href="#" className="footer__logo" aria-label="Alahamora – strona główna">

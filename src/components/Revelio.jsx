@@ -41,7 +41,7 @@ export function RevealItem({ item, className = '', style }) {
           '--w': `${item.w}px`,
           '--mw': ((v) => (typeof v === 'number' ? `${v}px` : v))(mobile.w ?? item.mobileW ?? item.w),
           aspectRatio: `${img.width} / ${img.height}`,
-          maskImage: `url(${img.src})`,
+          '--rv-src': `url(${img.src})`,
           rotate: item.rotate ? `${item.rotate}deg` : undefined,
         }}
       />
@@ -58,7 +58,9 @@ export function RevealItem({ item, className = '', style }) {
   }
 
   return (
-    <div className={cls.trim()} style={{ ...pos, ...vars }} aria-hidden="true">
+    // data-lazy: rysunek (maska SVG) pobierany dopiero, gdy element zbliża się do ekranu (AppearController);
+    // item.eager – od razu (koperta w hero)
+    <div className={cls.trim()} style={{ ...pos, ...vars }} aria-hidden="true" data-lazy={item.draw && !item.eager ? '' : undefined}>
       {inner}
     </div>
   );

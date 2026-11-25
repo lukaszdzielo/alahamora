@@ -437,11 +437,26 @@ a { color: inherit; }
   100% { transform: translateY(-320px) scale(1.1); opacity: 0; }
 }
 
-.flicker { animation: flicker 2.8s ease-in-out infinite; }
+/* pulsująca poświata: cień stały na ::after, animowana tylko przezroczystość (karta graficzna) */
+.flicker {
+  position: relative;
+  box-shadow: 0 0 0 0 rgb(var(--line-rgb) / 0), 0 0 18px rgb(var(--line-rgb) / .35);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 6px rgb(var(--line-rgb) / .12), 0 0 30px rgb(var(--line-rgb) / .55);
+    opacity: 0;
+    pointer-events: none;
+    animation: flicker 2.8s ease-in-out infinite;
+  }
+}
 
 @keyframes flicker {
-  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--line-rgb) / .0), 0 0 18px rgb(var(--line-rgb) / .35); }
-  50% { box-shadow: 0 0 0 6px rgb(var(--line-rgb) / .12), 0 0 30px rgb(var(--line-rgb) / .55); }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 .btn--shine {
@@ -809,13 +824,14 @@ a { color: inherit; }
   animation: cloud-drift linear infinite;
   will-change: transform;
 
-  &.clouds__track--a {
+  /* tekstury dopiero gdy chmury zbliżają się do ekranu (data-lazy='in', AppearController) */
+  [data-lazy='in'] > &.clouds__track--a {
     background-image: url('../assets/img/chmury/chmury-a.webp');
     opacity: .55;
     animation-duration: 150s;
   }
 
-  &.clouds__track--b {
+  [data-lazy='in'] > &.clouds__track--b {
     background-image: url('../assets/img/chmury/chmury-b.webp');
     opacity: .42;
     animation-duration: 85s;
@@ -2270,6 +2286,16 @@ a { color: inherit; }
   }
 }
 
+/* Leniwe grafiki z CSS (data-lazy, AppearController): dopóki element nie zbliży się do ekranu,
+   maska/tło nie jest ustawione (przeglądarka nie pobiera pliku), a sam element jest ukryty –
+   bez maski byłby pełnym prostokątem koloru. */
+.footer .footer__castle[data-lazy]:not([data-lazy='in']),
+.licence .licence__key[data-lazy]:not([data-lazy='in']),
+.rv[data-lazy]:not([data-lazy='in']) .rv__draw {
+  mask: none;
+  visibility: hidden;
+}
+
 /* ---------- Stopka ---------- */
 .footer {
   position: relative;
@@ -2672,6 +2698,7 @@ html[data-entering] .notice-wrap {
   display: block;
   width: var(--w);
   background: currentColor;
+  mask-image: var(--rv-src);
   mask-position: center;
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -3149,9 +3176,11 @@ html[data-entering] .notice-wrap {
   animation: gfx-gleam 7s ease-in-out infinite;
 }
 
+/* przesunięcie przez translate (karta graficzna), nie left: z −60 % do 140 % szerokości zdjęcia
+   = 200 % / 45 % ≈ 444 % szerokości samego błysku */
 @keyframes gfx-gleam {
-  0%, 62% { left: -60%; }
-  100% { left: 140%; }
+  0%, 62% { translate: 0 0; }
+  100% { translate: 444% 0; }
 }
 
 .gfx__flash {
