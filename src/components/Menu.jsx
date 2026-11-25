@@ -26,7 +26,7 @@ export default function Menu({ menu, lamps, rv }) {
               <article key={item.title} className="dish" data-appear="">
                 <div className="dish__arch">
                   {item.img ? (
-                    <Picture src={item.img} alt={item.title} fill sizes="(max-width: 700px) 90vw, 280px" />
+                    <Picture src={item.img} alt={item.title} fill sizes="(max-width: 640px) 44vw, 300px" />
                   ) : (
                     <span className="dish__icon"><Icon name={item.icon} size={96} stroke={1.1} /></span>
                   )}

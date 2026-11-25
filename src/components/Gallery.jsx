@@ -41,6 +41,22 @@ const SLOTS_MOBILE = [
 const CTA_SLOT = ['7/9', '4/7'];
 const CTA_SLOT_MOBILE = ['3/5', '10/13'];
 
+// Atrybut sizes dla obrazu w ramie: ile pikseli szerokości naprawdę potrzebuje zdjęcie.
+// Zdjęcie wypełnia ramę jak object-fit: cover, więc w wąskiej, wysokiej ramie liczy się wysokość
+// (szerokość = wysokość × proporcje zdjęcia). Siatka: desktop 12 kolumn / rzędy 58 px (odstępy 22/24 px),
+// ≤900 px 6 kolumn / rzędy ok. 7,5vw.
+const span = (v) => {
+  const [a, b] = v.split('/').map(Number);
+  return b - a;
+};
+const sizesFor = ([col, row], [mcol, mrow], ratio) => {
+  const deskW = (cols, content) => (cols * (content + 22)) / 12 - 22;
+  const deskH = span(row) * 58 + (span(row) - 1) * 24;
+  const at = (content) => Math.round(Math.max(deskW(span(col), content), deskH * ratio));
+  const mobile = Math.round(Math.max((span(mcol) / 6) * 100, span(mrow) * 7.5 * ratio));
+  return `(max-width: 900px) ${mobile}vw, ${at(1200)}px`;
+};
+
 const place = ([col, row, pad], [mcol, mrow, mpad]) => ({
   '--col': col,
   '--row': row,
@@ -205,7 +221,7 @@ export default function Gallery({ gallery, lamps, rv }) {
                         src={item.img}
                         alt={item.alt || item.caption || ''}
                         fill
-                        sizes="(max-width: 700px) 50vw, 400px"
+                        sizes={sizesFor(SLOTS[i], SLOTS_MOBILE[i], item.img.width / item.img.height)}
                       />
                       <GalleryFx fx={item.fx} ratio={item.img.width / item.img.height} />
                     </div>
